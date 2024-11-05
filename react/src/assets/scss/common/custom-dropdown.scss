@@ -1,0 +1,31 @@
+.custom-dropdown {
+    background: transparent;
+  
+    .dropdown-toggle {
+      gap: 10px;
+      border: none;
+      color: #333;
+      font-family: "Be Vietnam Pro";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      background: transparent;
+  
+      &::after {
+      }
+  
+      &:active {
+        background: transparent;
+        color: inherit;
+      }
+    }
+    .dropdown-menu {
+      .dropdown-item {
+        gap: 10px;
+        &:focus {
+          background: inherit;
+        }
+      }
+    }
+  }

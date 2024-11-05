@@ -1,0 +1,112 @@
+.DistributorAndAgentSection {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 75px);
+  padding: 64px 0;
+
+  .media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 700px;
+    padding: 80px 32px 0px 32px;
+    background-image: url("../../../../assets/images/background/DistributorAndAgentSection.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    border-radius: 20px;
+    box-shadow: -137px 188px 65px 0px rgba(0, 0, 0, 0), -88px 120px 60px 0px rgba(0, 0, 0, 0.01), -49px 68px 50px 0px rgba(0, 0, 0, 0.05), -22px 30px 37px 0px rgba(0, 0, 0, 0.09), -5px 8px 20px 0px rgba(0, 0, 0, 0.1);
+
+    .title {
+      position: absolute;
+      top: 80px;
+      left: -6px;
+      right: -6px;
+      padding: 10px;
+      background: linear-gradient(90deg, #9c1126 0%, #cf1732 50.84%, #9c1126 100%);
+      text-align: center;
+      color: var(--Error, #fff);
+      font-family: "Be Vietnam Pro";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: normal;
+      text-transform: uppercase;
+    }
+
+    .heading {
+      color: #1a1a1a;
+      font-family: "Be Vietnam Pro";
+      font-size: 44px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+      text-transform: capitalize;
+
+      strong {
+        font-weight: 700;
+      }
+    }
+
+    .desc {
+      color: #666;
+      font-family: "Be Vietnam Pro";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+    }
+
+    .btn.action {
+      margin-top: 48px;
+    }
+  }
+
+  .content {
+    .product-list {
+      .product-item {
+        .product-image {
+          width: 195px;
+          height: 205px;
+          border-radius: 8px;
+          object-fit: cover;
+        }
+
+        .product-name {
+          margin-top: 12px;
+          color: #1a1a1a;
+          font-family: "Be Vietnam Pro";
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 150%; /* 21px */
+        }
+
+        .flag {
+          margin-top: 8px;
+          color: #999;
+          font-family: "Be Vietnam Pro";
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 150%; /* 21px */
+        }
+
+        .icon-flag {
+          width: var(--24px, 24px);
+          height: var(--24px, 24px);
+          border-radius: 50%;
+          border: 3px solid rgba(255, 255, 255, 0.57);
+          object-fit: cover;
+        }
+      }
+    }
+
+    .btn.action{
+        margin-top: 32px;
+        display: flex;
+        justify-content: center;
+    }
+  }
+}

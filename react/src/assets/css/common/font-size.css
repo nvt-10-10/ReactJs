@@ -1,0 +1,313 @@
+:root {
+    font-size: 16px;
+}
+/* Tạo các lớp với các kích thước font-size từ 10 đến 20 */
+.fs-10 {
+    font-size: 0.625rem !important; /* 10px */
+}
+
+.fs-11 {
+    font-size: 0.6875rem !important; /* 11px */
+}
+
+.fs-12 {
+    font-size: 0.75rem !important; /* 12px */
+}
+
+.fs-13 {
+    font-size: 0.8125rem !important; /* 13px */
+}
+
+.fs-14 {
+    font-size: 0.875rem !important; /* 14px */
+}
+
+.fs-15 {
+    font-size: 0.9375rem !important; /* 15px */
+}
+
+.fs-16 {
+    font-size: 1rem !important; /* 16px */
+}
+
+.fs-17 {
+    font-size: 1.0625rem !important; /* 17px */
+}
+
+.fs-18 {
+    font-size: 1.125rem !important; /* 18px */
+}
+
+.fs-19 {
+    font-size: 1.1875rem !important; /* 19px */
+}
+
+.fs-20 {
+    font-size: 1.25rem !important; /* 20px */
+}
+
+.fs-24 {
+    font-size: 1.5rem !important; /* 20px */
+}
+
+.fs-25 {
+    font-size: 1.5625rem !important;
+}
+
+/* Responsive */
+@media screen and (min-width: 576px) {
+    .fs-sm-10 {
+        font-size: 0.625rem !important; /* 10px */
+    }
+
+    .fs-sm-11 {
+        font-size: 0.6875rem !important; /* 11px */
+    }
+
+    .fs-sm-12 {
+        font-size: 0.75rem !important; /* 12px */
+    }
+
+    .fs-sm-13 {
+        font-size: 0.875rem !important; /* 13px */
+    }
+
+    .fs-sm-14 {
+        font-size: 0.875rem !important; /* 14px */
+    }
+
+    .fs-sm-15 {
+        font-size: 0.9375rem !important; /* 15px */
+    }
+
+    .fs-sm-16 {
+        font-size: 0.625rem !important; /* 16px */
+    }
+
+    .fs-sm-17 {
+        font-size: 1.0625rem !important; /* 17px */
+    }
+
+    .fs-sm-18 {
+        font-size: 1.125rem !important; /* 18px */
+    }
+
+    .fs-sm-19 {
+        font-size: 1.1875rem !important; /* 19px */
+    }
+
+    .fs-sm-20 {
+        font-size: 1.25rem !important; /* 20px */
+    }
+}
+
+/* Responsive */
+@media screen and (min-width: 768px) {
+    .fs-md-10 {
+        font-size: 0.625rem !important; /* 10px */
+    }
+
+    .fs-md-11 {
+        font-size: 0.6875rem !important; /* 11px */
+    }
+
+    .fs-md-12 {
+        font-size: 0.75rem !important; /* 12px */
+    }
+
+    .fs-md-13 {
+        font-size: 0.875rem !important; /* 13px */
+    }
+
+    .fs-md-14 {
+        font-size: 0.875rem !important; /* 14px */
+    }
+
+    .fs-md-15 {
+        font-size: 0.9375rem !important; /* 15px */
+    }
+
+    .fs-md-16 {
+        font-size: 0.625rem !important; /* 16px */
+    }
+
+    .fs-md-17 {
+        font-size: 1.0625rem !important; /* 17px */
+    }
+
+    .fs-md-18 {
+        font-size: 1.125rem !important; /* 18px */
+    }
+
+    .fs-md-19 {
+        font-size: 1.1875rem !important; /* 19px */
+    }
+
+    .fs-md-20 {
+        font-size: 1.25rem !important; /* 20px */
+    }
+
+    .fs-md-35 {
+        font-size: 2, 1875rem;
+    }
+}
+
+/* Responsive */
+@media screen and (min-width: 992px) {
+    .fs-lg-10 {
+        font-size: 0.625rem !important; /* 10px */
+    }
+
+    .fs-lg-11 {
+        font-size: 0.6875rem !important; /* 11px */
+    }
+
+    .fs-lg-12 {
+        font-size: 0.75rem !important; /* 12px */
+    }
+
+    .fs-lg-13 {
+        font-size: 0.875rem !important; /* 13px */
+    }
+
+    .fs-lg-14 {
+        font-size: 0.875rem !important; /* 14px */
+    }
+
+    .fs-lg-15 {
+        font-size: 0.9375rem !important; /* 15px */
+    }
+
+    .fs-lg-16 {
+        font-size: 0.625rem !important; /* 16px */
+    }
+
+    .fs-lg-17 {
+        font-size: 1.0625rem !important; /* 17px */
+    }
+
+    .fs-lg-18 {
+        font-size: 1.125rem !important; /* 18px */
+    }
+
+    .fs-lg-19 {
+        font-size: 1.1875rem !important; /* 19px */
+    }
+
+    .fs-lg-20 {
+        font-size: 1.25rem !important; /* 20px */
+    }
+}
+
+/* Responsive */
+@media screen and (min-width: 1200px) {
+    .fs-xl-10 {
+        font-size: 0.625rem !important; /* 10px */
+    }
+
+    .fs-xl-11 {
+        font-size: 0.6875rem !important; /* 11px */
+    }
+
+    .fs-xl-12 {
+        font-size: 0.75rem !important; /* 12px */
+    }
+
+    .fs-xl-13 {
+        font-size: 0.875rem !important; /* 13px */
+    }
+
+    .fs-xl-14 {
+        font-size: 0.875rem !important; /* 14px */
+    }
+
+    .fs-xl-15 {
+        font-size: 0.9375rem !important; /* 15px */
+    }
+
+    .fs-xl-16 {
+        font-size: 0.625rem !important; /* 16px */
+    }
+
+    .fs-xl-17 {
+        font-size: 1.0625rem !important; /* 17px */
+    }
+
+    .fs-xl-18 {
+        font-size: 1.125rem !important; /* 18px */
+    }
+
+    .fs-xl-19 {
+        font-size: 1.1875rem !important; /* 19px */
+    }
+
+    .fs-xl-20 {
+        font-size: 1.25rem !important; /* 20px */
+    }
+
+    .fs-xl-32 {
+        font-size: 2rem !important;
+    }
+    .fs-xl-40 {
+        font-size: 2.5rem !important;
+    }
+
+    .fs-xl-44 {
+        font-size: 2.75rem !important;
+    }
+
+    .fs-xl-49 {
+        font-size: 3.0625rem !important;
+    }
+
+    .fs-xl-64 {
+        font-size: 4rem !important;
+    }
+}
+
+/* Responsive */
+@media screen and (min-width: 1400px) {
+    .fs-xxl-10 {
+        font-size: 0.625rem !important; /* 10px */
+    }
+
+    .fs-xxl-11 {
+        font-size: 0.6875rem !important; /* 11px */
+    }
+
+    .fs-xxl-12 {
+        font-size: 0.75rem !important; /* 12px */
+    }
+
+    .fs-xxl-13 {
+        font-size: 0.875rem !important; /* 13px */
+    }
+
+    .fs-xxl-14 {
+        font-size: 0.875rem !important; /* 14px */
+    }
+
+    .fs-xxl-15 {
+        font-size: 0.9375rem !important; /* 15px */
+    }
+
+    .fs-xxl-16 {
+        font-size: 0.625rem !important; /* 16px */
+    }
+
+    .fs-xxl-17 {
+        font-size: 1.0625rem !important; /* 17px */
+    }
+
+    .fs-xxl-18 {
+        font-size: 1.125rem !important; /* 18px */
+    }
+
+    .fs-xxl-19 {
+        font-size: 1.1875rem !important; /* 19px */
+    }
+
+    .fs-xxl-20 {
+        font-size: 1.25rem !important; /* 20px */
+    }
+}

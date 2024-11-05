@@ -1,0 +1,62 @@
+.custom-slide {
+  max-width: 800px;
+  width: 100%;
+
+  button.slick-arrow {
+    background : red
+  }
+
+  .custom-arrow{
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+  }
+
+  .next-arrow{
+    right: -25px;
+  }
+
+  .prev-arrow{
+    left:-25px
+  }
+
+
+  .category-item {
+    figure {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 40px;
+      border-radius: 40px;
+      background: rgba(202, 202, 202, 0.21);
+      box-shadow: -9px 24px 7px 0px rgba(146, 144, 144, 0), -6px 16px 7px 0px rgba(146, 144, 144, 0.01), -3px 9px 6px 0px rgba(146, 144, 144, 0.05), -1px 4px 4px 0px rgba(146, 144, 144, 0.09), 0px 1px 2px 0px rgba(146, 144, 144, 0.1);
+
+      &:hover {
+        background: var(--Error, #fff);
+      }
+      .icon {
+        height: 32px;
+        width: 32px;
+        object-fit: contain;
+      }
+
+    }
+
+    .name {
+      margin-top: 12px;
+      color: #1a1a1a;
+      text-align: center;
+      font-family: "Be Vietnam Pro";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%; /* 21px */
+      text-transform: capitalize;
+      &.active{
+        color:var(--primary-color,#e31e25)
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+.fw-200 {
+    font-weight: 200 !important;
+}
+
+.fw-300 {
+    font-weight: 300 !important;
+}
+
+.fw-400 {
+    font-weight: 400 !important;
+}
+.fw-500 {
+    font-weight: 500 !important;
+}
+.fw-600 {
+    font-weight: 600 !important;
+}
+.fw-700 {
+    font-weight: 700 !important;
+}
+.fw-800 {
+    font-weight: 800 !important;
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    /* Điều chỉnh font weight cho sm */
+    .fw-sm-400 {
+        font-weight: 400 !important;
+    }
+    .fw-sm-500 {
+        font-weight: 500 !important;
+    }
+    .fw-sm-600 {
+        font-weight: 600 !important;
+    }
+    .fw-sm-700 {
+        font-weight: 700 !important;
+    }
+    .fw-sm-800 {
+        font-weight: 800 !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Điều chỉnh font weight cho md */
+    .fw-md-400 {
+        font-weight: 400 !important;
+    }
+    .fw-md-500 {
+        font-weight: 500 !important;
+    }
+    .fw-md-600 {
+        font-weight: 600 !important;
+    }
+    .fw-md-700 {
+        font-weight: 700 !important;
+    }
+    .fw-md-800 {
+        font-weight: 800 !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    /* Điều chỉnh font weight cho lg */
+    .fw-lg-400 {
+        font-weight: 400 !important;
+    }
+    .fw-lg-500 {
+        font-weight: 500 !important;
+    }
+    .fw-lg-600 {
+        font-weight: 600 !important;
+    }
+    .fw-lg-700 {
+        font-weight: 700 !important;
+    }
+    .fw-lg-800 {
+        font-weight: 800 !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    /* Điều chỉnh font weight cho xl */
+    .fw-xl-400 {
+        font-weight: 400 !important;
+    }
+    .fw-xl-500 {
+        font-weight: 500 !important;
+    }
+    .fw-xl-600 {
+        font-weight: 600 !important;
+    }
+    .fw-xl-700 {
+        font-weight: 700 !important;
+    }
+    .fw-xl-800 {
+        font-weight: 800 !important;
+    }
+}
+
+@media (min-width: 1400px) {
+    /* Điều chỉnh font weight cho xxl */
+    .fw-xxl-400 {
+        font-weight: 400 !important;
+    }
+    .fw-xxl-500 {
+        font-weight: 500 !important;
+    }
+    .fw-xxl-600 {
+        font-weight: 600 !important;
+    }
+    .fw-xxl-700 {
+        font-weight: 700 !important;
+    }
+    .fw-xxl-800 {
+        font-weight: 800 !important;
+    }
+}

@@ -1,0 +1,29 @@
+.form-label {
+    margin-bottom: 0;
+    color: var(--Error, #fff);
+    font-family: "Be Vietnam Pro";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 125%; /* 125% */
+    letter-spacing: 0.32px;
+}
+.form-control::placeholder,
+.form-control {
+    color: #333;
+    font-family: "Be Vietnam Pro";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 128.571%; /* 128.571% */
+    letter-spacing: 0.7px;
+}
+.form-control {
+    width: 100%;
+    padding: 15px 16px;
+    height: auto;
+}
+
+.form-control::placeholder {
+    color: #ccc;
+}

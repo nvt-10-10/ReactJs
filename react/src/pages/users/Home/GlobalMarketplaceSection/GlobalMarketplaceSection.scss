@@ -1,0 +1,74 @@
+.GlobalMarketplaceSection {
+  padding: 64px 0;
+  background-image: url("../../../../assets/images/background/GlobalMarketplaceSection.jpeg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: calc(100vh - 69.8px);
+  .wrap-title {
+    text-align: center;
+    max-width: 410px;
+    width: 100%;
+  }
+
+  .btn-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 48px 0;
+  }
+
+  .content-wrap {
+    max-width: 662px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .content-item {
+      display: flex;
+      flex: 0 0 50%;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      
+      &-wrap{
+        max-width: 200px;
+        width: 100%;
+
+        .data {
+          color: var(--Branding-Brand-red, #e31e25);
+          text-align: center;
+          font-family: "Be Vietnam Pro";
+          font-size: 32px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: normal;
+          text-transform: uppercase;
+        }
+  
+        .name {
+          color: #333;
+          text-align: center;
+          font-family: "Be Vietnam Pro";
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          text-transform: capitalize;
+        }
+      }
+
+      &:nth-child(1),
+      &:nth-child(3){
+        justify-content: end;
+        
+      }
+
+      .icon {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+      }
+  
+    }
+  }
+}

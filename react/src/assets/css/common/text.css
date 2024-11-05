@@ -1,0 +1,87 @@
+.text,
+.text-desc,
+.text-title,
+.text-heading {
+    font-family: "Be Vietnam Pro";
+    font-style: normal;
+}
+.text,
+.text-desc {
+    font-size: 0.875rem;
+}
+.text {
+    color: var(--text-color-desc, #333);
+    font-weight: 400;
+}
+.text-desc {
+    color: var(--text-color-desc, #666);
+    text-align: justify;
+    line-height: 177.778%;
+}
+.text-title {
+    color: var(--text-color-title, #1a1a1a);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+.text-heading {
+    color: var(--text-color-title, #1a1a1a);
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 122.449%; /* 122.449% */
+    text-transform: capitalize;
+}
+
+.text-decoration-underline {
+    text-decoration: underline;
+}
+
+.text-inherit{
+    text-transform: inherit;
+}
+
+@media (min-width: 768px) {
+    .text,
+    .text-desc,
+    .text-title {
+        font-size: 1.05rem;
+    }
+
+    .text-desc {
+        font-size: 1.1rem;
+    }
+    .text-heading {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .text,
+    .text-desc,
+    .text-title {
+        font-size: 1.115rem;
+    }
+
+    .text-desc {
+        font-size: 1.2rem;
+    }
+    .text-heading {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .text,
+    .text-desc,
+    .text-title {
+        font-size: 1.125rem;
+    }
+
+    .text-desc {
+        font-size: 1.25rem;
+    }
+    .text-heading {
+        font-size: 3.0625rem;
+    }
+}

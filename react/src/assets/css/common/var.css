@@ -1,0 +1,16 @@
+:root {
+    --color-primary: #e31e25;
+    --text-color-desc: #666;
+    --text-color-title: #1a1a1a;
+    --text-color-heading: #1a1a1a;
+    --text-color-top-header: #4d4d4d;
+    --text-color-8C8C8C: #8C8C8C;
+    --text-color-B3B3B3: #b3b3b3;
+    --text-color-808080: #808080;
+    --text-color-999: #999;
+    --text-color-while: #fff;
+    --text-primary: #333;
+    --text-title-primary: #e31e25;
+    --bg-btn-auth: rgba(227, 30, 37, 0.8);
+}
+     

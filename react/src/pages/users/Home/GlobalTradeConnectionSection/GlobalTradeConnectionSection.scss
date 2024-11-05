@@ -1,0 +1,55 @@
+.GlobalTradeConnectionSection {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 75px);
+  .media {
+    .image {
+      border-radius: 8px;
+      box-shadow: -43px 115px 34px 0px rgba(163, 163, 163, 0), -28px 74px 31px 0px rgba(163, 163, 163, 0.01), -16px 41px 27px 0px rgba(163, 163, 163, 0.05), -7px 18px 20px 0px rgba(163, 163, 163, 0.09), -2px 5px 11px 0px #a3a3a31a;
+      object-fit: cover;
+      overflow: hidden;
+      &:first-child {
+        height: 400px;
+      }
+      &:last-child {
+        height: 457px;
+      }
+    }
+  }
+
+  .content {
+    .icon-check {
+      width: var(--24px, 24px);
+      height: var(--24px, 24px);
+      padding: 4px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--Branding-Brand-red, #e31e25);
+    }
+
+    .title {
+      color: #1a1a1a;
+      font-family: "Be Vietnam Pro";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%; /* 27px */
+    }
+
+    .btn.action{
+        border-radius: 0px 43px 43px 0px;
+    }
+  }
+}
+
+.mt-10 {
+  margin-top: 10px !important;
+}
+
+.mt-24 {
+  margin-top: 24px !important;
+}
+
+.mt-26 {
+  margin-top: 26px !important;
+}

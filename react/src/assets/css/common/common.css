@@ -1,0 +1,324 @@
+.circle {
+  width: var(--height, 24px);
+  height: var(--height, 24px);
+  border-radius: 50%;
+  box-shadow: -10px 14px 5px 0px rgba(0, 0, 0, 0), -7px 9px 4px 0px rgba(0, 0, 0, 0.01), -4px 5px 4px 0px rgba(0, 0, 0, 0.05), -2px 2px 3px 0px rgba(0, 0, 0, 0.09), 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  border-radius: 43px;
+  background: #333;
+
+  color: var(--Error, #fff);
+  font-family: "Be Vietnam Pro";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%; /* 19.2px */
+}
+
+.btn-primary > img {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+  background: rgba(234, 75, 72, 0.63);
+  transition: 0.5s;
+}
+
+.btn-primary:hover > img {
+  background-color: #1a1a1a;
+}
+
+.btn-primary {
+  transition: gap 0.5s, background-color 0.5s;
+  z-index: 5;
+}
+a.btn-primary:hover,
+.btn-primary:hover {
+  gap: 30px;
+  background-color: var(--bg-btn-auth, rgba(227, 30, 37, 0.8)) !important;
+  color: #fff !important;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+.container-lg {
+  width: 100% !important;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mr-14 {
+  margin-right: 14px;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.mt-5 {
+  margin-top: 5px !important;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-12 {
+  margin-top: 12px;
+}
+
+.mt-16 {
+  margin-top: 16px !important;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mt-24 {
+  margin-top: 24px;
+}
+
+.mt-25 {
+  margin-top: 25px;
+}
+
+.mt-26 {
+  margin-top: 26px;
+}
+
+.mt-32 {
+  margin-top: 32px;
+}
+.mt-46 {
+  margin-top: 46px;
+}
+
+.mt-48 {
+  margin-top: 48px;
+}
+.mt-64 {
+  margin-top: 64px;
+}
+
+.mt-140 {
+  margin-top: 140px;
+}
+
+.ml-12 {
+  margin-left: 12px;
+}
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mb-25 {
+  margin-bottom: 25px;
+}
+.my-48 {
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+.mr-12 {
+  margin-right: 12px;
+}
+.pb-25 {
+  padding-bottom: 25px;
+}
+
+.pt-25 {
+  padding-top: 25px;
+}
+
+.py-16 {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.mt-6 {
+  margin-top: 6px !important;
+}
+
+.mt-8 {
+  margin-top: 8px !important;
+}
+.mt-10 {
+  margin-top: 10px !important;
+}
+.mt-12 {
+  margin-top: 12px !important;
+}
+
+.mt-16 {
+  margin-top: 16px !important;
+}
+.mt-24 {
+  margin-top: 24px !important;
+}
+
+.mt-15 {
+  margin-top: 15px !important;
+}
+
+.mb-6 {
+  margin-bottom: 6px !important;
+}
+
+.mb-24 {
+  margin-bottom: 24px !important;
+}
+
+.ml-12 {
+  margin-left: 12px !important;
+}
+
+.mx-2 {
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+}
+
+.pb-32 {
+  padding-bottom: 32px !important;
+}
+.pt-16 {
+  padding-top: 16px !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+.ml-4 {
+  margin-left: 4px !important;
+}
+
+.ml-8 {
+  margin-left: 8px !important;
+}
+.ml-16 {
+  margin-left: 16px !important;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.gap-12 {
+  gap: 12px;
+}
+
+.gap-16 {
+  gap: 16px;
+}
+.gap-24 {
+  gap: 24px;
+}
+
+em {
+  font-style: normal;
+}
+
+.clamp {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--climp-line, 2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clamp-3 {
+  --climp-line: 3;
+}
+
+a:hover {
+  color: var(--color-primary, #e31e25) !important;
+}
+
+.my-40 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.my-48 {
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.z-99 {
+  z-index: 99;
+}
+select {
+  -webkit-appearance: none; /* Remove default arrow in Chrome, Safari, and Opera */
+  -moz-appearance: none; /* Remove default arrow in Firefox */
+  appearance: none; /* Remove default arrow in modern browsers */
+  background: none; /* Remove background to hide arrow */
+  padding-right: 10px; /* Add some padding if needed */
+  border: 1px solid #ccc; /* Add border if needed */
+
+  background-size: 10px; /* Adjust size of the custom arrow image */
+  padding-right: 30px;
+}
+
+@media (min-width: 576px) {
+  .container-lg {
+    width: 100% !important;
+  }
+
+  .mt-sm-0 {
+    margin-top: 0 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-lg {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-lg {
+    max-width: 960px !important;
+  }
+
+  .mt-lg-0 {
+    margin-top: 0 !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-lg {
+    max-width: 1140px !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container-lg {
+    max-width: 1320px !important;
+  }
+
+  .col-xxl-2 {
+    flex: 0 0 16.6667%;
+    max-width: 16.6667%;
+  }
+}

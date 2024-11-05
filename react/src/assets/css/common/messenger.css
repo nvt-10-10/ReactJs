@@ -1,0 +1,215 @@
+#messenger {
+  z-index: 99;
+}
+
+#messenger .img {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+
+  background: rgba(227, 30, 37, 0.8);
+}
+
+#messenger .ctn-chat {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#messenger .img.hide {
+  display: none;
+}
+
+#messenger .img > svg {
+  stroke: #fff;
+}
+#messenger {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+}
+
+#messenger nav {
+  background-color: rgba(215, 39, 45);
+  color: #fff;
+  padding: 16px;
+  text-align: left;
+  border-radius: 6px 6px 0 0;
+  z-index: 5;
+}
+
+#messenger nav > h1 {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+#messenger nav > p {
+  margin-top: 0.5rem;
+  font-size: 1.4rem;
+  color: #e2e4e6;
+}
+
+#messenger .chat {
+  font-size: 1.6rem;
+  background-color: #fff;
+  padding: 5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: 439px;
+  overflow: hidden;
+}
+
+#messenger .chat::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+#messenger.chat {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#messenger .send-btn img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+#messenger .chat:hover {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+#messenger .ctn-chat {
+  display: none;
+}
+
+#messenger .ctn-chat.show {
+  display: block;
+}
+
+#messenger .count-msg {
+  padding: 4px;
+  background-color: var(--color-primary);
+  border: 50%;
+  color: #fff;
+}
+@media (max-width: 400px) {
+  .chat {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+#messenger img {
+  width: 50px;
+}
+
+#messenger .santaSays {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+}
+
+#messenger .text-box-santa > .text > p {
+  background-color: #eff3f6;
+  padding: 1.3rem;
+  width: fit-content;
+  max-width: 250px;
+  border-radius: 1px;
+  display: block;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+#messenger .text-box-santa > .text > p:not(.text-box-santa > .text > p:nth-of-type(1)) {
+  margin-top: 10px;
+}
+
+#messenger .userSays {
+  margin-top: 16px;
+}
+
+#messenger .userSays > .text {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+#messenger .userSays > .text > p {
+  background-color: #dff4fc;
+  padding: 1.3rem;
+  width: fit-content;
+  max-width: 250px;
+  border-radius: 1px;
+  display: block;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+#messenger .userSays > .text > p:not(.userSays > .text > p:nth-of-type(1)) {
+  margin-top: 10px;
+}
+
+#messenger hr {
+  border: none;
+  border-top: 1px solid #f0efefe7;
+  margin: 0;
+}
+
+#messenger .message-box {
+  padding-top: 1rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-radius: 0 0 6px 6px;
+}
+
+#messenger .message-input {
+  width: 100%;
+}
+
+#messenger #inputText {
+  border: none;
+  padding: 8px 16px;
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  font-size: 1rem;
+  outline: none;
+}
+
+#messenger .plane {
+  font-size: 2rem;
+  color: #227393;
+  cursor: pointer;
+}
+
+#messenger .userMessage {
+  background-color: #dff4fc;
+  padding: 1.3rem;
+  width: fit-content;
+  max-width: 250px;
+  border-radius: 1px;
+  margin-left: auto;
+  word-wrap: break-word;
+}
+
+#messenger .santaMessage {
+  background-color: #eff3f6;
+  padding: 1.3rem;
+  width: fit-content;
+  max-width: 250px;
+  border-radius: 1px;
+  word-wrap: break-word;
+}
+
+#messenger .close,
+#messenger > .img {
+  cursor: pointer;
+}

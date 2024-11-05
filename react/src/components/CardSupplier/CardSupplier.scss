@@ -1,0 +1,74 @@
+.card-supplier {
+  position: relative;
+  height: 300px;
+  padding: 0 0px var(--24px, 24px) 0px;
+  margin-top: 110px;
+  border-radius: 8px;
+  background: var(--Error, #fff);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  .supplier-logo {
+    position: absolute;
+    top: -110px;
+    left: 50%;
+    width: 225px;
+    height: 225px;
+    background: var(--Error, #fff);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    object-fit: cover;
+  }
+
+  .supplier-wrap {
+    display: block;
+    padding: 135px 15px 0;
+
+    .supplier-country {
+      width: var(--24px, 24px);
+      height: var(--24px, 24px);
+      flex-shrink: 0;
+      border-radius: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.57);
+    }
+    .supplier-name {
+      color: #1a1a1a;
+      text-align: center;
+      font-family: "Be Vietnam Pro";
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%; /* 30px */
+      text-transform: capitalize;
+    }
+
+    .supplier-desc {
+      color: #808080;
+      text-align: center;
+      font-family: "Be Vietnam Pro";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 21px */
+    }
+
+    .supplier-action {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+
+      button.btn-action {
+        width: 45px;
+        height: 45px;
+        padding: 8px;
+        border-radius: 50%;
+        background: rgba(153, 153, 153, 0.21);
+        img {
+          width: 24px;
+          height: 24px;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+}

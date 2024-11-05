@@ -1,0 +1,267 @@
+/* Line Height */
+.lh-1 {
+    line-height: 1 !important;
+}
+
+.lh-1-1 {
+    line-height: 1.1 !important;
+}
+
+.lh-1-2 {
+    line-height: 1.2 !important;
+}
+
+.lh-1-3 {
+    line-height: 1.3 !important;
+}
+
+.lh-1-4 {
+    line-height: 1.4 !important;
+}
+
+.lh-1-5 {
+    line-height: 1.5 !important;
+}
+
+.lh-1-6 {
+    line-height: 1.6 !important;
+}
+
+.lh-1-7 {
+    line-height: 1.7 !important;
+}
+
+.lh-1-8 {
+    line-height: 1.8 !important;
+}
+
+.lh-1-9 {
+    line-height: 1.9 !important;
+}
+
+.lh-2 {
+    line-height: 2 !important;
+}
+
+/* Media Queries */
+@media (max-width: 575.98px) {
+    /* Điều chỉnh line height cho xs */
+    .lh-xs-1 {
+        line-height: 1 !important;
+    }
+    .lh-xs-1-1 {
+        line-height: 1.1 !important;
+    }
+    .lh-xs-1-2 {
+        line-height: 1.2 !important;
+    }
+    .lh-xs-1-3 {
+        line-height: 1.3 !important;
+    }
+    .lh-xs-1-4 {
+        line-height: 1.4 !important;
+    }
+    .lh-xs-1-5 {
+        line-height: 1.5 !important;
+    }
+    .lh-xs-1-6 {
+        line-height: 1.6 !important;
+    }
+    .lh-xs-1-7 {
+        line-height: 1.7 !important;
+    }
+    .lh-xs-1-8 {
+        line-height: 1.8 !important;
+    }
+    .lh-xs-1-9 {
+        line-height: 1.9 !important;
+    }
+    .lh-xs-2 {
+        line-height: 2 !important;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    /* Điều chỉnh line height cho sm */
+    .lh-sm-1 {
+        line-height: 1 !important;
+    }
+    .lh-sm-1-1 {
+        line-height: 1.1 !important;
+    }
+    .lh-sm-1-2 {
+        line-height: 1.2 !important;
+    }
+    .lh-sm-1-3 {
+        line-height: 1.3 !important;
+    }
+    .lh-sm-1-4 {
+        line-height: 1.4 !important;
+    }
+    .lh-sm-1-5 {
+        line-height: 1.5 !important;
+    }
+    .lh-sm-1-6 {
+        line-height: 1.6 !important;
+    }
+    .lh-sm-1-7 {
+        line-height: 1.7 !important;
+    }
+    .lh-sm-1-8 {
+        line-height: 1.8 !important;
+    }
+    .lh-sm-1-9 {
+        line-height: 1.9 !important;
+    }
+    .lh-sm-2 {
+        line-height: 2 !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Điều chỉnh line height cho md */
+    .lh-md-1 {
+        line-height: 1 !important;
+    }
+    .lh-md-1-1 {
+        line-height: 1.1 !important;
+    }
+    .lh-md-1-2 {
+        line-height: 1.2 !important;
+    }
+    .lh-md-1-3 {
+        line-height: 1.3 !important;
+    }
+    .lh-md-1-4 {
+        line-height: 1.4 !important;
+    }
+    .lh-md-1-5 {
+        line-height: 1.5 !important;
+    }
+    .lh-md-1-6 {
+        line-height: 1.6 !important;
+    }
+    .lh-md-1-7 {
+        line-height: 1.7 !important;
+    }
+    .lh-md-1-8 {
+        line-height: 1.8 !important;
+    }
+    .lh-md-1-9 {
+        line-height: 1.9 !important;
+    }
+    .lh-md-2 {
+        line-height: 2 !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    /* Điều chỉnh line height cho lg */
+    .lh-lg-1 {
+        line-height: 1 !important;
+    }
+    .lh-lg-1-1 {
+        line-height: 1.1 !important;
+    }
+    .lh-lg-1-2 {
+        line-height: 1.2 !important;
+    }
+    .lh-lg-1-3 {
+        line-height: 1.3 !important;
+    }
+    .lh-lg-1-4 {
+        line-height: 1.4 !important;
+    }
+    .lh-lg-1-5 {
+        line-height: 1.5 !important;
+    }
+    .lh-lg-1-6 {
+        line-height: 1.6 !important;
+    }
+    .lh-lg-1-7 {
+        line-height: 1.7 !important;
+    }
+    .lh-lg-1-8 {
+        line-height: 1.8 !important;
+    }
+    .lh-lg-1-9 {
+        line-height: 1.9 !important;
+    }
+    .lh-lg-2 {
+        line-height: 2 !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    /* Điều chỉnh line height cho xl */
+    .lh-xl-1 {
+        line-height: 1 !important;
+    }
+    .lh-xl-1-1 {
+        line-height: 1.1 !important;
+    }
+    .lh-xl-1-2 {
+        line-height: 1.2 !important;
+    }
+    .lh-xl-1-3 {
+        line-height: 1.3 !important;
+    }
+    .lh-xl-1-4 {
+        line-height: 1.4 !important;
+    }
+    .lh-xl-1-5 {
+        line-height: 1.5 !important;
+    }
+    .lh-xl-1-6 {
+        line-height: 1.6 !important;
+    }
+    .lh-xl-1-7 {
+        line-height: 1.7 !important;
+    }
+    .lh-xl-1-8 {
+        line-height: 1.8 !important;
+    }
+    .lh-xl-1-9 {
+        line-height: 1.9 !important;
+    }
+    .lh-xl-2 {
+        line-height: 2 !important;
+    }
+}
+
+@media (min-width: 1400px) {
+    /* Điều chỉnh line height cho xxl */
+    .lh-xxl-1 {
+        line-height: 1 !important;
+    }
+    .lh-xxl-1-1 {
+        line-height: 1.1 !important;
+    }
+    .lh-xxl-1-2 {
+        line-height: 1.2 !important;
+    }
+    .lh-xxl-1-3 {
+        line-height: 1.3 !important;
+    }
+    .lh-xxl-1-4 {
+        line-height: 1.4 !important;
+    }
+    .lh-xxl-1-5 {
+        line-height: 1.5 !important;
+    }
+    .lh-xxl-1-6 {
+        line-height: 1.6 !important;
+    }
+    .lh-xxl-1-7 {
+        line-height: 1.7 !important;
+    }
+    .lh-xxl-1-8 {
+        line-height: 1.8 !important;
+    }
+    .lh-xxl-1-9 {
+        line-height: 1.9 !important;
+    }
+    .lh-xxl-2 {
+        line-height: 2 !important;
+    }
+}

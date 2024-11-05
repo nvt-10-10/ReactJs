@@ -1,0 +1,123 @@
+.footer {
+    position: relative;
+    padding-top: 35px;
+    background-color: #1a1a1a;
+}
+
+.footer::before,
+.footer::after {
+    content: "";
+    position: absolute;
+    background-repeat: no-repeat !important;
+}
+.footer::after {
+    background: url("../../assets/images/decor/footer-1.png");
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.footer::before {
+    background: url("../../assets/images/decor/footer-2.png");
+    right: 0;
+    bottom: 103px;
+    height: 164px;
+    width: 164px;
+}
+
+.footer .logo {
+    width: 60px;
+    height: 59.766px;
+    border-radius: 8px;
+    background-color: #fff;
+    object-fit: cover;
+}
+
+.footer .icon-footer {
+    height: 36px;
+    width: 36px;
+    padding: 12px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+}
+.copyright,
+.footer-column {
+    z-index: 88;
+}
+.footer-column:nth-of-type(2) {
+    margin: 0 auto;
+    max-width: 200px;
+}
+
+.footer-title {
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.footer a:hover {
+    color: #e31e25 !important;
+}
+
+.footer-title::after {
+    position: absolute;
+    content: "";
+    width: 24px;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background-color: #e31e25;
+    border-radius: 2px;
+}
+
+.footer .rergistered-img {
+    width: 120px;
+    height: 40px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background: var(--Error, #fff);
+    object-fit: cover;
+}
+
+.ml-48 {
+    margin-left: 48px;
+}
+
+.mt-4 {
+    margin-top: 4px !important;
+}
+
+.footer hr {
+    margin-top: 25px;
+    background-color: #333333;
+}
+
+.footer .copyright {
+    padding: 24px 0;
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+    .mt-md-0 {
+        margin-top: 0 !important;
+    }
+}
+@media (min-width: 992px) {
+    .mt-lg-0 {
+        margin-top: 0 !important;
+    }
+}
+@media (min-width: 1200px) {
+    .footer {
+        padding-top: 71px;
+    }
+
+    .footer hr {
+        margin-top: 56px;
+    }
+}
+
+@media (min-width: 1400) {
+}

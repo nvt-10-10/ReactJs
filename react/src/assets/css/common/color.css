@@ -1,0 +1,74 @@
+.text-color-desc {
+    color: var(--text-color-desc) !important;
+}
+
+.text-color-title {
+    color: var(--text-color-title) !important;
+}
+
+.text-color-heading {
+    color: var(--text-color-heading) !important;
+}
+.text-color-ccc {
+    color: #ccc !important;
+}
+
+.text-color-top-header {
+    color: var(--text-color-top-header) !important;
+}
+
+.text-color-808080 {
+    color: var(--text-color-808080) !important;
+}
+
+.text-color-3281CA {
+    color: #3281ca !important;
+}
+
+.text-color-B3B3B3 {
+    color: var(--text-color-B3B3B3) !important;
+}
+
+.text-color-8C8C8C {
+    color: var(--text-color-8C8C8C) !important;
+}
+.text-color-333 {
+    color: var(--bg-btn-primary) !important;
+}
+
+.text-color-999 {
+    color: var(--text-color-999) !important;
+}
+
+.text-color-while {
+    color: var(--text-color-while) !important;
+}
+
+.text-color-primary {
+    color: var(--color-primary) !important;
+}
+
+.text-color-title-primary {
+    color: var(--text-title-primary) !important;
+}
+
+/* Background Color Classes */
+.bg-btn-primary {
+    background-color: var(--bg-btn-primary) !important;
+}
+
+.bg-btn-auth {
+    background-color: var(--bg-btn-auth) !important;
+}
+
+.bg-inherit {
+    background-color: inherit;
+}
+
+.bg-primary {
+    background: var(--color-primary, #ccc) !important;
+}
+
+.text-color-active {
+    color: #1ca345;
+}
