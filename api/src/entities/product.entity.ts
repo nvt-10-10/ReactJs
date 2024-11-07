@@ -1,4 +1,3 @@
-import { BaseEntity } from 'src/modules/crud/entities/base.entity';
 import {
   BeforeInsert,
   Column,
@@ -13,16 +12,11 @@ import { StatusProduct } from 'src/type';
 import { CategoryProduct } from './category_product.entity';
 import { generateSlug } from 'src/utils/generateSlug';
 import { generateUniqueCode } from 'src/utils/generateUniqueCode';
+import { BaseAndCodeAndSlug } from 'src/modules/crud/entities/code-and-slug.entity';
 @Entity('products')
-export class Product extends BaseEntity {
+export class Product extends BaseAndCodeAndSlug {
   @Column({ nullable: false })
   name!: string;
-
-  @Column({ nullable: false, type: 'varchar', length: 255 })
-  code!: string;
-
-  @Column({ nullable: false, type: 'varchar', length: 255 })
-  slug!: string;
 
   @Column({ nullable: true })
   description?: string;

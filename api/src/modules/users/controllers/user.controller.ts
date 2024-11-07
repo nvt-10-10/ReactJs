@@ -44,10 +44,10 @@ export class UserController {
     const [data, total] = await this.userService.findAll(
       4,
       1,
+      undefined,
+      undefined,
+      undefined,
       'top4User',
-      undefined,
-      undefined,
-      undefined,
       2,
     );
     data.forEach((item) => {

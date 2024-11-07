@@ -5,35 +5,28 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  ManyToMany,
   BeforeInsert,
 } from 'typeorm';
-import { BaseEntity } from 'src/modules/crud/entities/base.entity';
+
 import { Role } from './role.entity';
 import { Product } from './product.entity';
 import { Cart } from './cart.entity';
 import { New } from './new.entity';
 import { Quote } from './quote.entity';
+import { Category } from './category.entity';
+import { BaseAndCodeAndSlug } from 'src/modules/crud/entities/code-and-slug.entity';
 import { generateSlug } from 'src/utils/generateSlug';
 import { generateUniqueCode } from 'src/utils/generateUniqueCode';
 
 @Entity('users')
-export class User extends BaseEntity {
+export class User extends BaseAndCodeAndSlug {
   @Unique(['email'])
   @Column()
   email: string;
 
   @Column()
   name: string;
-
-  @Column({
-    name: 'slug',
-    type: 'varchar',
-    length: 255,
-  })
-  slug: string;
-
-  @Column({ name: 'code', type: 'varchar', length: 255 })
-  code: string;
 
   @Column({ length: 50, default: null })
   phone: string;
@@ -76,7 +69,11 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Quote, (quote) => quote.user)
   quotes?: Quote[];
-  @BeforeInsert() // Lifecycle hook to set slug before insert
+
+  @ManyToMany(() => Category, (category) => category.users)
+  categories?: Category[];
+
+  @BeforeInsert()
   generateSlug() {
     this.slug = generateSlug(this.name);
     this.code = generateUniqueCode(16);

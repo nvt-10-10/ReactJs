@@ -6,23 +6,17 @@ import {
   JoinColumn,
   BeforeInsert,
 } from 'typeorm';
-import { BaseEntity } from 'src/modules/crud/entities/base.entity';
 import { Category } from './category.entity';
 import { User } from './user.entity';
 import { StatusQuote } from 'src/type/quote,type';
 import { generateUniqueCode } from 'src/utils/generateUniqueCode';
 import { generateSlug } from 'src/utils/generateSlug';
+import { BaseAndCodeAndSlug } from 'src/modules/crud/entities/code-and-slug.entity';
 
 @Entity('quotes')
-export class Quote extends BaseEntity {
+export class Quote extends BaseAndCodeAndSlug {
   @Column({ name: 'name', type: 'varchar', length: 255, nullable: false })
   name: string;
-
-  @Column({ name: 'code', type: 'varchar', length: 255, nullable: true })
-  code: string;
-
-  @Column({ name: 'slug', type: 'varchar', length: 255, nullable: true })
-  slug: string;
 
   @Column({ name: 'description', type: 'text', nullable: true })
   description: string;

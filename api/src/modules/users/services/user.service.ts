@@ -72,15 +72,15 @@ export class UserService extends CrudService<User> {
           whereConditions.category = category;
         }
       }
+
+      console.log({ whereConditions });
+
       result = await this.userRepository.findAndCount({
         take,
         skip: (page - 1) * take,
         where: whereConditions,
       });
       await this.cacheService.set(cache_key, result);
-
-      console.log({ result, whereConditions });
-
       return result;
     }
   }

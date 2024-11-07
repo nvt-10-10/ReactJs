@@ -64,9 +64,11 @@ export class AuthService {
       },
     });
     // Hash mật khẩu trước khi lưu vào database
-    registerDto.password = await bcrypt.hashSync(registerDto.password, 10);
     // Nếu email chưa tồn tại, lưu user mới vào database
-    if (!user) return await this.repository.save(registerDto);
+    if (!user) {
+      registerDto.password = await bcrypt.hashSync(registerDto.password, 10);
+      return await this.repository.save(registerDto);
+    }
     // Nếu email đã tồn tại, ném ra exception
     else throw new BadRequestException('Tài khoản đã tồn tại!!!');
   }
