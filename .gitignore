@@ -1,0 +1,10 @@
+/api/.env
+/api/node_modules/
+/api/dist
+/api/src/public/uploads/images
+/api/src/public/uploads/videos
+
+
+/react/build/
+/react/node_modules/
+/react/.env

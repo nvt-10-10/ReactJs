@@ -52,7 +52,7 @@ export const MyPagination = ({ Meta, position = 'left' ,onPageChange}) => {
 
     for (let number = startPage; number <= endPage; number++) {
       items.push(
-        <Pagination.Item key={number} active={number === page}  onClick= {()=> onPageChange(number)}>
+        <Pagination.Item key={number} active={number === page}  onClick= {(e)=> onPageChange(number,e)}>
           {number}
         </Pagination.Item>
       );
@@ -68,9 +68,9 @@ export const MyPagination = ({ Meta, position = 'left' ,onPageChange}) => {
   return (
     <div>
       <Pagination className={`d-flex ${getPosition(position)} custom-pagination`}>
-        <Pagination.Prev disabled={page === 1} onClick= {()=> onPageChange(Meta.page -1)} />
+        <Pagination.Prev disabled={page === 1} onClick= {(e)=> onPageChange(Meta.page -1,e)} />
         {renderPaginationItems()}
-        <Pagination.Next disabled={page === total_pages}  onClick= {()=> onPageChange(Meta.page + 1)}/>
+        <Pagination.Next disabled={page === total_pages}  onClick= {(e)=> onPageChange(Meta.page + 1,e)}/>
       </Pagination>
     </div>
   );

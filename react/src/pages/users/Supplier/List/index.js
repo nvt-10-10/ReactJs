@@ -8,33 +8,38 @@ import { CardSupplier } from "../../../../components/CardSupplier/CardSupplier";
 import { userThunk } from "../../../../redux-slice/user/thunk";
 import { MyPagination } from "../../../../components/Pagination/Pagination";
 import { Header } from "./Header";
+
 const List = () => {
   const { top12Supplier } = useSelector((state) => state.user);
   const { categories } = useSelector((state) => state.category);
-  const { currentPage, setCurrentPage } = useState();
+  const [currentPage, setCurrentPage] = useState(1); // Set default page to 1
   const [formData, setFormData] = useState({
     search: "",
     country: "",
-    g: "",
+    category: "",
   });
-  const dispatch = useDispatch();
-  useEffect(async () => {
-    await fetchData();
-  }, [currentPage, dispatch]);
 
-  const handlePageChange = (page) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Wrap async function inside useEffect
+    const fetchData = async () => {
+      const { search, country, category } = formData;
+      await dispatch(userThunk.getTop12Suppliers({ currentPage, category, country, search }));
+    };
+
+    fetchData();
+  }, [currentPage, dispatch, formData]); // Include formData as dependency to re-fetch when form changes
+ 
+  const handlePageChange = async (page, event) => {
+    event?.preventDefault();
     setCurrentPage(page);
+    await fetchData();
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log({
-      e,
-      name,
-      value,
-      formData,
-    });
-    setFormData({ ...formData, [name]: value }); // Update formData based on input
+    setFormData({ ...formData, [name]: value });
   };
 
   const handSubmit = async (event) => {
@@ -49,10 +54,13 @@ const List = () => {
     { label: "Trung Quốc", value: 86 },
   ];
 
+
   const fetchData = async () => {
     const { search, country, category } = formData;
-    dispatch(userThunk.getTop12Suppliers({ currentPage, category, country, search }));
+    console.log({ search, country, category,currentPage } );
+    await dispatch(userThunk.getTop12Suppliers({ page:currentPage, category, country, search }));
   };
+
 
   return (
     <main>
@@ -60,7 +68,7 @@ const List = () => {
         <Container>
           <Row>
             <Col xs={12}>
-              <Header></Header>
+              <Header />
             </Col>
 
             <Col xs={12}>
@@ -68,14 +76,19 @@ const List = () => {
                 <Row className="gy-3 ">
                   <Col xs={12} md={6} xl={3}>
                     <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Control type="text" placeholder="Nhập tên nhà cung cấp" name="search" onChange={handleChange} />
+                      <Form.Control
+                        type="text"
+                        placeholder="Nhập tên nhà cung cấp"
+                        name="search"
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                   <Col xs={12} md={6} xl={3}>
                     <Form.Select aria-label="Default select example" onChange={handleChange} name="category">
                       <option>Chọn danh mục</option>
                       {categories.map((category) => (
-                        <option key={category.id} value={category.name}>
+                        <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
                       ))}
@@ -94,7 +107,7 @@ const List = () => {
 
                   <Col xs={12} md={6} xl={3}>
                     <button className="btn btn-filter">
-                      Lọc thông tin <Image src={iconFilter}></Image>
+                      Lọc thông tin <Image src={iconFilter} />
                     </button>
                   </Col>
                 </Row>
@@ -105,14 +118,18 @@ const List = () => {
               <Row className="list-supplier gy-4">
                 {top12Supplier?.items?.map((supplier) => (
                   <Col xs={12} md={6} lg={4} xl={3} key={supplier.id}>
-                    <CardSupplier supplier={supplier}></CardSupplier>
+                    <CardSupplier supplier={supplier} />
                   </Col>
                 ))}
               </Row>
             </Col>
 
             <Col xs={12}>
-              <MyPagination Meta={top12Supplier?.meta} position="center" onPageChange={handlePageChange}></MyPagination>
+              <MyPagination
+                Meta={top12Supplier?.meta}
+                position="center"
+                onPageChange={handlePageChange}
+              />
             </Col>
           </Row>
         </Container>
