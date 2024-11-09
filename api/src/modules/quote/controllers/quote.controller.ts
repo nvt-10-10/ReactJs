@@ -9,9 +9,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { QuoteService } from '../services/quote.service';
-import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { QuoteUpdateDto } from '../dto/quote-update.dto';
 import { JwtAuthGuard } from 'src/core/decorator';
+import { QuoteCreateDto } from '../dto/quote-create.dto';
 
 @Controller('api/quotes')
 export class QuoteController {
