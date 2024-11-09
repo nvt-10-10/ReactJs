@@ -11,12 +11,11 @@ import {
   UploadedFiles,
 } from '@nestjs/common';
 import { QuoteService } from '../services/quote.service';
-import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { QuoteUpdateDto } from '../dto/quote-update.dto';
 import { JwtAuthGuard } from 'src/core/decorator';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { MulterConfigService } from 'src/config/ multer-config.service';
-import { FileCleanupService } from 'src/utils/cleanupFiles';
+import { QuoteCreateDto } from '../dto/quote-create.dto';
 
 @Controller('api/quotes')
 export class QuoteController {

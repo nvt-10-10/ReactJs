@@ -3,6 +3,10 @@
 /api/dist
 /api/src/public/uploads/images
 /api/src/public/uploads/videos
+<<<<<<< HEAD
+=======
+/api/src/public/uploads/documents
+>>>>>>> api
 
 
 /react/build/
