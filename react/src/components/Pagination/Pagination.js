@@ -52,7 +52,7 @@ export const MyPagination = ({ Meta, position = 'left' ,onPageChange}) => {
 
     for (let number = startPage; number <= endPage; number++) {
       items.push(
-        <Pagination.Item key={number} active={number === page}  onClick= {(e)=> onPageChange(number,e)}>
+        <Pagination.Item key={number} active={number === page} onClick={(e) => onPageChange(number, e)}>
           {number}
         </Pagination.Item>
       );

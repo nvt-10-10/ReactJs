@@ -15,7 +15,6 @@ const getTop4Suppliers = createAsyncThunk("/user/top-4", async (_, { rejectWithV
 
 const getTop12Suppliers = createAsyncThunk("/user/top-12", async ({ page, search, category, country }, { rejectWithValue }) => {
   try {
-    console.log({ page, search, category, country });
     const response = await getTop12Supplier(page, search, category, country);
     if (response.success) {
       return response.data;

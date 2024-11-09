@@ -22,19 +22,16 @@ const List = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Wrap async function inside useEffect
-    const fetchData = async () => {
-      const { search, country, category } = formData;
-      await dispatch(userThunk.getTop12Suppliers({ currentPage, category, country, search }));
-    };
-
     fetchData();
-  }, [currentPage, dispatch, formData]); // Include formData as dependency to re-fetch when form changes
- 
-  const handlePageChange = async (page, event) => {
+  }, [dispatch, currentPage]); // Include formData as dependency to re-fetch when form changes
+
+  const handlePageChange = (page, event) => {
     event?.preventDefault();
     setCurrentPage(page);
-    await fetchData();
+    console.log({
+      page,
+      currentPage,
+    });
   };
 
   const handleChange = (e) => {
@@ -54,13 +51,19 @@ const List = () => {
     { label: "Trung Quốc", value: 86 },
   ];
 
-
   const fetchData = async () => {
     const { search, country, category } = formData;
-    console.log({ search, country, category,currentPage } );
-    await dispatch(userThunk.getTop12Suppliers({ page:currentPage, category, country, search }));
-  };
+    console.log({ search, country, category, currentPage });
 
+    await dispatch(
+      userThunk.getTop12Suppliers({
+        page: currentPage,
+        category,
+        country,
+        search,
+      })
+    );
+  };
 
   return (
     <main>
@@ -85,7 +88,11 @@ const List = () => {
                     </Form.Group>
                   </Col>
                   <Col xs={12} md={6} xl={3}>
-                    <Form.Select aria-label="Default select example" onChange={handleChange} name="category">
+                    <Form.Select
+                      aria-label="Default select example"
+                      onChange={handleChange}
+                      name="category"
+                    >
                       <option>Chọn danh mục</option>
                       {categories.map((category) => (
                         <option key={category.id} value={category.id}>
@@ -95,7 +102,11 @@ const List = () => {
                     </Form.Select>
                   </Col>
                   <Col xs={12} md={6} xl={3}>
-                    <Form.Select aria-label="Default select example" onChange={handleChange} name="country">
+                    <Form.Select
+                      aria-label="Default select example"
+                      onChange={handleChange}
+                      name="country"
+                    >
                       <option>Chọn khu vực</option>
                       {countries.map((country) => (
                         <option key={country.value} value={country.value}>
