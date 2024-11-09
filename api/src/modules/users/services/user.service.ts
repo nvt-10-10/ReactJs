@@ -1,12 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Like, Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CrudService } from 'src/modules/crud/crud.service';
 import { Category, Role, User } from 'src/entities';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
 import { ProcessFile } from 'src/utils';
 import { CacheService } from 'src/core/cache/cache.service';
+import { findAllUsers } from 'src/database/query/user';
 
 @Injectable()
 export class UserService extends CrudService<User> {
@@ -46,32 +47,23 @@ export class UserService extends CrudService<User> {
     cache_key: string = 'usersAll',
     roleId: number = 2,
   ): Promise<any> {
-    // let result = await this.cacheService.get(cache_key);
-    let result;
+    console.log({ take, page, search, category, cache_key, roleId });
+    let result: any;
     if (!result) {
-      const whereConditions: any = {
-        status: true,
-        role: {
-          id: roleId || undefined,
-        },
-      };
-      if (search) {
-        whereConditions.name = Like(`%${search}%`);
-      }
-      if (country) {
-        whereConditions.country = country;
-        if (category) {
-          whereConditions.category = category;
-        }
-      }
-      result = await this.userRepository.findAndCount({
+      result = await findAllUsers(
+        this.userRepository,
         take,
-        skip: (page - 1) * take,
-        where: whereConditions,
-      });
-      await this.cacheService.set(cache_key, result);
-      return result;
+        page,
+        search,
+        country,
+        category,
+        roleId,
+        true,
+      );
+      this.cacheService.set(result, 60 * 60 * 5);
     }
+
+    return result;
   }
   async edit(file: Express.Multer.File, code: string, data: UpdateUserDto) {
     const user = await this.userRepository.findOne({

@@ -19,6 +19,8 @@ export class ImageService {
     try {
       return createReadStream(fullPath);
     } catch (error) {
+      console.log('loi');
+
       throw new NotFoundException('Image not found');
     }
   }
