@@ -45,6 +45,7 @@ export class CategoryService extends CrudService<Category> {
     if (file) {
       body.image = '/uploads/images/' + file.filename;
     }
-    return await this.categoryRepository.save(body);
+    const categoryEntity = this.categoryRepository.create(body);
+    return this.categoryRepository.save(categoryEntity);
   }
 }

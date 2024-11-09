@@ -5,6 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
   BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 import { Category } from './category.entity';
 import { User } from './user.entity';
@@ -33,6 +34,15 @@ export class Quote extends BaseAndCodeAndSlug {
   @Column({ name: 'price_unit', type: 'float', nullable: true })
   price_unit: number;
 
+  @Column({ name: 'images', type: 'json', nullable: true })
+  images: string[];
+
+  @Column({ name: 'document', type: 'varchar', nullable: true })
+  document: string;
+
+  @Column({ name: 'domain', type: 'varchar', nullable: true })
+  domain: string;
+
   @Column({
     name: 'status',
     type: 'enum',
@@ -50,8 +60,13 @@ export class Quote extends BaseAndCodeAndSlug {
   user: User;
 
   @BeforeInsert()
-  generateSlug() {
+  generateSlugAndSlug() {
     this.slug = generateSlug(this.name);
     this.code = generateUniqueCode(16);
+  }
+
+  @BeforeUpdate()
+  updateSlug() {
+    this.slug = generateSlug(this.name);
   }
 }

@@ -1,4 +1,11 @@
-import { Entity, Column, ManyToOne, JoinColumn, BeforeInsert } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  BeforeInsert,
+  BeforeUpdate,
+} from 'typeorm';
 import { StatusNew } from 'src/type';
 import { User } from './user.entity';
 import { generateSlug } from 'src/utils/generateSlug';
@@ -29,8 +36,13 @@ export class New extends BaseAndCodeAndSlug {
   user: User;
 
   @BeforeInsert()
-  generateSlug() {
+  generateSlugAndSlug() {
     this.slug = generateSlug(this.title);
     this.code = generateUniqueCode(16);
+  }
+
+  @BeforeUpdate()
+  updateSlug() {
+    this.slug = generateSlug(this.title);
   }
 }

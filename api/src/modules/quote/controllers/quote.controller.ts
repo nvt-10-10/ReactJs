@@ -7,11 +7,16 @@ import {
   Put,
   Delete,
   UseGuards,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
 import { QuoteService } from '../services/quote.service';
 import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { QuoteUpdateDto } from '../dto/quote-update.dto';
 import { JwtAuthGuard } from 'src/core/decorator';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { MulterConfigService } from 'src/config/ multer-config.service';
+import { FileCleanupService } from 'src/utils/cleanupFiles';
 
 @Controller('api/quotes')
 export class QuoteController {
@@ -29,8 +34,24 @@ export class QuoteController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async create(@Body() createDto: QuoteCreateDto): Promise<any> {
-    await this.quoteService.store(createDto);
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'images', maxCount: 5 }, // Nhận tối đa 5 ảnh
+        { name: 'document', maxCount: 1 }, // Nhận một tệp tài liệu
+      ],
+      new MulterConfigService().createMulterOptions(), // Cấu hình MulterService
+    ),
+  )
+  async create(
+    @Body() createDto: QuoteCreateDto,
+    @UploadedFiles()
+    files: { images?: Express.Multer.File[]; document?: Express.Multer.File[] },
+  ): Promise<any> {
+    await this.quoteService.store(createDto, {
+      images: files.images,
+      document: files.document,
+    });
     return {
       success: true,
       messages: 'Tạo báo giá thành công',

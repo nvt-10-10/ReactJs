@@ -57,20 +57,25 @@ export class AuthService {
 
   // Phương thức xử lý đăng ký
   async register(registerDto: RegisterDto): Promise<any> {
-    // Kiểm tra xem email đã tồn tại chưa
-    const user = await this.repository.findOne({
-      where: {
-        email: registerDto.email,
-      },
-    });
-    // Hash mật khẩu trước khi lưu vào database
-    // Nếu email chưa tồn tại, lưu user mới vào database
-    if (!user) {
-      registerDto.password = await bcrypt.hashSync(registerDto.password, 10);
-      return await this.repository.save(registerDto);
+    try {
+      // Kiểm tra xem email đã tồn tại chưa
+      const user = await this.repository.findOne({
+        where: {
+          email: registerDto.email,
+        },
+      });
+      // Hash mật khẩu trước khi lưu vào database
+      // Nếu email chưa tồn tại, lưu user mới vào database
+      if (!user) {
+        registerDto.password = await bcrypt.hashSync(registerDto.password, 10);
+        const userEntity = this.repository.create(registerDto); // Tạo entity từ DTO
+        return this.repository.save(userEntity);
+      }
+      // Nếu email đã tồn tại, ném ra exception
+      else throw new BadRequestException('Tài khoản đã tồn tại!!!');
+    } catch (error) {
+      console.log({ error });
     }
-    // Nếu email đã tồn tại, ném ra exception
-    else throw new BadRequestException('Tài khoản đã tồn tại!!!');
   }
 
   // Phương thức tạo auth token

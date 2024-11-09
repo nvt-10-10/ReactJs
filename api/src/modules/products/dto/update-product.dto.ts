@@ -1,5 +1,9 @@
 import { Transform } from 'class-transformer';
 import { IsString, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import {
+  transformToFloat,
+  transformToInt,
+} from 'src/transformers/number.transform';
 import { StatusProduct } from 'src/type';
 
 export class UpadeProductDto {
@@ -13,16 +17,11 @@ export class UpadeProductDto {
 
   @IsNumber()
   @IsNotEmpty()
-  @Transform(({ value }) =>
-    typeof value === 'string' ? parseFloat(value) : value,
-  )
+  @Transform(({ value }) => transformToFloat(value))
   price: number;
 
-  @IsNumber()
   @IsNotEmpty()
-  @Transform(({ value }) =>
-    typeof value === 'string' ? parseFloat(value) : value,
-  )
+  @Transform(({ value }) => transformToInt(value))
   quantity: number;
 
   @IsString()
@@ -32,6 +31,7 @@ export class UpadeProductDto {
   @IsOptional()
   status?: StatusProduct;
 
-  @IsOptional()
-  categoryIds: string | string[];
+  @IsNotEmpty()
+  @Transform(({ value }) => transformToFloat(value))
+  categoryIds: number[];
 }

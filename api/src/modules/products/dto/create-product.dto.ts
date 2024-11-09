@@ -6,6 +6,11 @@ import {
   IsPositive,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
+import {
+  transformToFloat,
+  transformToInt,
+} from 'src/transformers/number.transform';
+import { transformToArrayNumber } from 'src/transformers/array.transform';
 
 export class CreateProductDto {
   @IsString()
@@ -18,22 +23,17 @@ export class CreateProductDto {
 
   @IsNumber()
   @IsPositive()
-  @Transform(({ value }) =>
-    typeof value === 'string' ? parseFloat(value) : value,
-  )
+  @Transform(({ value }) => transformToFloat(value))
   price: number;
 
-  @IsNumber()
-  @IsPositive()
-  @Transform(({ value }) =>
-    typeof value === 'string' ? parseInt(value, 10) : value,
-  )
+  @IsNotEmpty()
+  @Transform(({ value }) => transformToInt(value))
   quantity: number;
 
   @IsOptional()
   @IsString()
   image?: string;
 
-  @IsOptional()
-  categoryIds: string | string[];
+  @Transform(({ value }) => transformToArrayNumber(value))
+  categoryIds: number[];
 }

@@ -3,11 +3,10 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CrudService } from 'src/modules/crud/crud.service';
-import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { UserService } from '../../users/services/user.service';
 import { CategoryService } from 'src/modules/categories/services/category.service';
-import { generateSlug } from 'src/utils/generateSlug';
-import { generateUniqueCode } from 'src/utils/generateUniqueCode';
+import { QuoteCreateDto } from '../dto/quote-create.dto';
+import { FileCleanupService } from 'src/utils/cleanupFiles';
 
 @Injectable()
 export class QuoteService extends CrudService<Quote> {
@@ -16,14 +15,20 @@ export class QuoteService extends CrudService<Quote> {
     private readonly quoteRepository: Repository<Quote>,
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
+    private readonly fileCleanupService: FileCleanupService,
   ) {
     super(quoteRepository);
   }
-  async store(createQuoteDto: QuoteCreateDto): Promise<any> {
+  async store(
+    createQuoteDto: QuoteCreateDto,
+    {
+      images,
+      document,
+    }: { images?: Express.Multer.File[]; document?: Express.Multer.File[] },
+  ): Promise<any> {
     try {
       const user = await this.userService.findById(createQuoteDto.user_id);
-      if (!user) throw new BadRequestException('Tài khoản không tồn tại'); // Use exception instead of return
-
+      if (!user) throw new BadRequestException('Tài khoản không tồn tại');
       const categories = await Promise.all(
         createQuoteDto?.category?.map(async (categoryId) => {
           const category = await this.categoryService.findById(categoryId);
@@ -35,21 +40,21 @@ export class QuoteService extends CrudService<Quote> {
           return category;
         }),
       );
+      const imagePaths = images?.map((file) => file.path) || [];
 
-      // Log slug and code generation
-      const slug = generateSlug(createQuoteDto.name);
-      const code = generateUniqueCode(16);
-      console.log('Generated slug and code:', { slug, code });
+      // Xử lý tài liệu (chỉ có một file)
+      const documentPath = document?.[0]?.path || null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
 
-      const quote = await this.quoteRepository.save({
+      const quoteEntity = await this.quoteRepository.create({
         ...createQuoteDto,
-        slug,
-        code,
         categories,
+        images: imagePaths,
+        document: documentPath,
       });
 
-      return quote;
+      return this.quoteRepository.save(quoteEntity);
     } catch (error) {
+      await this.fileCleanupService.cleanupFiles([...images, ...document]);
       console.error('Error in store method:', error); // Log error details
       throw error; // Re-throw the error to propagate it
     }

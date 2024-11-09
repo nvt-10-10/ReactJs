@@ -7,6 +7,7 @@ import {
   OneToMany,
   ManyToMany,
   BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 
 import { Role } from './role.entity';
@@ -74,8 +75,13 @@ export class User extends BaseAndCodeAndSlug {
   categories?: Category[];
 
   @BeforeInsert()
-  generateSlug() {
+  generateSlugAndSlug() {
     this.slug = generateSlug(this.name);
     this.code = generateUniqueCode(16);
+  }
+
+  @BeforeUpdate()
+  updateSlug() {
+    this.slug = generateSlug(this.name);
   }
 }

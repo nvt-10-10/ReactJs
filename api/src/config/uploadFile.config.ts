@@ -6,7 +6,7 @@ const MAX_SIZE_VIDEO = 20 * 1024 * 1024; // 20MB
 
 export const multerImageConfig = {
   storage: diskStorage({
-    destination: './uploads/images', // Thư mục lưu trữ hình ảnh
+    destination: '../public/uploads/images', // Thư mục lưu trữ hình ảnh
     filename: (req, file, callback) => {
       const filename = `${Date.now()}${extname(file.originalname)}`;
       callback(null, filename);
@@ -26,7 +26,7 @@ export const multerImageConfig = {
 
 export const multerVideoConfig = {
   storage: diskStorage({
-    destination: './uploads/videos', // Thư mục lưu trữ video
+    destination: '../public/uploads/videos', // Thư mục lưu trữ video
     filename: (req, file, callback) => {
       const filename = `${Date.now()}${extname(file.originalname)}`;
       callback(null, filename);

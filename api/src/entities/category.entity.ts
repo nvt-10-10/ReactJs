@@ -1,17 +1,17 @@
 import {
   Entity,
   Column,
-  OneToMany,
   ManyToMany,
   JoinTable,
   BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
-import { CategoryProduct } from './category_product.entity';
 import { Quote } from './quote.entity';
 import { User } from './user.entity';
 import { BaseAndCodeAndSlug } from 'src/modules/crud/entities/code-and-slug.entity';
 import { generateSlug } from 'src/utils/generateSlug';
 import { generateUniqueCode } from 'src/utils/generateUniqueCode';
+import { Product } from './product.entity';
 
 @Entity('categories')
 export class Category extends BaseAndCodeAndSlug {
@@ -24,12 +24,6 @@ export class Category extends BaseAndCodeAndSlug {
   @Column({ name: 'status', type: 'boolean', nullable: false, default: true })
   status: boolean;
 
-  @OneToMany(
-    () => CategoryProduct,
-    (categoryProduct) => categoryProduct.category,
-  )
-  categoryProducts: CategoryProduct[];
-
   @ManyToMany(() => Quote, (quote) => quote.categories)
   @JoinTable()
   quotes: Quote[];
@@ -38,9 +32,18 @@ export class Category extends BaseAndCodeAndSlug {
   @JoinTable()
   users: User[];
 
+  @ManyToMany(() => Product, (product) => product.categories)
+  @JoinTable()
+  products: Product[];
+
   @BeforeInsert()
-  generateSlug() {
+  generateSlugAndSlug() {
     this.slug = generateSlug(this.name);
     this.code = generateUniqueCode(16);
+  }
+
+  @BeforeUpdate()
+  updateSlug() {
+    this.slug = generateSlug(this.name);
   }
 }

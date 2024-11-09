@@ -17,8 +17,6 @@ import { multerImageConfig } from 'src/config/uploadFile.config';
 import { Cacheable } from 'src/core/decorator/cache.decorator';
 import { CustomCacheInterceptor } from 'src/core/interceptors/cache.interceptors';
 import { PermissionGuard } from 'src/core/cache/guard/permission.guard';
-import { Auth } from 'src/decorators';
-import { JwtPayload } from 'src/interfaces/jwt-payload.interface';
 import { Paginate } from 'src/utils';
 
 @Controller('/api/users')
@@ -104,18 +102,13 @@ export class UserController {
 
   @UseInterceptors(FileInterceptor('avatar', multerImageConfig))
   @UseGuards(JwtAuthGuard)
-  @Patch('')
+  @Patch('/:code')
   async update(
     @UploadedFile() file: Express.Multer.File,
     @Body() updateUser: UpdateUserDto,
-    @Auth() user: JwtPayload,
+    @Param('code') code: string,
   ): Promise<any> {
-    const data = await this.userService.edit(
-      file,
-      updateUser.id,
-      updateUser,
-      user,
-    );
+    const data = await this.userService.edit(file, code, updateUser);
     return data;
   }
 }
