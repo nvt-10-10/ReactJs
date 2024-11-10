@@ -93,7 +93,7 @@ const List = () => {
                       onChange={handleChange}
                       name="category"
                     >
-                      <option>Chọn danh mục</option>
+                      <option value="">Chọn danh mục</option>
                       {categories.map((category) => (
                         <option key={category.id} value={category.id}>
                           {category.name}
@@ -107,7 +107,7 @@ const List = () => {
                       onChange={handleChange}
                       name="country"
                     >
-                      <option>Chọn khu vực</option>
+                      <option value="all">Chọn khu vực</option>
                       {countries.map((country) => (
                         <option key={country.value} value={country.value}>
                           {country.label}
