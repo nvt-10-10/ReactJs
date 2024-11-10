@@ -1,8 +1,8 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { TextWrapper, TitleSection } from "../../../../components/Text/Text";
 import "./GlobalMarketplaceSection.scss";
-import ButtonPrimary from "../../../../components/Button/Button";
-import Image from "../../../../components/Image/Image";
+import ButtonPrimary from "../../../../components/Button";
+import Image from "../../../../components/Image";
 import IconSend from "../../../../assets/images/icons/send.svg";
 import IconShopAdd from "../../../../assets/images/icons/shop-add.svg";
 import IconBag from "../../../../assets/images/icons/bag-timer.svg";
@@ -18,7 +18,15 @@ export const GlobalMarketplaceSection = () => {
               <div className="d-flex justify-content-center">
                 <div className="wrap-title">
                   <TitleSection text="NHANH GỌN, TIỆN LỢI"></TitleSection>
-                  <TextWrapper text="Thị Trường Nguồn Hàng" fsText="32px" lhText="60px" fsStrong="64px" strong="Đa Quốc Gia" position="right" br="true"></TextWrapper>
+                  <TextWrapper
+                    text="Thị Trường Nguồn Hàng"
+                    fsText="32px"
+                    lhText="60px"
+                    fsStrong="64px"
+                    strong="Đa Quốc Gia"
+                    position="right"
+                    br="true"
+                  ></TextWrapper>
                 </div>
               </div>
             </Col>

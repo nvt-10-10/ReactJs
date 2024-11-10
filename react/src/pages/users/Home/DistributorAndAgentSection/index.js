@@ -1,14 +1,13 @@
 import { Col, Container, Row } from "react-bootstrap";
-import ButtonPrimary from "../../../../components/Button/Button";
+import ButtonPrimary from "../../../../components/Button";
 import "./DistributorAndAgentSection.scss";
-import Image from "../../../../components/Image/Image";
+import Image from "../../../../components/Image";
 import imageProduct from "../../../../assets/images/image/productroductp.jpeg";
-import iconVi from "../../../../assets/images/flag/vi.jpg"
+import iconVi from "../../../../assets/images/flag/vi.jpg";
 import { useSelector } from "react-redux";
 export const DistributorAndAgentSection = () => {
-
   const { top6Products } = useSelector((state) => state.product);
-  console.log({top6Products});
+  console.log({ top6Products });
   const base_url = process.env.REACT_APP_API_URL_IMAGE;
   return (
     <>
@@ -33,7 +32,10 @@ export const DistributorAndAgentSection = () => {
 
                   <span className="desc">Hãy đăng nhu câu của bạn ngay</span>
 
-                  <ButtonPrimary className="btn action" text="Đăng tin ngay"></ButtonPrimary>
+                  <ButtonPrimary
+                    className="btn action"
+                    text="Đăng tin ngay"
+                  ></ButtonPrimary>
                 </div>
               </div>
             </Col>
@@ -43,13 +45,18 @@ export const DistributorAndAgentSection = () => {
                   {top6Products?.map((product) => (
                     <Col xl={4}>
                       <div className="product-item">
-                        <Image src={`${base_url}${product.image}`} error={imageProduct} className="product-image"></Image>
+                        <Image
+                          src={`${base_url}${product.image}`}
+                          error={imageProduct}
+                          className="product-image"
+                        ></Image>
                         <a>
                           <h3 className="product-name">{product.name}</h3>
                         </a>
                         <div className="d-flex align-items-center gap-8 flag">
                           <Image src={iconVi} className="icon-flag"></Image>
-                          {product.country ? 'Việt Nam' : ''} </div>
+                          {product.country ? "Việt Nam" : ""}{" "}
+                        </div>
                       </div>
                     </Col>
                   ))}

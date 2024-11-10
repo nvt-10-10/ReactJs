@@ -1,12 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { TextWrapper } from "../../../../components/Text/Text";
 import "./SupplierSelectionSection.scss";
-import { Categories } from "../../../../components/Categories/Categories";
-import { CardSupplier } from "../../../../components/CardSupplier/CardSupplier";
-import ButtonPrimary from "../../../../components/Button/Button";
+import { Categories } from "../../../../components/Categories";
+import { CardSupplier } from "../../../../components/CardSupplier";
+import ButtonPrimary from "../../../../components/Button";
 
-import {  useSelector } from "react-redux";
-
+import { useSelector } from "react-redux";
 
 export const SupplierSelectionSection = () => {
   const { top4Supplier } = useSelector((state) => state.user);

@@ -1,12 +1,12 @@
 import { Col, Container, Form, Row } from "react-bootstrap";
 import "./supplierListSection.scss";
-import Image from "../../../../components/Image/Image";
+import Image from "../../../../components/Image";
 import iconFilter from "../../../../assets/images/icons/filter.svg";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardSupplier } from "../../../../components/CardSupplier/CardSupplier";
+import { CardSupplier } from "../../../../components/CardSupplier";
 import { userThunk } from "../../../../redux-slice/user/thunk";
-import { MyPagination } from "../../../../components/Pagination/Pagination";
+import { MyPagination } from "../../../../components/Pagination";
 import { Header } from "./Header";
 
 const List = () => {

@@ -12,7 +12,7 @@ import DropdownAction from "./dropdown-action";
 import "../../../assets/scss/common/custom-dropdown.scss";
 import "./header.scss";
 import DropdownLanguage from "./dropdown-language";
-import Image from "../../Image/Image";
+import Image from "../../Image";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { categoryThunk } from "../../../redux-slice/categories/thunk/category.thunk";
@@ -79,7 +79,9 @@ export const Header = () => {
       <header id="header">
         <div className="container">
           <div className="header-top d-flex flex-wrap align-items-center justify-content-between ">
-            <a href="javaScript:void((0)">Chào mừng đến với Vitrade - Kết nối tạo giá trị</a>
+            <a href="javaScript:void((0)">
+              Chào mừng đến với Vitrade - Kết nối tạo giá trị
+            </a>
             <div className="d-flex align-items-center">
               <div className="d-flex gap-8">
                 <DropdownLanguage label="Quốc gia"></DropdownLanguage>
@@ -98,12 +100,20 @@ export const Header = () => {
             </div>
           </div>
           <div className="header-mid d-flex align-items-center justify-content-between">
-            <Image src={logoHeader} className="logo" />
+            <Link to="/">
+              {" "}
+              <Image src={logoHeader} className="logo" />
+            </Link>
             <div className="d-none d-sm-flex  align-items-center">
               <form className="form-search">
                 <div className="d-flex align-content-center wrap">
                   <Image src={iconSearch} />
-                  <input className=" input-search" type="text" name="search" placeholder="Tìm kiếm hơn 1.8K sản phẩm & đối tác. Nhấn Enter..." />
+                  <input
+                    className=" input-search"
+                    type="text"
+                    name="search"
+                    placeholder="Tìm kiếm hơn 1.8K sản phẩm & đối tác. Nhấn Enter..."
+                  />
                   {console.log(categories)}
                   {categories && categories.length > 0 && (
                     <Select2
@@ -133,12 +143,19 @@ export const Header = () => {
           </div>
         </div>
       </header>
-      <div className={`header-bottom   ${isSticky ? "isSticky" : ""}`} id="headerSticky">
+      <div
+        className={`header-bottom   ${isSticky ? "isSticky" : ""}`}
+        id="headerSticky"
+      >
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="category-wrap position-relative">
-              <div className="all-categories-dropdown" onClick={() => handleClickCategory()}>
-                <Image src={iconCategory} alt="icon" className="icon" /> <span>Doanh Mục</span>
+              <div
+                className="all-categories-dropdown"
+                onClick={() => handleClickCategory()}
+              >
+                <Image src={iconCategory} alt="icon" className="icon" />{" "}
+                <span>Doanh Mục</span>
                 <Image src={iconArrowUp} className="icon-dropdown" />
               </div>
               <div className={`categorie-list ${showCategory ? "show" : ""}`}>

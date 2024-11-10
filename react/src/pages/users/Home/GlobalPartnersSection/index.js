@@ -1,12 +1,16 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { HeadingSection, TextDescription, TitleSection } from "../../../../components/Text/Text";
-import Image from "../../../../components/Image/Image";
+import {
+  HeadingSection,
+  TextDescription,
+  TitleSection,
+} from "../../../../components/Text/Text";
+import Image from "../../../../components/Image";
 import flagVi from "../../../../assets/images/flag/vi.jpg";
 import flagLo from "../../../../assets/images/flag/lo.jpg";
 import flagKo from "../../../../assets/images/flag/ko.jpg";
 import flagZhCn from "../../../../assets/images/flag/zh-cn.jpg";
 
-import  "./GlobalPartnersSection.scss"
+import "./GlobalPartnersSection.scss";
 export const GlobalPartnersSection = () => {
   return (
     <>
