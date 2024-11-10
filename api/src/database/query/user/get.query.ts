@@ -1,51 +1,78 @@
-import { Repository } from 'typeorm';
 import { User } from 'src/entities';
+import { Repository } from 'typeorm';
+import { FindCommonOptions } from '../interface';
+import { findCommon } from '../common';
 
 export const findAllUsers = async (
   userRepository: Repository<User>,
-  take: number = 10, // Số lượng bản ghi mỗi trang
-  page: number = 1, // Số trang hiện tại
-  search?: string, // Tìm kiếm theo tên
-  country?: number, // Lọc theo quốc gia
-  categoryId?: string, // Lọc theo category
-  roleId: number = 2, // Mặc định lọc theo roleId = 2
-  isGetLength: boolean = false, // Lấy cả tổng số bản ghi hay không
+  take: number = 10,
+  page: number = 1,
+  search?: string,
+  country?: number,
+  categoryId?: string,
+  roleId: number = 2,
+  isGetLength: boolean = false,
 ): Promise<any[] | [any[], number]> => {
-  const query = userRepository.createQueryBuilder('user');
+  const options: FindCommonOptions = {
+    take,
+    page,
+    isGetLength,
+    filters: [
+      { field: 'user.status', operator: '=', value: true },
+      { field: 'user.roleId', operator: '=', value: roleId },
+    ],
+    joins: [],
+    orWhere: [],
+    orderBy: { field: 'user.name', direction: 'ASC' },
+    selects: [],
+  };
 
-  // Lọc theo status nếu có
-  query.where('user.status = :status', { status: true }); // Giả sử status luôn là true
-
-  // Lọc theo roleId nếu có
-  if (roleId) {
-    query.andWhere('user.roleId = :roleId', { roleId });
-  }
-
-  // Lọc theo country nếu có
-  if (country) {
-    query.andWhere('user.country = :country', { country });
-  }
-
-  // Lọc theo category nếu có (join với bảng categories)
   if (categoryId && categoryId !== 'all') {
-    query
-      .innerJoinAndSelect('user.categories', 'category')
-      .andWhere('category.id = :categoryId', { categoryId });
+    options.joins.push({
+      table: 'categories',
+      alias: 'category',
+      type: 'inner',
+      condition:
+        'category.id = user_category.categoryId AND category.userId = user.id',
+    });
+
+    options.filters.push({
+      field: 'category.id',
+      operator: '=',
+      value: categoryId,
+    });
   }
 
-  // Tìm kiếm theo tên người dùng nếu có
+  if (country) {
+    options.filters.push({
+      field: 'user.country',
+      operator: '=',
+      value: country,
+    });
+  }
+
   if (search) {
-    query.andWhere('user.name LIKE :search', { search: `%${search}%` });
+    options.filters.push({
+      field: 'user.name',
+      operator: '=',
+      value: search,
+    });
   }
 
-  // Phân trang
-  query.take(take); // Số bản ghi mỗi trang
-  query.skip((page - 1) * take); // Bỏ qua số bản ghi của các trang trước
+  const userSelect: any[] = [
+    'id',
+    'code',
+    'slug',
+    'name',
+    'status',
+    'description',
+  ];
 
-  // Trả về số lượng bản ghi và dữ liệu nếu cần thiết
-  if (isGetLength) {
-    return await query.getManyAndCount(); // Trả về dữ liệu và tổng số bản ghi
-  }
+  options.selects = userSelect.map((item) => ({ alias: 'user', field: item }));
 
-  return await query.getMany(); // Chỉ trả về dữ liệu
+  return findCommon(
+    { entity: new User(), alias: 'user' },
+    userRepository,
+    options,
+  );
 };

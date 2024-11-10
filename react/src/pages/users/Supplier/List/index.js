@@ -8,6 +8,7 @@ import { CardSupplier } from "../../../../components/CardSupplier";
 import { userThunk } from "../../../../redux-slice/user/thunk";
 import { MyPagination } from "../../../../components/Pagination";
 import { Header } from "./Header";
+import { Helmet } from "react-helmet";
 
 const List = () => {
   const { top12Supplier } = useSelector((state) => state.user);
@@ -66,86 +67,92 @@ const List = () => {
   };
 
   return (
-    <main>
-      <section className="supplierListSection">
-        <Container>
-          <Row>
-            <Col xs={12}>
-              <Header />
-            </Col>
+    <>
+      <Helmet>
+        <title>Danh sách nhà cung cấp</title>
+        <meta name="description" content="Mô tả về trang của tôi." />
+      </Helmet>
+      <main>
+        <section className="supplierListSection">
+          <Container>
+            <Row>
+              <Col xs={12}>
+                <Header />
+              </Col>
 
-            <Col xs={12}>
-              <Form className="form-search" onSubmit={handSubmit}>
-                <Row className="gy-3 ">
-                  <Col xs={12} md={6} xl={3}>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Control
-                        type="text"
-                        placeholder="Nhập tên nhà cung cấp"
-                        name="search"
+              <Col xs={12}>
+                <Form className="form-search" onSubmit={handSubmit}>
+                  <Row className="gy-3 ">
+                    <Col xs={12} md={6} xl={3}>
+                      <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Control
+                          type="text"
+                          placeholder="Nhập tên nhà cung cấp"
+                          name="search"
+                          onChange={handleChange}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} md={6} xl={3}>
+                      <Form.Select
+                        aria-label="Default select example"
                         onChange={handleChange}
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col xs={12} md={6} xl={3}>
-                    <Form.Select
-                      aria-label="Default select example"
-                      onChange={handleChange}
-                      name="category"
-                    >
-                      <option value="">Chọn danh mục</option>
-                      {categories.map((category) => (
-                        <option key={category.id} value={category.id}>
-                          {category.name}
-                        </option>
-                      ))}
-                    </Form.Select>
-                  </Col>
-                  <Col xs={12} md={6} xl={3}>
-                    <Form.Select
-                      aria-label="Default select example"
-                      onChange={handleChange}
-                      name="country"
-                    >
-                      <option value="all">Chọn khu vực</option>
-                      {countries.map((country) => (
-                        <option key={country.value} value={country.value}>
-                          {country.label}
-                        </option>
-                      ))}
-                    </Form.Select>
-                  </Col>
+                        name="category"
+                      >
+                        <option value="">Chọn danh mục</option>
+                        {categories.map((category) => (
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Col>
+                    <Col xs={12} md={6} xl={3}>
+                      <Form.Select
+                        aria-label="Default select example"
+                        onChange={handleChange}
+                        name="country"
+                      >
+                        <option value="">Chọn khu vực</option>
+                        {countries.map((country) => (
+                          <option key={country.value} value={country.value}>
+                            {country.label}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Col>
 
-                  <Col xs={12} md={6} xl={3}>
-                    <button className="btn btn-filter">
-                      Lọc thông tin <Image src={iconFilter} />
-                    </button>
-                  </Col>
+                    <Col xs={12} md={6} xl={3}>
+                      <button className="btn btn-filter">
+                        Lọc thông tin <Image src={iconFilter} />
+                      </button>
+                    </Col>
+                  </Row>
+                </Form>
+              </Col>
+
+              <Col xs={12}>
+                <Row className="list-supplier gy-4">
+                  {top12Supplier?.items?.map((supplier) => (
+                    <Col xs={12} md={6} lg={4} xl={3} key={supplier.id}>
+                      <CardSupplier supplier={supplier} />
+                    </Col>
+                  ))}
                 </Row>
-              </Form>
-            </Col>
+              </Col>
 
-            <Col xs={12}>
-              <Row className="list-supplier gy-4">
-                {top12Supplier?.items?.map((supplier) => (
-                  <Col xs={12} md={6} lg={4} xl={3} key={supplier.id}>
-                    <CardSupplier supplier={supplier} />
-                  </Col>
-                ))}
-              </Row>
-            </Col>
-
-            <Col xs={12}>
-              <MyPagination
-                Meta={top12Supplier?.meta}
-                position="center"
-                onPageChange={handlePageChange}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </section>
-    </main>
+              <Col xs={12}>
+                <MyPagination
+                  Meta={top12Supplier?.meta}
+                  position="center"
+                  onPageChange={handlePageChange}
+                />
+              </Col>
+            </Row>
+          </Container>
+        </section>
+      </main>
+    </>
   );
 };
 

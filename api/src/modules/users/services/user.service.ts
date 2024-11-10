@@ -47,8 +47,8 @@ export class UserService extends CrudService<User> {
     cache_key: string = 'usersAll',
     roleId: number = 2,
   ): Promise<any> {
-    console.log({ take, page, search, category, cache_key, roleId });
     let result: any;
+    result = await this.cacheService.get(cache_key);
     if (!result) {
       result = await findAllUsers(
         this.userRepository,
@@ -60,7 +60,7 @@ export class UserService extends CrudService<User> {
         roleId,
         true,
       );
-      this.cacheService.set(result, 60 * 60 * 5);
+      this.cacheService.set(result, 60 * 60);
     }
 
     return result;

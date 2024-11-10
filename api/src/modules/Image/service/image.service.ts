@@ -16,7 +16,6 @@ export class ImageService {
   getImage(imagePath: string): NodeJS.ReadableStream {
     const relativePath = imagePath.replace(/^\/uploads\/images\//, '');
     const fullPath = join(this.imageBasePath, relativePath);
-    console.log({ fullPath, path: this.imageBasePath, relativePath });
     // Check if the file exists
     if (!existsSync(fullPath)) {
       throw new NotFoundException('Image not found');

@@ -29,6 +29,14 @@ export class User extends BaseAndCodeAndSlug {
   @Column()
   name: string;
 
+  @Column({
+    type: 'varchar',
+    length: 255,
+    default: 'HTX kiểu mới - SX nông nghiệp & dịch vụ thương mại',
+    nullable: true,
+  })
+  description: string;
+
   @Column({ length: 50, default: null })
   phone: string;
 

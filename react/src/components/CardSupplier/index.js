@@ -23,7 +23,7 @@ export const CardSupplier = ({ supplier }) => {
             </div>
           </Link>
           <p className="supplier-desc">
-            {supplier?.address ??
+            {supplier?.description ??
               "HTX kiểu mới - SX nông nghiệp & dịch vụ thương mại"}
           </p>
 

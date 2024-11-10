@@ -48,21 +48,21 @@ export class MulterConfigService implements MulterOptionsFactory {
             fs.mkdirSync(destPath, { recursive: true });
           }
 
-          callback(null, destPath); // Chỉ cần chỉ định thư mục lưu tệp, Multer sẽ lưu tệp vào đây
+          callback(null, destPath); // Chỉ định thư mục lưu tệp
         },
 
         filename: (req, file, callback) => {
           const ext = extname(file.originalname);
           const baseFilename = `${Date.now()}`;
-          const filename = `${baseFilename}${ext}`; // Đặt tên tệp
+          const filename = `${baseFilename}${ext}`;
 
           console.log({ filename, __dirname, cwd: process.cwd() });
 
-          callback(null, filename); // Chỉ cần tên tệp, Multer sẽ tự động kết hợp với thư mục lưu
+          callback(null, filename); // Multer lưu tệp với tên này
 
-          // Xử lý tệp ảnh ngay sau khi đã lưu
+          // Bắt đầu xử lý ảnh ngay sau khi tệp đã được lưu
           if (file.mimetype.startsWith('image/')) {
-            const destPath = join(
+            const savedFilePath = join(
               process.cwd(),
               'src',
               'public',
@@ -70,13 +70,24 @@ export class MulterConfigService implements MulterOptionsFactory {
               'images',
               filename,
             );
-            sharp(destPath)
-              .webp()
-              .toFile(destPath.replace(ext, '.webp'))
-              .then(() => fs.unlinkSync(destPath)) // Xóa tệp gốc nếu chuyển đổi thành công
-              .catch((error) =>
-                console.error('Error processing image:', error),
-              );
+
+            // Sử dụng sharp để xử lý ảnh sau khi tệp được lưu
+            // Chờ đến khi tệp được lưu xong
+            setTimeout(async () => {
+              try {
+                await sharp(savedFilePath)
+                  .webp()
+                  .toFile(savedFilePath.replace(extname(filename), '.webp'));
+
+                // Xóa tệp gốc sau khi chuyển đổi thành công
+                fs.unlinkSync(savedFilePath);
+                console.log(
+                  'Ảnh đã được chuyển đổi sang WebP và tệp gốc đã bị xóa.',
+                );
+              } catch (error) {
+                console.error('Lỗi khi chuyển đổi ảnh:', error);
+              }
+            }, 100); // Chờ 500ms
           }
         },
       }),
