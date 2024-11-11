@@ -4,11 +4,8 @@ import Slider from "react-slick/lib/slider";
 import Image from "../../../../components/Image";
 import iconDate from "../../../../assets/images/icons/date.svg";
 import imageNew from "../../../../assets/images/image/news.jpeg";
-import {
-  HeadingSection,
-  TextDescription,
-} from "../../../../components/Text/Text";
 import ButtonPrimary from "../../../../components/Button";
+import { HeadingSection, TextDescription } from "../../../../components/Text";
 export const BusinessNewsSection = () => {
   const news = [
     {

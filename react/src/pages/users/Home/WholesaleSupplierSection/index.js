@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import "./WholesaleSupplierSection.scss";
 import Image from "../../../../components/Image";
-import { HeadingSection, TitleSection } from "../../../../components/Text/Text";
+import { HeadingSection, TitleSection } from "../../../../components/Text";
 import IconCategory from "../../../../assets/images/icons/brands.svg";
 import ButtonPrimary from "../../../../components/Button";
 import { useSelector } from "react-redux";

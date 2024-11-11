@@ -7,6 +7,7 @@ import { Login } from "./pages/users/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import List from "./pages/users/Supplier/List";
 import { Detail } from "./pages/users/Supplier/Detail";
+import { List as ListQuote } from "./pages/users/Quote/List";
 
 const App = () => {
   return (
@@ -18,6 +19,9 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/supplier" element={<List />}>
             <Route path="/supplier/:code" element={<Detail />} />
+          </Route>
+          <Route path="/quote" element={<ListQuote />}>
+            <Route path="/quote/:code" element={<Detail />} />
           </Route>
         </Route>
 

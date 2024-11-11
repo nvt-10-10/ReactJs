@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { TextWrapper, TitleSection } from "../../../../components/Text/Text";
+import { TextWrapper, TitleSection } from "../../../../components/Text";
 import "./GlobalMarketplaceSection.scss";
 import ButtonPrimary from "../../../../components/Button";
 import Image from "../../../../components/Image";

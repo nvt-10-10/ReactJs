@@ -1,7 +1,5 @@
 // Text.styles.js
-
 import styled, { css } from "styled-components";
-
 import { respondTo } from "../../utils/media";
 
 const generateResponsiveStyles = (propName, propValue) => {
@@ -19,26 +17,6 @@ const generateResponsiveStyles = (propName, propValue) => {
   );
 };
 
-const defaultText = css`
-  color: ${({ color, defaultColor }) => `var(${color}, ${defaultColor})`};
-  font-family: ${(fontFamily) => fontFamily || "Be Vietnam Pro"};
-  font-style: ${(fontStyle) => fontStyle || "normal "};
-  font-weight: ${({ fontWeight }) => fontWeight || 400};
-  line-height: ${({ lineHeight }) => lineHeight || "normal"};
-  text-align: ${({ textAlign }) => textAlign || "left"};
-  text-transform ${({ textTransform }) => textTransform || "inherit"};
-
-    // Responsive styles
-  ${generateResponsiveStyles("font-size", ({ fontSize }) => fontSize)}
-  ${generateResponsiveStyles("font-weight", ({ fontWeight }) => fontWeight)}
-  ${generateResponsiveStyles("line-height", ({ lineHeight }) => lineHeight)}
-  ${generateResponsiveStyles("text-align", ({ textAlign }) => textAlign)}
-`;
-
-export const Text = styled(({ as: Component, ...props }) => <Component {...props} />)`
-  ${defaultText}
-`;
-// Title Section Style
 export const TitleSectionStyle = styled.p`
   color: var(--primary-color, #e31e25);
   font-family: "Be Vietnam Pro";
@@ -53,7 +31,6 @@ export const TitleSectionStyle = styled.p`
   ${generateResponsiveStyles("text-align", ({ textAlign }) => textAlign)}
 `;
 
-// Heading Section Style
 export const HeadingSectionStyle = styled.h2`
   color: var(--text-color-heading, #1a1a1a);
   font-family: "Be Vietnam Pro";
@@ -68,7 +45,6 @@ export const HeadingSectionStyle = styled.h2`
   ${generateResponsiveStyles("text-align", ({ textAlign }) => textAlign)}
 `;
 
-// Text Description Section Style
 export const TextDescSectionStyle = styled.p`
   color: #666;
   text-align: justify;
@@ -83,26 +59,23 @@ export const TextDescSectionStyle = styled.p`
   ${generateResponsiveStyles("text-align", ({ textAlign }) => textAlign)}
 `;
 
-const TextWrapperH2 = styled.h2`
-  color: #1a1a1a;
-  font-family: "Be Vietnam Pro";
-  font-size: ${({ fsText }) => fsText || "49px"};
-  font-style: normal;
-  text-transform: capitalize;
-  font-weight: 200;
-  line-height: ${({ lhText }) => lhText || "122.449%"};
-`;
-
-const TextWrapperEm = styled.em`
-  color: #1a1a1a;
-  font-family: "Be Vietnam Pro";
-  font-size: ${({ fsStrong }) => fsStrong || "49px"};
-  font-style: normal;
-  text-transform: capitalize;
-  font-weight: 700;
-  line-height: 122.449%;
-`;
 export const TextWrapperStyle = {
-  TextWrapperH2,
-  TextWrapperEm,
+  TextWrapperH2: styled.h2`
+    color: #1a1a1a;
+    font-family: "Be Vietnam Pro";
+    font-size: ${({ fsText }) => fsText || "49px"};
+    font-style: normal;
+    text-transform: capitalize;
+    font-weight: 200;
+    line-height: ${({ lhText }) => lhText || "122.449%"};
+  `,
+  TextWrapperEm: styled.em`
+    color: #1a1a1a;
+    font-family: "Be Vietnam Pro";
+    font-size: ${({ fsStrong }) => fsStrong || "49px"};
+    font-style: normal;
+    text-transform: capitalize;
+    font-weight: 700;
+    line-height: 122.449%;
+  `,
 };

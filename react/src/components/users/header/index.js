@@ -26,7 +26,7 @@ export const Header = () => {
 
   const navs = [
     { name: "Nhà cung cấp", link: "/supplier" },
-    { name: "Yêu cầu báo giá", link: "#" },
+    { name: "Yêu cầu báo giá", link: "/quote" },
     { name: "Tìm nhà phân phối", link: "#" },
     { name: "Kết nối giao thương", link: "#" },
   ];

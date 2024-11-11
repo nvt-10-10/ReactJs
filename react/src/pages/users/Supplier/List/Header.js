@@ -1,4 +1,4 @@
-import { TextWrapper } from "../../../../components/Text/Text";
+import { TextWrapper } from "../../../../components/Text";
 import iconVi from "../../../../assets/images/flag/vi.jpg";
 import iconZhCn from "../../../../assets/images/flag/zh-cn.jpg";
 import iconKo from "../../../../assets/images/flag/ko.jpg";

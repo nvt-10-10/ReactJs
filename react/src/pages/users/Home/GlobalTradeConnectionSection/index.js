@@ -7,7 +7,7 @@ import {
   HeadingSection,
   TextDescription,
   TitleSection,
-} from "../../../../components/Text/Text";
+} from "../../../../components/Text";
 import ButtonPrimary from "../../../../components/Button";
 import "./GlobalTradeConnectionSection.scss";
 export const GlobalTradeConnectionSection = () => {

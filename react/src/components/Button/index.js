@@ -2,12 +2,26 @@ import React from "react";
 import { ButtonPrimaryStyled } from "./Button.styles";
 import iconArrowRight from "../../assets/images/icons/arrow-right.svg";
 
-const ButtonPrimary = ({ text, img = iconArrowRight, onClick, isSelected, className = "" }) => {
+const ButtonPrimary = ({
+  text,
+  img = iconArrowRight,
+  href = "",
+  onClick,
+  isSelected,
+  className = "",
+}) => {
   return (
     <div>
-      <ButtonPrimaryStyled.StyledButtonPrimary className={className} isSelected={isSelected} onClick={onClick}>
+      <ButtonPrimaryStyled.StyledButtonPrimary
+        className={className}
+        isSelected={isSelected}
+        onClick={onClick}
+        href={href}
+      >
         {text}
-        <ButtonPrimaryStyled.StyledImagePrimary src={img}></ButtonPrimaryStyled.StyledImagePrimary>
+        <ButtonPrimaryStyled.StyledImagePrimary
+          src={img}
+        ></ButtonPrimaryStyled.StyledImagePrimary>
       </ButtonPrimaryStyled.StyledButtonPrimary>
     </div>
   );

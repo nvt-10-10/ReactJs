@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { TextWrapper } from "../../../../components/Text/Text";
+import { TextWrapper } from "../../../../components/Text";
 import "./SupplierSelectionSection.scss";
 import { Categories } from "../../../../components/Categories";
 import { CardSupplier } from "../../../../components/CardSupplier";

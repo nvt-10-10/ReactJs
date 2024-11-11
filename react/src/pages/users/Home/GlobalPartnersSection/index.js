@@ -3,7 +3,7 @@ import {
   HeadingSection,
   TextDescription,
   TitleSection,
-} from "../../../../components/Text/Text";
+} from "../../../../components/Text";
 import Image from "../../../../components/Image";
 import flagVi from "../../../../assets/images/flag/vi.jpg";
 import flagLo from "../../../../assets/images/flag/lo.jpg";
