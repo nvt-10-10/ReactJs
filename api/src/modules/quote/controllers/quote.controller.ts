@@ -18,7 +18,6 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { MulterConfigService } from 'src/config/ multer-config.service';
 import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { Paginate } from 'src/utils';
-import { StatusQuote } from 'src/type/quote.type';
 
 @Controller('api/quotes')
 export class QuoteController {
@@ -30,11 +29,14 @@ export class QuoteController {
   }
 
   @Get('/top-12')
-  async getTop12Quote(@Query('page') page: number) {
+  async getTop12Quote(
+    @Query('page') page: number,
+    @Query('category') category: number,
+  ) {
     const [data, total] = await this.quoteService.findAll(
       12,
       page || 1,
-      StatusQuote.ACTIVE,
+      category,
     );
     return {
       data: new Paginate(data, total, page, 12),

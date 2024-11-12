@@ -7,7 +7,6 @@ import { UserService } from '../../users/services/user.service';
 import { CategoryService } from 'src/modules/categories/services/category.service';
 import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { FileCleanupService } from 'src/utils/cleanupFiles';
-import { findAll } from 'src/database/query/quote';
 import { StatusQuote } from 'src/type/quote.type';
 
 @Injectable()
@@ -25,9 +24,22 @@ export class QuoteService extends CrudService<Quote> {
   async findAll(
     take: number = 10,
     page: number = 1,
+    category?: number,
     status?: StatusQuote,
   ): Promise<any[]> {
-    return await findAll(this.quoteRepository, take, page, status, true);
+    const result = await this.quoteRepository.findAndCount({
+      take: take,
+      skip: (page - 1) * take,
+      where: {
+        status: status || StatusQuote.ACTIVE,
+        categories: {
+          status: true,
+          ...(category ? { id: category } : {}),
+        },
+      },
+      select: ['id', 'name', 'code', 'slug', 'images'],
+    });
+    return result;
   }
 
   async store(

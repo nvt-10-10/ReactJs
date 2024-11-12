@@ -1,13 +1,13 @@
 import { Quote } from 'src/entities';
 import { FindCommonOptions } from '../../interface';
-import { StatusQuote } from 'src/type/quote.type';
 import { Repository } from 'typeorm';
 import { findCommon } from '../../common';
+import { StatusQuote } from 'src/type/quote.type';
 export const findAll = async (
   quoteRepository: Repository<Quote>,
   take: number = 10,
   page: number = 1,
-  status: StatusQuote,
+  category?: number,
   isGetLength: boolean = false,
 ): Promise<any[] | [any[], number]> => {
   const options: FindCommonOptions = {
@@ -18,7 +18,7 @@ export const findAll = async (
       {
         field: 'quote.status',
         operator: '=',
-        value: status,
+        value: StatusQuote.ACTIVE,
       },
     ],
     joins: [],
@@ -39,6 +39,27 @@ export const findAll = async (
     alias: 'quote',
     field: item,
   }));
+
+  if (category) {
+    options.joins.push({
+      table: 'categories',
+      alias: 'category',
+      type: 'left',
+      condition:
+        'category.id = category_quote.categoryId AND category_quote.quoteId = quote.id',
+    });
+    // options.filters.push({
+    //   field: 'category_quote.categoryId',
+    //   operator: '=',
+    //   value: category,
+    // });
+
+    // options.filters.push({
+    //   field: 'category.status',
+    //   operator: '=',
+    //   value: true,
+    // });
+  }
 
   return await findCommon(
     { entity: new Quote(), alias: 'quote' },

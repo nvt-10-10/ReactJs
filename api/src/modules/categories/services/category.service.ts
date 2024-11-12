@@ -39,9 +39,11 @@ export class CategoryService extends CrudService<Category> {
     return result;
   }
 
-  async store(body: CategoryCreateDto, file?: Express.Multer.File) {
-    if (file) {
-      body.image = '/uploads/images/' + file.filename;
+  async store(body: CategoryCreateDto, image?: Express.Multer.File[]) {
+    console.log('co vao', image);
+
+    if (image) {
+      body.image = '/uploads/images/' + image[0].filename;
     }
     const categoryEntity = this.categoryRepository.create(body);
     return this.categoryRepository.save(categoryEntity);
