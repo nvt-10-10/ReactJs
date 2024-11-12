@@ -22,7 +22,6 @@ export class CategoryService extends CrudService<Category> {
     skip?: number,
     status?: boolean,
     isGetLength: boolean = false,
-    select?: (keyof Category)[],
   ): Promise<any> {
     const categoryCache = await this.cacheService.get('getAllCategory');
     if (categoryCache) {
@@ -34,7 +33,6 @@ export class CategoryService extends CrudService<Category> {
       skip,
       status,
       isGetLength,
-      select,
     );
 
     await this.cacheService.set('getAllCategory', result, 60 * 60 * 5);

@@ -9,6 +9,7 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFiles,
+  Query,
 } from '@nestjs/common';
 import { QuoteService } from '../services/quote.service';
 import { QuoteUpdateDto } from '../dto/quote-update.dto';
@@ -16,6 +17,8 @@ import { JwtAuthGuard } from 'src/core/decorator';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { MulterConfigService } from 'src/config/ multer-config.service';
 import { QuoteCreateDto } from '../dto/quote-create.dto';
+import { Paginate } from 'src/utils';
+import { StatusQuote } from 'src/type/quote.type';
 
 @Controller('api/quotes')
 export class QuoteController {
@@ -24,6 +27,20 @@ export class QuoteController {
   @Get()
   findAll() {
     return this.quoteService.findAll();
+  }
+
+  @Get('/top-12')
+  async getTop12Quote(@Query('page') page: number) {
+    const [data, total] = await this.quoteService.findAll(
+      12,
+      page || 1,
+      StatusQuote.ACTIVE,
+    );
+    return {
+      data: new Paginate(data, total, page, 12),
+      success: true,
+      msg: 'Success',
+    };
   }
 
   @Get(':id')

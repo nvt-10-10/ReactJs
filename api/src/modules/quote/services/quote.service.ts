@@ -7,6 +7,8 @@ import { UserService } from '../../users/services/user.service';
 import { CategoryService } from 'src/modules/categories/services/category.service';
 import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { FileCleanupService } from 'src/utils/cleanupFiles';
+import { findAll } from 'src/database/query/quote';
+import { StatusQuote } from 'src/type/quote.type';
 
 @Injectable()
 export class QuoteService extends CrudService<Quote> {
@@ -19,6 +21,15 @@ export class QuoteService extends CrudService<Quote> {
   ) {
     super(quoteRepository);
   }
+
+  async findAll(
+    take: number = 10,
+    page: number = 1,
+    status?: StatusQuote,
+  ): Promise<any[]> {
+    return await findAll(this.quoteRepository, take, page, status, true);
+  }
+
   async store(
     createQuoteDto: QuoteCreateDto,
     {

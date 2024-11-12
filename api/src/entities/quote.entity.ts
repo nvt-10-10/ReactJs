@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Category } from './category.entity';
 import { User } from './user.entity';
-import { StatusQuote } from 'src/type/quote,type';
+import { StatusQuote } from 'src/type/quote.type';
 import { generateUniqueCode } from 'src/utils/generateUniqueCode';
 import { generateSlug } from 'src/utils/generateSlug';
 import { BaseAndCodeAndSlug } from 'src/modules/crud/entities/code-and-slug.entity';

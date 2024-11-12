@@ -1,7 +1,7 @@
 import { User } from 'src/entities';
 import { Repository } from 'typeorm';
-import { FindCommonOptions } from '../interface';
-import { findCommon } from '../common';
+import { FindCommonOptions } from '../../interface';
+import { findCommon } from '../../common';
 
 export const findAllUsers = async (
   userRepository: Repository<User>,
@@ -64,8 +64,9 @@ export const findAllUsers = async (
     'code',
     'slug',
     'name',
-    'status',
+    'avatar',
     'description',
+    'status',
   ];
 
   options.selects = userSelect.map((item) => ({ alias: 'user', field: item }));

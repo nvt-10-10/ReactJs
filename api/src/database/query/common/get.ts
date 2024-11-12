@@ -24,6 +24,10 @@ export const findCommon = async (
 
   // Thêm các cột cần select với alias
   if (selects.length > 0) {
+    console.log({
+      selects,
+    });
+    query.select([]);
     selects.forEach(({ alias, field }) => {
       query.addSelect(`${alias}.${field}`);
     });
