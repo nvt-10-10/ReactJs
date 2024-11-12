@@ -28,14 +28,18 @@ export const Categories = () => {
       </button>
     );
   };
+  const itemsCount = categories.length;
+  const slidesToShow = itemsCount < 6 ? itemsCount : 6; // Show up to 6 items, or fewer if less are available
+  const isSinglePage = itemsCount <= slidesToShow;
   const settings = {
     className: "center",
-    infinite: false,
+    infinite: !isSinglePage, // Disable infinite scrolling if there are fewer items than the slides
     centerPadding: "60px",
-    slidesToShow: 6,
+    slidesToShow: slidesToShow, // Dynamically set based on available items
     slidesToScroll: 1,
-    swipeToSlide: true,
-    arrows: true /*  */,
+    // swipeToSlide: true,
+    swipeToSlide: !isSinglePage,
+    arrows: !isSinglePage, // Only show arrows if there are more items than the visible slides
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
     loops: false,

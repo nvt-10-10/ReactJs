@@ -51,10 +51,11 @@ export class QuoteService extends CrudService<Quote> {
           return category;
         }),
       );
-      const imagePaths = images?.map((file) => file.path) || [];
-
+      const imagePaths =
+        images?.map((file) => '/punblic/uploads/images/' + file.filename) || [];
       // Xử lý tài liệu (chỉ có một file)
-      const documentPath = document?.[0]?.path || null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
+      const documentPath =
+        '/punblic/uploads/images/' + document?.[0]?.filename || null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
 
       const quoteEntity = await this.quoteRepository.create({
         ...createQuoteDto,

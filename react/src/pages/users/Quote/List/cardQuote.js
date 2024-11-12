@@ -3,6 +3,8 @@ import { Text } from "../../../../components/Text";
 import { Link } from "react-router-dom";
 
 export const QuoteItem = (quote) => {
+  console.log(quote);
+
   return (
     <>
       <div className="quote-item">
@@ -22,7 +24,7 @@ export const QuoteItem = (quote) => {
 
         <div className="mt-8 d-flex gap-8 justify-content-between">
           <div className="d-flex align-items-center gap-8">
-            <Image className="quote-icon"></Image>
+            <Image className="quote-icon" src={quote?.images}></Image>
             <Text
               as={"span"}
               className="text-title"
@@ -44,7 +46,7 @@ export const QuoteItem = (quote) => {
               lh={"150%"}
               color={"#999"}
             >
-              {quote?.created_at || "24/5/2024"}
+              {quote?.createdAt || "24/5/2024"}
             </Text>
           </div>
         </div>

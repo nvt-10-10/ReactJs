@@ -114,7 +114,6 @@ export const Header = () => {
                     name="search"
                     placeholder="Tìm kiếm hơn 1.8K sản phẩm & đối tác. Nhấn Enter..."
                   />
-                  {console.log(categories)}
                   {categories && categories.length > 0 && (
                     <Select2
                       data={categories
