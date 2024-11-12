@@ -56,7 +56,7 @@ export class MulterConfigService implements MulterOptionsFactory {
           const baseFilename = `${Date.now()}`;
           const filename = `${baseFilename}${ext}`;
 
-          console.log({ filename, __dirname, cwd: process.cwd() });
+          console.log({ filename, __dirname, cwd: process.cwd(), file });
 
           callback(null, filename); // Multer lưu tệp với tên này
 
@@ -75,12 +75,15 @@ export class MulterConfigService implements MulterOptionsFactory {
             // Chờ đến khi tệp được lưu xong
             setTimeout(async () => {
               try {
+                if (fs.existsSync(savedFilePath)) {
+                  console.log('ton tai file');
+                }
                 await sharp(savedFilePath)
                   .webp()
                   .toFile(savedFilePath.replace(extname(filename), '.webp'));
 
                 // Xóa tệp gốc sau khi chuyển đổi thành công
-                fs.unlinkSync(savedFilePath);
+                // fs.unlinkSync(savedFilePath);
                 console.log(
                   'Ảnh đã được chuyển đổi sang WebP và tệp gốc đã bị xóa.',
                 );
