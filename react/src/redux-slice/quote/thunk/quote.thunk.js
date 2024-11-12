@@ -4,9 +4,9 @@ import { getTop16Quote } from "../../../api/quotes";
 
 const getTop16Quotes = createAsyncThunk(
   "/quote/top-16",
-  async ({ page }, { rejectWithValue }) => {
+  async ({ page, category }, { rejectWithValue }) => {
     try {
-      const response = await getTop16Quote(page);
+      const response = await getTop16Quote(page, category);
       if (response.success) {
         return response.data;
       }

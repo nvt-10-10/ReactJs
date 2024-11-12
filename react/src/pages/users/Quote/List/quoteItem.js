@@ -2,14 +2,16 @@ import Image from "../../../../components/Image";
 import { Text } from "../../../../components/Text";
 import { Link } from "react-router-dom";
 
-export const QuoteItem = (quote) => {
-  console.log(quote);
-
+export const QuoteItem = ({ quote }) => {
+  const base_url = process.env.REACT_APP_API_IMAGE;
   return (
     <>
       <div className="quote-item">
         <figure>
-          <Image className="quote-image"></Image>
+          <Image
+            className="quote-image"
+            src={`${base_url}${quote.images[0]}`}
+          ></Image>
           <Link to={`/quote/${quote?.slug}/${quote.code}`}>
             <Text
               className="text-title clamp clamp-3"
@@ -24,7 +26,7 @@ export const QuoteItem = (quote) => {
 
         <div className="mt-8 d-flex gap-8 justify-content-between">
           <div className="d-flex align-items-center gap-8">
-            <Image className="quote-icon" src={quote?.images}></Image>
+            <Image className="quote-icon" src={quote?.images?.[0]}></Image>
             <Text
               as={"span"}
               className="text-title"

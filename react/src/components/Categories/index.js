@@ -2,14 +2,13 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image from "../Image";
-import iconApple from "../../assets/images/icons/apple.svg";
-import "./Categories.scss";
-import { useDispatch, useSelector } from "react-redux";
 
-export const Categories = () => {
+import "./Categories.scss";
+import { useSelector } from "react-redux";
+import { CategoryItem } from "./CategoryItem";
+
+export const Categories = ({ OnClick, categoryActive }) => {
   const { categories, error, loading } = useSelector((state) => state.category);
-  const base_url = process.env.REACT_APP_API_IMAGE;
 
   const CustomPrevArrow = (props) => {
     const { onClick } = props;
@@ -29,7 +28,7 @@ export const Categories = () => {
     );
   };
   const itemsCount = categories.length;
-  const slidesToShow = itemsCount < 6 ? itemsCount : 6; // Show up to 6 items, or fewer if less are available
+  const slidesToShow = itemsCount + 1 < 6 ? itemsCount + 1 : 6; // Show up to 6 items, or fewer if less are available
   const isSinglePage = itemsCount <= slidesToShow;
   const settings = {
     className: "center",
@@ -49,28 +48,35 @@ export const Categories = () => {
       );
     },
   };
+  //localhost:9999/quote#
 
   return (
     <div className="custom-slide">
       <div className="slider-container">
         <Slider {...settings}>
+          <a
+            href="/"
+            onClick={(e) => {
+              OnClick(undefined, e); // Gọi hàm OnClick khi nhấn vào category
+            }}
+          >
+            <CategoryItem
+              category={{ name: "All", image: null }}
+              active={!categoryActive}
+            />
+          </a>
           {categories.map((category) => (
-            <a href="#">
-              <div
-                className="d-flex flex-column justify-content-center align-items-center category-item"
-                key={category.id}
-              >
-                <figure>
-                  <Image
-                    className="icon"
-                    src={`${base_url}${category.image}`}
-                    srcError={iconApple}
-                  />
-                </figure>
-                <h5 className={`name ${category.active ? "active" : ""}`}>
-                  {category.name}{" "}
-                </h5>
-              </div>
+            <a
+              href="/"
+              key={category.id}
+              onClick={(e) => {
+                OnClick(category.id, e); // Gọi hàm OnClick khi nhấn vào category
+              }}
+            >
+              <CategoryItem
+                category={category}
+                active={category.id == categoryActive}
+              />
             </a>
           ))}
         </Slider>

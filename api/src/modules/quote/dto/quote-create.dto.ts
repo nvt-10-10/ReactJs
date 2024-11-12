@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 import { transformToArrayNumber } from 'src/transformers/array.transform';
 import {
   transformToFloat,
@@ -13,22 +13,26 @@ export class QuoteCreateDto {
   @IsString()
   description: string;
 
+  @IsNotEmpty() // T
   @Transform(({ value }) => transformToInt(value))
   quantity: number;
 
   @IsString()
   unit: string;
 
+  @IsNotEmpty() // T
   @Transform(({ value }) => transformToFloat(value))
   price: number;
 
+  @IsNotEmpty() // T
   @Transform(({ value }) => transformToInt(value))
   price_unit: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   @Transform(transformToArrayNumber)
   category: number[];
 
+  @IsNotEmpty()
   @Transform(({ value }) => transformToInt(value))
   user_id: number;
 

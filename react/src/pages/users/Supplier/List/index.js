@@ -29,10 +29,6 @@ const List = () => {
   const handlePageChange = (page, event) => {
     event?.preventDefault();
     setCurrentPage(page);
-    console.log({
-      page,
-      currentPage,
-    });
   };
 
   const handleChange = (e) => {
@@ -70,7 +66,7 @@ const List = () => {
     <>
       <Helmet>
         <title>Danh sách nhà cung cấp</title>
-        <meta name="description" content="Mô tả về trang của tôi." />
+        <meta name="description" content="Tìm kiếm nhà cung cấp" />
       </Helmet>
       <main>
         <section className="supplierListSection">

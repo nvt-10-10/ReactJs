@@ -63,17 +63,19 @@ export class QuoteService extends CrudService<Quote> {
           return category;
         }),
       );
+
       const imagePaths =
-        images?.map((file) => '/punblic/uploads/images/' + file.filename) || [];
+        images?.map((file) => '/uploads/images/' + file.filename) || [];
       // Xử lý tài liệu (chỉ có một file)
-      const documentPath =
-        '/punblic/uploads/images/' + document?.[0]?.filename || null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
+      const documentPath = '/uploads/images/' + document?.[0]?.filename || null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
+      console.log({ createQuoteDto });
 
       const quoteEntity = await this.quoteRepository.create({
         ...createQuoteDto,
         categories,
         images: imagePaths,
         document: documentPath,
+        user: user,
       });
 
       return this.quoteRepository.save(quoteEntity);
