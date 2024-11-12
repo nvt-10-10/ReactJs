@@ -68,7 +68,7 @@ export class QuoteService extends CrudService<Quote> {
         images?.map((file) => '/uploads/images/' + file.filename) || [];
       // Xử lý tài liệu (chỉ có một file)
       const documentPath = '/uploads/images/' + document?.[0]?.filename || null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
-      console.log({ createQuoteDto });
+      console.log({ createQuoteDto, imagePaths });
 
       const quoteEntity = await this.quoteRepository.create({
         ...createQuoteDto,

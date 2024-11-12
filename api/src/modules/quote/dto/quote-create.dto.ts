@@ -1,6 +1,7 @@
 import { Transform } from 'class-transformer';
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, ValidateIf } from 'class-validator';
 import { transformToArrayNumber } from 'src/transformers/array.transform';
+import { IsFileNotEmpty } from 'src/transformers/IsFileNotEmpty.transform';
 import {
   transformToFloat,
   transformToInt,
@@ -36,9 +37,11 @@ export class QuoteCreateDto {
   @Transform(({ value }) => transformToInt(value))
   user_id: number;
 
-  @IsOptional() // Thêm điều kiện tùy chọn nếu không gửi file
-  images?: Express.Multer.File[]; // Dùng multer để xử lý mảng các file hình ảnh
+  @ValidateIf((obj, value) => value !== undefined)
+  @IsFileNotEmpty()
+  images: Express.Multer.File[]; // Dùng multer để xử lý mảng các file hình ảnh
 
-  @IsOptional()
-  document?: Express.Multer.File[]; // Dùng multer để xử lý file tài liệu
+  @ValidateIf((obj, value) => value !== undefined)
+  @IsFileNotEmpty()
+  document: Express.Multer.File[]; // Dùng multer để xử lý file tài liệu
 }
