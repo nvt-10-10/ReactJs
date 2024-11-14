@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import List from "./pages/users/Supplier/List";
 import { Detail } from "./pages/users/Supplier/Detail";
 import { List as ListQuote } from "./pages/users/Quote/List";
+import { Create } from "./pages/users/Quote/Create";
 
 const App = () => {
   return (
@@ -17,12 +18,11 @@ const App = () => {
         <Route path="/" element={<LayoutUser />}>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/supplier" element={<List />}>
-            <Route path="/supplier/:code" element={<Detail />} />
-          </Route>
-          <Route path="/quote" element={<ListQuote />}>
-            <Route path="/quote/:code" element={<Detail />} />
-          </Route>
+          <Route path="/supplier" element={<List />}></Route>
+          <Route path="/supplier/:slug/:code" element={<Detail />} />
+          <Route path="/quote" element={<ListQuote />}></Route>
+          <Route path="/quote/:slug/:code" element={<Detail />} />
+          <Route path="/quote/create" element={<Create />} />
         </Route>
 
         {/* Đảm bảo bảo vệ các route sau khi login */}

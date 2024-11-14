@@ -10,7 +10,7 @@ export const CardSupplier = ({ supplier }) => {
       <div className="card-supplier">
         <Image src={supplier?.avatar} className="supplier-logo"></Image>
         <div className="supplier-wrap">
-          <Link to={`/${supplier.slug}/${supplier.code}`}>
+          <Link to={`/supplier/${supplier.slug}/${supplier.code}`}>
             <div className="d-flex align-items-center justify-content-center gap-10">
               <Image
                 src={supplier?.country}

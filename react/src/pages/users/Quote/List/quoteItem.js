@@ -12,24 +12,23 @@ export const QuoteItem = ({ quote }) => {
             className="quote-image"
             src={`${base_url}${quote.images[0]}`}
           ></Image>
-          <Link to={`/quote/${quote?.slug}/${quote.code}`}>
-            <Text
-              className="text-title clamp clamp-3"
-              fs={"14px"}
-              fw={600}
-              lh={"150%"}
-            >
-              {quote?.name || "Gia vị nhà bếp: đường, muối, bột ngọt, dầu ăn"}
-            </Text>
-          </Link>
         </figure>
-
+        <Link to={`/quote/${quote?.slug}/${quote.code}`}>
+          <Text
+            className="text-title clamp clamp-3 mt-10"
+            fs={"14px"}
+            fw={600}
+            lh={"150%"}
+          >
+            {quote?.name || "Gia vị nhà bếp: đường, muối, bột ngọt, dầu ăn"}
+          </Text>
+        </Link>
         <div className="mt-8 d-flex gap-8 justify-content-between">
           <div className="d-flex align-items-center gap-8">
             <Image className="quote-icon" src={quote?.images?.[0]}></Image>
             <Text
               as={"span"}
-              className="text-title"
+              className="text-title "
               fs={"14px"}
               fw={600}
               lh={"150%"}

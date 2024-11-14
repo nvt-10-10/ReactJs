@@ -13,7 +13,8 @@ import { Helmet } from "react-helmet";
 const List = () => {
   const { top12Supplier } = useSelector((state) => state.user);
   const { categories } = useSelector((state) => state.category);
-  const [currentPage, setCurrentPage] = useState(1); // Set default page to 1
+  const [currentPage, setCurrentPage] = useState(1);
+  // const {  }
   const [formData, setFormData] = useState({
     search: "",
     country: "",

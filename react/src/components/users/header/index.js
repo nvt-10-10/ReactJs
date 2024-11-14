@@ -27,8 +27,8 @@ export const Header = () => {
   const navs = [
     { name: "Nhà cung cấp", link: "/supplier" },
     { name: "Yêu cầu báo giá", link: "/quote" },
-    { name: "Tìm nhà phân phối", link: "#" },
-    { name: "Kết nối giao thương", link: "#" },
+    { name: "Tìm nhà phân phối", link: "/" },
+    { name: "Kết nối giao thương", link: "/" },
   ];
 
   useEffect(() => {
@@ -161,14 +161,14 @@ export const Header = () => {
                 <ul>
                   {categories?.map((category) => (
                     <li key={category?.id}>
-                      <a href="#" className="category-item">
+                      <a href="/" className="category-item">
                         <Image src={iconApple} /> <span>{category.name}</span>
                         <span className="total">0 items</span>
                       </a>
                     </li>
                   ))}
                 </ul>
-                <a href="#" className="more">
+                <a href="/" className="more">
                   Xem thêm +
                 </a>
               </div>

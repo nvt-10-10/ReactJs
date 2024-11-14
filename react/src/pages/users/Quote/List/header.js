@@ -15,7 +15,12 @@ export const Header = () => {
           Gửi 1 yêu cầu, nhận nhiều lượt báo giá từ 60.000+ nhà cung cấp
         </Text>
 
-        <ButtonPrimary text={"Gửi yêu cầu báo giá miễn phí"}> </ButtonPrimary>
+        <ButtonPrimary
+          text={"Gửi yêu cầu báo giá miễn phí"}
+          href="/quote/create"
+        >
+          {" "}
+        </ButtonPrimary>
       </div>
     </>
   );

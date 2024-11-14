@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import "./quoteList.scss";
 import { Categories } from "../../../../components/Categories";
 import { QuoteItem } from "./quoteItem";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { quoteThunk } from "../../../../redux-slice/quote/thunk";
 import { MyPagination } from "../../../../components/Pagination";
@@ -13,7 +13,6 @@ export const List = () => {
   const [currentCategory, setCurrentCategory] = useState();
   const dispatch = useDispatch();
   const { top16Quote } = useSelector((state) => state.quote);
-  const context = createContext();
   useEffect(() => {
     fecthData();
   }, [currentPage, currentCategory, dispatch]);
@@ -26,10 +25,6 @@ export const List = () => {
       })
     );
   };
-
-  useEffect(() => {
-    window.title = "Danh sách yêu cầu báo giá";
-  }, []);
 
   const handlePageChange = (page, event) => {
     event.preventDefault();
