@@ -35,8 +35,8 @@ export class Category extends BaseAndCodeAndSlug {
   @ManyToMany(() => User, (user) => user.categories)
   @JoinTable({
     name: 'category_user', // Tên bảng liên kết được tùy chỉnh
-    joinColumns: [{ name: 'userId', referencedColumnName: 'id' }],
-    inverseJoinColumns: [{ name: 'categoryId', referencedColumnName: 'id' }],
+    joinColumns: [{ name: 'categoryId', referencedColumnName: 'id' }],
+    inverseJoinColumns: [{ name: 'userId', referencedColumnName: 'id' }],
   })
   users: User[];
 
