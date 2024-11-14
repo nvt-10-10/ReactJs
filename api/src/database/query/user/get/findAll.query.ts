@@ -31,15 +31,22 @@ export const findAllUsers = async (
     options.joins.push({
       table: 'categories',
       alias: 'category',
-      type: 'inner',
-      condition:
-        'category.id = user_category.categoryId AND category.userId = user.id',
+      type: 'many-to-many',
+      joinTable: 'category_user',
+      joinTableAlias: 'cu',
+      condition: 'cu.categoryId = category.id',
     });
 
     options.filters.push({
       field: 'category.id',
       operator: '=',
       value: categoryId,
+    });
+
+    options.filters.push({
+      field: 'category.status',
+      operator: '=',
+      value: true,
     });
   }
 
@@ -66,11 +73,8 @@ export const findAllUsers = async (
     'name',
     'avatar',
     'description',
-    'status',
   ];
-
   options.selects = userSelect.map((item) => ({ alias: 'user', field: item }));
-
   return findCommon(
     { entity: new User(), alias: 'user' },
     userRepository,
