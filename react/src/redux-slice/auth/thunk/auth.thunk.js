@@ -1,12 +1,12 @@
 // src/redux/authThunks.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createAuth } from "../../../api/auth/post";
+import { login, logout } from "../../../api";
 
-const loginUser = createAsyncThunk(
-  "auth/loginUser",
+export const loginUser = createAsyncThunk(
+  "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await createAuth.login({ email, password });
+      const response = await login({ email, password });
       if (response) {
         return { email, message: "Login successful" };
       } else {
@@ -21,11 +21,11 @@ const loginUser = createAsyncThunk(
   }
 );
 
-const logoutUser = createAsyncThunk(
-  "auth/logoutUser",
+export const logoutUser = createAsyncThunk(
+  "auth/logout",
   async ({ rejectWithValue }) => {
     try {
-      const response = await createAuth.logout();
+      const response = await logout();
       if (response.success) {
         return rejectWithValue("Logout successful");
       } else {
@@ -36,8 +36,3 @@ const logoutUser = createAsyncThunk(
     }
   }
 );
-
-export const authThunk = {
-  loginUser,
-  logoutUser,
-};

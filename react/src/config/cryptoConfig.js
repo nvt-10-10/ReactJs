@@ -1,5 +1,5 @@
 // cryptoConfig.js
-import CryptoJS from 'crypto-js';
+import CryptoJS from "crypto-js";
 
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 

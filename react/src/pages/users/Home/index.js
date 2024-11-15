@@ -20,22 +20,22 @@ export const Home = () => {
     document.title = "Trang chủ";
     const fetchDataPromises = [];
 
-    if (categories.length === 0) {
+    if (categories?.length === 0 || !categories) {
       fetchDataPromises.push(dispatch(categoryThunk.getAllCategories()));
     }
 
-    if (top6Products.length === 0) {
+    if (top6Products?.length === 0 || !top6Products) {
       fetchDataPromises.push(dispatch(productThunk.getTop6Products()));
     }
 
-    if (top4Supplier.length === 0) {
+    if (top4Supplier?.length === 0 || !top4Supplier) {
       fetchDataPromises.push(dispatch(userThunk.getTop4Suppliers()));
     }
 
-    if (fetchDataPromises.length > 0) {
+    if ((fetchDataPromises?.length > 0) | fetchDataPromises) {
       Promise.all(fetchDataPromises);
     }
-  }, [dispatch, categories.length, top6Products.length, top4Supplier.length]);
+  }, [dispatch]);
   return (
     <>
       <main>

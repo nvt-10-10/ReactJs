@@ -5,9 +5,9 @@ import Image from "../../../../components/Image";
 import imageProduct from "../../../../assets/images/image/productroductp.jpeg";
 import iconVi from "../../../../assets/images/flag/vi.jpg";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 export const DistributorAndAgentSection = () => {
   const { top6Products } = useSelector((state) => state.product);
-  console.log({ top6Products });
   const base_url = process.env.REACT_APP_API_URL_IMAGE;
   return (
     <>
@@ -50,9 +50,9 @@ export const DistributorAndAgentSection = () => {
                           error={imageProduct}
                           className="product-image"
                         ></Image>
-                        <a>
+                        <Link to={`/product/${product.slug}/${product.code}`}>
                           <h3 className="product-name">{product.name}</h3>
-                        </a>
+                        </Link>
                         <div className="d-flex align-items-center gap-8 flag">
                           <Image src={iconVi} className="icon-flag"></Image>
                           {product.country ? "Việt Nam" : ""}{" "}

@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsString, IsNotEmpty, ValidateIf } from 'class-validator';
+import { IsString, IsNotEmpty, ValidateIf, IsOptional } from 'class-validator';
 import { transformToArrayNumber } from 'src/transformers/array.transform';
 import { IsFileNotEmpty } from 'src/transformers/IsFileNotEmpty.transform';
 import {
@@ -33,7 +33,7 @@ export class QuoteCreateDto {
   @Transform(transformToArrayNumber)
   category: number[];
 
-  @IsNotEmpty()
+  @IsOptional()
   @Transform(({ value }) => transformToInt(value))
   user_id: number;
 

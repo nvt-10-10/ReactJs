@@ -7,6 +7,7 @@ import "../assets/css/common/index.css";
 import { Footer } from "../components/Footer";
 import { setIsLogin } from "../redux-slice/auth/slice/auth.slice.js";
 import store from "../redux-slice/store.js";
+import { ToastContainer } from "react-toastify";
 const LayoutUser = () => {
   useEffect(() => {
     const dispatch = store.dispatch;
@@ -33,6 +34,7 @@ const LayoutUser = () => {
         <Outlet />
       </main>
       <Footer></Footer>
+      <ToastContainer />
     </div>
   );
 };

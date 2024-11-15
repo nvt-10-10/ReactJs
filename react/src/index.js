@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./redux-slice/store";
 import App from "./App"; // Import App component
-import reportWebVitals from "./reportWebVitals";
+// import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,4 +14,4 @@ root.render(
   </Provider>
 );
 
-reportWebVitals();
+// reportWebVitals();

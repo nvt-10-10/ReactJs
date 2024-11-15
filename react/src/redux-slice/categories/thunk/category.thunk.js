@@ -2,7 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllCategory } from "../../../api";
 const getAllCategories = createAsyncThunk(
-  "/categories",
+  "category/getAll",
   async (_, { rejectWithValue }) => {
     try {
       const response = await getAllCategory();

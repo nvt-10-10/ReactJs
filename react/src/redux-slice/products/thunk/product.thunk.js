@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getTop6Product } from "../../../api/products";
 
 const getTop6Products = createAsyncThunk(
-  "/products/top-6",
+  "product/top-6",
   async (_, { rejectWithValue }) => {
     try {
       const response = await getTop6Product();

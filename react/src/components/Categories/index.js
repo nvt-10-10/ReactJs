@@ -27,7 +27,7 @@ export const Categories = ({ OnClick, categoryActive }) => {
       </button>
     );
   };
-  const itemsCount = categories.length;
+  const itemsCount = categories?.length || 0;
   const slidesToShow = itemsCount + 1 < 6 ? itemsCount + 1 : 6; // Show up to 6 items, or fewer if less are available
   const isSinglePage = itemsCount <= slidesToShow;
   const settings = {
@@ -65,7 +65,7 @@ export const Categories = ({ OnClick, categoryActive }) => {
               active={!categoryActive}
             />
           </a>
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <a
               href="/"
               key={category.id}

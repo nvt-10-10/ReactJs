@@ -1,0 +1,41 @@
+// src/middleware/toastMiddleware.js
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import messages from "./messages"; // Import tất cả các thông báo từ index.js
+
+const toastMiddleware = (store) => (next) => (action) => {
+  const actionParts = action.type.split("/"); // Tách action type thành các phần
+  const [entity, actionType, status] = actionParts;
+  console.log({ entity, actionType, status });
+
+  // Tìm thông báo dựa trên các phần của action
+  const toastConfig = messages?.[entity]?.[actionType]?.[status];
+
+  if (toastConfig) {
+    if (status === "pending") {
+      toast.info(toastConfig, { autoClose: 3000 });
+    } else if (status === "fulfilled") {
+      showToast("success", toastConfig, 3000);
+    } else if (status === "rejected") {
+      showToast(
+        "error",
+        typeof toastConfig === "function"
+          ? toastConfig(action.payload)
+          : toastConfig,
+        3000
+      );
+    }
+  }
+
+  return next(action);
+};
+
+const showToast = (type, message) => {
+  toast?.[type](message, {
+    autoClose: 3000,
+    position: toast?.POSITION?.TOP_RIGHT,
+  });
+};
+
+export default toastMiddleware;

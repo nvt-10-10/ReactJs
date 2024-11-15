@@ -8,6 +8,9 @@ import { formFiled } from "./formField";
 import { FormFiled } from "./form";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
+import { FormMedia } from "./formMedia";
+import { quoteThunk } from "../../../../redux-slice/quote/thunk";
+import ButtonPrimary from "../../../../components/Button";
 
 export const Create = () => {
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ export const Create = () => {
   const [filedForm, setFiledForm] = useState([]);
 
   const {
+    setValue,
     control,
     handleSubmit,
     formState: { errors },
@@ -47,10 +51,31 @@ export const Create = () => {
     }));
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  // const onSubmit = async (data) => {
+  //   console.log({ data });
 
+  //   await dispatch(quoteThunk.createQuote(data));
+  // };
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (Array.isArray(data[key]) && key == "category") {
+        data[key].forEach((item) => formData.append(`${key}[]`, item));
+      } else {
+        if (key !== "images") formData.append(key, data[key]);
+      }
+    });
+
+    data.category.forEach((category) => {
+      formData.append("category[]", category);
+    });
+
+    if (data.images)
+      data.images.forEach((img) => formData.append("images", img));
+
+    await dispatch(quoteThunk.createQuote(formData));
+  };
   return (
     <>
       <Helmet>
@@ -70,12 +95,19 @@ export const Create = () => {
                       errors={errors}
                     />
                   </Col>
-                  <Col xs={12} lg={5}></Col>
+                  <Col xs={12} lg={5}>
+                    <FormMedia
+                      setValue={setValue}
+                      control={control}
+                    ></FormMedia>
+                  </Col>
                 </Row>
-                <Col xs={12} className="mt-10">
-                  <button type="submit" className="btn">
-                    Submit
-                  </button>
+                <Col xs={12} className="mt-24">
+                  <ButtonPrimary
+                    type="button"
+                    typeButton="submit"
+                    text="Gửi yêu cầu"
+                  ></ButtonPrimary>
                 </Col>
               </form>
             </Col>

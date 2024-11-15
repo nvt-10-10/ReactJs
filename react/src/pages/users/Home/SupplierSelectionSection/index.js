@@ -24,7 +24,7 @@ export const SupplierSelectionSection = () => {
             </Col>
             <Col xs={12} className="supplier-list">
               <Row>
-                {top4Supplier.map((supplier, index) => (
+                {top4Supplier?.map((supplier, index) => (
                   <Col xs={12} sm={6} lg={4} xl={3} key={index}>
                     <CardSupplier supplier={supplier}></CardSupplier>
                   </Col>

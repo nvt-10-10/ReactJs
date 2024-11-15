@@ -53,12 +53,15 @@ export class MulterConfigService implements MulterOptionsFactory {
 
         filename: (req, file, callback) => {
           const baseFilename = `${Date.now()}`;
-          const filename = `${baseFilename}.webp`;
+          const originalName = file.originalname;
+          const filename = `${baseFilename}.${originalName}`;
 
           callback(null, filename); // Multer lưu tệp với tên này
 
           // Bắt đầu xử lý ảnh ngay sau khi tệp đã được lưu
           if (file.mimetype.startsWith('image/')) {
+            console.log({ file });
+
             const savedFilePath = join(
               process.cwd(),
               'src',
@@ -68,19 +71,21 @@ export class MulterConfigService implements MulterOptionsFactory {
               filename,
             );
 
-            // Sử dụng sharp để xử lý ảnh sau khi tệp được lưu
-            // Chờ đến khi tệp được lưu xong
             setTimeout(async () => {
               try {
                 if (fs.existsSync(savedFilePath)) {
-                  console.log('ton tai file');
+                  console.log('ton tai file', { savedFilePath });
                 }
                 await sharp(savedFilePath)
                   .webp()
                   .toFile(savedFilePath.replace(extname(filename), '.webp'));
 
                 // Xóa tệp gốc sau khi chuyển đổi thành công
-                fs.unlinkSync(savedFilePath);
+                await fs.unlinkSync(savedFilePath);
+                console.log(
+                  '=================================================',
+                );
+
                 console.log(
                   'Ảnh đã được chuyển đổi sang WebP và tệp gốc đã bị xóa.',
                 );

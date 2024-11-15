@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 export const WholesaleSupplierSection = () => {
   const base_url_image = process.env.REACT_APP_API_IMAGE;
   const { categories, error, loading } = useSelector((state) => state.category);
-  const evenIndexArray = categories.filter((_, index) => index % 2 === 0);
-  const oddIndexArray = categories.filter((_, index) => index % 2 !== 0);
+  const evenIndexArray = categories?.filter((_, index) => index % 2 === 0);
+  const oddIndexArray = categories?.filter((_, index) => index % 2 !== 0);
   return (
     <>
       <section className="WholesaleSupplierSection">

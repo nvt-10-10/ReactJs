@@ -10,24 +10,26 @@ const ButtonPrimary = ({
   onClick,
   isSelected,
   className = "",
+  type = "a", // Default type is 'a'
 }) => {
-  return (
-    <Link to={href}>
-      <div>
-        <ButtonPrimaryStyled.StyledButtonPrimary
-          className={className}
-          isSelected={isSelected}
-          onClick={onClick}
-          href={href}
-        >
-          {text}
-          <ButtonPrimaryStyled.StyledImagePrimary
-            src={img}
-          ></ButtonPrimaryStyled.StyledImagePrimary>
-        </ButtonPrimaryStyled.StyledButtonPrimary>
-      </div>
-    </Link>
+  const child = (
+    <ButtonPrimaryStyled.StyledButtonPrimary
+      className={className}
+      isSelected={isSelected}
+      onClick={onClick}
+      as={type}
+    >
+      {text}
+      <ButtonPrimaryStyled.StyledImagePrimary src={img} />
+    </ButtonPrimaryStyled.StyledButtonPrimary>
   );
+
+  // Sử dụng Link khi type là 'a', nếu không thì sử dụng trực tiếp button
+  if (type === "a") {
+    return <Link to={href}>{child}</Link>;
+  }
+
+  return child;
 };
 
 export default ButtonPrimary;

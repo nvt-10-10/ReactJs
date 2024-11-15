@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   UploadedFiles,
   Query,
+  Request,
 } from '@nestjs/common';
 import { QuoteService } from '../services/quote.service';
 import { QuoteUpdateDto } from '../dto/quote-update.dto';
@@ -62,6 +63,7 @@ export class QuoteController {
     ),
   )
   async create(
+    @Request() req,
     @Body() createDto: QuoteCreateDto,
     @UploadedFiles()
     files: { images?: Express.Multer.File[]; document?: Express.Multer.File[] },
@@ -70,6 +72,8 @@ export class QuoteController {
       images: files.images,
       document: files.document,
     });
+    const userRole = req.user.role; // Truy cập role của người dùng
+    console.log(`User role: ${userRole}`);
     return {
       success: true,
       messages: 'Tạo báo giá thành công',

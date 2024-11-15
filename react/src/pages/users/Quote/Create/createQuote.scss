@@ -13,4 +13,69 @@ main.create-quote {
     font-weight: 400;
     line-height: 20px;
   }
+
+  .wrapper-media {
+    width: 380px;
+    margin-left: auto;
+
+    .wrapper-input-file:hover {
+      cursor: pointer;
+    }
+    .wrap-upload {
+      display: flex;
+      padding: 16px 64px 32px 72px;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 35px;
+      border: 1px dashed #b3b3b3;
+      .icon-upload {
+        width: 164px;
+        height: 164px;
+        object-fit: contain;
+      }
+    }
+
+    .list-image {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      .item-image {
+        position: relative;
+        width: calc(25% - 10px); /* Chia làm 4 phần và trừ đi khoảng cách */
+        aspect-ratio: 1; /* Đảm bảo width = height */
+
+        .product-image {
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+          border-radius: 8px;
+          box-shadow: -19px 30px 10px 0px rgba(0, 0, 0, 0),
+            -12px 19px 9px 0px rgba(0, 0, 0, 0.01),
+            -7px 11px 8px 0px rgba(0, 0, 0, 0.05),
+            -3px 5px 6px 0px rgba(0, 0, 0, 0.09),
+            -1px 1px 3px 0px rgba(0, 0, 0, 0.1);
+          object-fit: cover;
+        }
+
+        .icon-close {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 4px;
+          width: 16px;
+          height: 16px;
+          border-radius: 8px;
+          border: 1px solid rgba(255, 255, 255, 0.7);
+          background: var(--Branding-Brand-red, #e31e25);
+          object-fit: cover;
+          z-index: 5;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
 }
