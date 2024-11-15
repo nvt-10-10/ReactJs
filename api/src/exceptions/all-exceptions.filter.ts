@@ -20,6 +20,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     if (exception instanceof NotFoundException) {
       return res.status(HttpStatus.NOT_FOUND).json({
         // code: ErrorCode.E999404,
+        success: false,
         statusCode: HttpStatus.NOT_FOUND,
         message: exception.message,
         error: exception.name,
@@ -30,6 +31,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       console.log(exception.message);
 
       return res.status(HttpStatus.BAD_REQUEST).json({
+        success: false,
         statusCode: HttpStatus.BAD_REQUEST,
         message: exception.message,
         error: exception.name,
@@ -45,6 +47,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     if (exception instanceof UnauthorizedException) {
       return res.status(HttpStatus.UNAUTHORIZED).json({
         // code: ErrorCode.E999401,
+        success: false,
         statusCode: HttpStatus.UNAUTHORIZED,
         message: exception.message,
         error: exception.name,
@@ -53,6 +56,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
 
     if (exception instanceof AppException) {
       return res.status(HttpStatus.BAD_REQUEST).json({
+        success: false,
         code: exception.getResponse(),
         message: 'BAD_REQUEST',
       });
@@ -79,6 +83,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     }
     return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       // code: ErrorCode.E999999,
+      success: false,
       statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
       message: exception.message ?? MESSAGE.SYSTEM.SERVER_ERROR,
       error: exception.name,

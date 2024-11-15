@@ -1,5 +1,9 @@
 import { User } from 'src/entities';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginDto } from '../dto/login.dto';
@@ -109,5 +113,31 @@ export class AuthService {
       expiresIn: this.configService.get<string>('JWT.REFRESH_EXPIRE'),
     });
     return refreshToken;
+  }
+
+  async verifyToken(token: string, type: string = 'token'): Promise<any> {
+    try {
+      const SECRET =
+        type == 'token'
+          ? this.configService.get<string>('JWT.SECRET')
+          : this.configService.get<string>('JWT.REFRESH_SECRET');
+
+      const decoded = await this.JwtService.verifyAsync(token, {
+        secret: SECRET,
+      });
+      return decoded;
+    } catch (error) {
+      // Handle token errors
+      throw new UnauthorizedException(
+        `${type == 'token' ? 'Token' : 'Refresh Token'} không hợp lệ hoặc đã hết hạn`,
+      );
+    }
+  }
+
+  async refreshToken(RefreshToken: string): Promise<any> {
+    const check = await this.verifyToken(RefreshToken, 'refresh-token');
+    const authToken = await this.generateAuthToken(check);
+    const refreshToken = await this.generateRefreshToken(check);
+    return { authToken, refreshToken };
   }
 }

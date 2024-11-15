@@ -32,12 +32,14 @@ async function bootstrap() {
           }
           return new UnprocessableEntityException({
             // code: ErrorCode.E999422,
+            success: false,
             statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
             message: MESSAGE.SYSTEM.VALIDATE_ERROR,
             errors: data,
           });
         } catch (e) {
           return new UnprocessableEntityException({
+            success: false,
             statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
             message: MESSAGE.SYSTEM.VALIDATE_ERROR,
             errors: errors,
