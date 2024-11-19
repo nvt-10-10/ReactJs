@@ -8,8 +8,12 @@ import {
 
 export const checkToken = async () => {
   const authToken = getToken();
-  const result = await get("/auth/checkToken", authToken);
-  if (!result.sucess) {
+  const apiUrl = `/auth/check-token/${authToken}`;
+
+  const result = await get(apiUrl);
+  console.log({ result, apiUrl });
+
+  if (!result.success) {
     const refreshToken = getRefreshToken();
     const resultRefreshToken = await get("/auth/refreshToken", refreshToken);
     if (!resultRefreshToken) return false;

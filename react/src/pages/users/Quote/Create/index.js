@@ -11,9 +11,11 @@ import { useForm } from "react-hook-form";
 import { FormMedia } from "./formMedia";
 import { quoteThunk } from "../../../../redux-slice/quote/thunk";
 import ButtonPrimary from "../../../../components/Button";
-
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 export const Create = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { categories } = useSelector((state) => state.category);
   const [filedForm, setFiledForm] = useState([]);
 
@@ -51,30 +53,32 @@ export const Create = () => {
     }));
   };
 
-  // const onSubmit = async (data) => {
-  //   console.log({ data });
-
-  //   await dispatch(quoteThunk.createQuote(data));
-  // };
-
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    Object.keys(data).forEach((key) => {
-      if (Array.isArray(data[key]) && key == "category") {
-        data[key].forEach((item) => formData.append(`${key}[]`, item));
-      } else {
-        if (key !== "images") formData.append(key, data[key]);
+    if (!data.images) {
+      toast.error("Vui lòng chọn tối thiểu 1 hình ảnh", { autoClose: 3000 });
+    } else {
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        if (Array.isArray(data[key]) && key == "category") {
+          data[key].forEach((item) => formData.append(`${key}[]`, item));
+        } else {
+          if (key !== "images") formData.append(key, data[key]);
+        }
+      });
+
+      data.category.forEach((category) => {
+        formData.append("category[]", category);
+      });
+
+      if (data.images)
+        data.images.forEach((img) => formData.append("images", img));
+
+      const result = await dispatch(quoteThunk.createQuote(formData));
+      console.log({ result });
+      if (result?.meta?.requestStatus === "fulfilled") {
+        navigate("/quote");
       }
-    });
-
-    data.category.forEach((category) => {
-      formData.append("category[]", category);
-    });
-
-    if (data.images)
-      data.images.forEach((img) => formData.append("images", img));
-
-    await dispatch(quoteThunk.createQuote(formData));
+    }
   };
   return (
     <>

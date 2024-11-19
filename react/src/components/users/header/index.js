@@ -22,7 +22,7 @@ export const Header = () => {
   const [retryCount, setRetryCount] = useState(0);
   const [isSticky, setIsSticky] = useState(false);
   const [showCategory, setShowCategory] = useState(false);
-  const isLogin = useSelector((state) => state.auth.isLogin);
+  const isLogin = useSelector((state) => state.auth.isLoggedIn);
 
   const navs = [
     { name: "Nhà cung cấp", link: "/supplier" },
@@ -79,9 +79,7 @@ export const Header = () => {
       <header id="header">
         <div className="container">
           <div className="header-top d-flex flex-wrap align-items-center justify-content-between ">
-            <a href="javaScript:void((0)">
-              Chào mừng đến với Vitrade - Kết nối tạo giá trị
-            </a>
+            <Link to="/">Chào mừng đến với Vitrade - Kết nối tạo giá trị</Link>
             <div className="d-flex align-items-center">
               <div className="d-flex gap-8">
                 <DropdownLanguage label="Quốc gia"></DropdownLanguage>
@@ -161,16 +159,16 @@ export const Header = () => {
                 <ul>
                   {categories?.map((category) => (
                     <li key={category?.id}>
-                      <a href="/" className="category-item">
+                      <Link to="/" className="category-item">
                         <Image src={iconApple} /> <span>{category.name}</span>
                         <span className="total">0 items</span>
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
-                <a href="/" className="more">
+                <Link to="/" className="more">
                   Xem thêm +
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -182,9 +180,9 @@ export const Header = () => {
                       {navItem.name}
                     </Link>
                   ) : (
-                    <a href={navItem.link} className="nav-link">
+                    <Link to={navItem.link} className="nav-link">
                       {navItem.name}
-                    </a>
+                    </Link>
                   )}
                 </li>
               ))}

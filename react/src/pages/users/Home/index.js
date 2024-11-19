@@ -11,15 +11,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { categoryThunk } from "../../../redux-slice/categories/thunk";
 import { productThunk } from "../../../redux-slice/products/thunk/product.thunk.js";
 import { userThunk } from "../../../redux-slice/user/thunk";
+import { checkTokens } from "../../../redux-slice/auth/thunk/checkToken.thunk.js";
+import { Helmet } from "react-helmet";
 export const Home = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const { top6Products } = useSelector((state) => state.product);
   const { top4Supplier } = useSelector((state) => state.user);
   useEffect(() => {
-    document.title = "Trang chủ";
     const fetchDataPromises = [];
-
     if (categories?.length === 0 || !categories) {
       fetchDataPromises.push(dispatch(categoryThunk.getAllCategories()));
     }
@@ -38,6 +38,9 @@ export const Home = () => {
   }, [dispatch]);
   return (
     <>
+      <Helmet>
+        <title>Trang chủ</title>
+      </Helmet>
       <main>
         <Slider></Slider>
         <GlobalPartnersSection></GlobalPartnersSection>

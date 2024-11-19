@@ -1,22 +1,18 @@
-// src/redux/authThunks.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createAuth } from "../../../api/auth/post";
+import { checkToken } from "../../../api";
 
-export const loginUser = createAsyncThunk(
+export const checkTokens = createAsyncThunk(
   "auth/checkToken",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await createAuth.checkToken();
+      const response = await checkToken();
       if (response) {
         return true;
       } else {
-        return rejectWithValue("Login failed. Please try again.");
+        return rejectWithValue("Token không hợp lệ hoặc đã hết hạn.");
       }
     } catch (error) {
-      // src/redux/authThunks.js
-      console.log({ error: error.response.data.message });
-
-      return rejectWithValue("Login failed. Please try again.");
+      return rejectWithValue("Token không hợp lệ hoặc đã hết hạn.");
     }
   }
 );

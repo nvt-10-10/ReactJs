@@ -9,6 +9,7 @@ import List from "./pages/users/Supplier/List";
 import { Detail } from "./pages/users/Supplier/Detail";
 import { List as ListQuote } from "./pages/users/Quote/List";
 import { Create } from "./pages/users/Quote/Create";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
   return (
@@ -22,7 +23,11 @@ const App = () => {
           <Route path="/supplier/:slug/:code" element={<Detail />} />
           <Route path="/quote" element={<ListQuote />}></Route>
           <Route path="/quote/:slug/:code" element={<Detail />} />
-          <Route path="/quote/create" element={<Create />} />
+
+          <Route
+            path="/quote/create"
+            element={<PrivateRoute element={<Create />} />}
+          />
         </Route>
 
         {/* Đảm bảo bảo vệ các route sau khi login */}

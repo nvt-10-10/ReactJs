@@ -6,6 +6,7 @@ import IconClose from "../../../../assets/images/icons/close.svg";
 import { useState } from "react";
 export const FormMedia = ({ setValue, control }) => {
   const [images, setImages] = useState([]);
+  const [isDragging, setIsDragging] = useState(false); // Trạng thái kéo thả
 
   const onClickUploadFile = () => {
     const button = document.getElementById("upload-file");
@@ -45,9 +46,23 @@ export const FormMedia = ({ setValue, control }) => {
     });
   };
 
-  const test = () => {
-    console.log("da click");
+  // Xử lý các sự kiện kéo thả
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
   };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = Array.from(e.dataTransfer.files); // Lấy danh sách file
+    handleFiles(files); // Xử lý file như khi upload
+  };
+
   return (
     <>
       <div className="wrapper-media">
@@ -74,6 +89,9 @@ export const FormMedia = ({ setValue, control }) => {
         <div
           className="d-flex flex-column align-items-center mt-24 wrap-upload wrapper-input-file"
           onClick={onClickUploadFile}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
         >
           <Image src={IconCloud} className="icon-upload"></Image>
           <Text as="p" fs="16px" fw="600" lh="150%" className="text-title">

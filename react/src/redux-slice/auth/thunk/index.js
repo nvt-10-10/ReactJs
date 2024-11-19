@@ -1,5 +1,2 @@
-import { loginUser, logoutUser } from "./auth.thunk";
-export const authThunk = {
-  loginUser,
-  logoutUser,
-};
+export * from "./auth.thunk";
+export * from "./checkToken.thunk";

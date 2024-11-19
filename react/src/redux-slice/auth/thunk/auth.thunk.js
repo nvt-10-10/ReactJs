@@ -1,12 +1,13 @@
 // src/redux/authThunks.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { login, logout } from "../../../api";
+import { login, logout, register } from "../../../api";
 
 export const loginUser = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await login({ email, password });
+
       if (response) {
         return { email, message: "Login successful" };
       } else {
@@ -17,6 +18,25 @@ export const loginUser = createAsyncThunk(
       console.log({ error: error.response.data.message });
 
       return rejectWithValue("Login failed. Please try again.");
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "auth/register",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await register(data);
+      if (response) {
+        return { message: "Register successful" };
+      } else {
+        return rejectWithValue("Register failed. Please try again.");
+      }
+    } catch (error) {
+      // src/redux/authThunks.js
+      console.log({ error: error.response.data.message });
+
+      return rejectWithValue("Register failed. Please try again.");
     }
   }
 );

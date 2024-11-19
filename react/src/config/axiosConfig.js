@@ -12,13 +12,11 @@ const axiosInstance = axios.create({
   timeout: 10000,
   withCredentials: true,
 });
-// const token = getToken();
-// console.log({ token });
+
 // Xử lý request
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = getToken();
-    console.log({ token });
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -54,8 +52,8 @@ axiosInstance.interceptors.response.use(
         try {
           // Thực hiện yêu cầu làm mới token
           const refreshToken = getRefreshToken(); // Hàm giả định để lấy refresh token
-          const refreshResponse = await axios.post(
-            `${process.env.REACT_APP_API_URL}/auth/refresh-token`,
+          const refreshResponse = await axios.get(
+            `${process.env.REACT_APP_API_URL}/auth/refreshToken`,
             { refreshToken }
           );
           const { accessToken, refreshToken: newRefreshToken } =
@@ -69,13 +67,14 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(response.config);
         } catch (refreshError) {
           // removeToken();
-          // window.location.href = '/login';
+          removeToken();
+          window.location.href = "/auth/login";
           return Promise.reject(refreshError);
         }
       } else {
         // Nếu số lần thử lại đã vượt quá giới hạn, xóa token và đưa người dùng đến trang đăng nhập
         removeToken();
-        window.location.href = "/login";
+        window.location.href = "/auth/login";
         return Promise.reject(error);
       }
     }

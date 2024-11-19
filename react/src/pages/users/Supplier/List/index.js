@@ -9,37 +9,45 @@ import { userThunk } from "../../../../redux-slice/user/thunk";
 import { MyPagination } from "../../../../components/Pagination";
 import { Header } from "./Header";
 import { Helmet } from "react-helmet";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const List = () => {
   const { top12Supplier } = useSelector((state) => state.user);
   const { categories } = useSelector((state) => state.category);
-  const [currentPage, setCurrentPage] = useState(1);
-  // const {  }
-  const [formData, setFormData] = useState({
-    search: "",
-    country: "",
-    category: "",
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const search = queryParams.get("search");
+  const page = queryParams.get("page");
+  const country = queryParams.get("country");
+  const category = queryParams.get("category");
+  const [currentPage, setCurrentPage] = useState(page || 1);
+  const { register, handSubmit, watch } = useForm({
+    defaultValues: {
+      search: search || "",
+      country: country || "",
+      category: category || "",
+    },
   });
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData();
-  }, [dispatch, currentPage]); // Include formData as dependency to re-fetch when form changes
+  }, [dispatch, currentPage, location.search]);
 
   const handlePageChange = (page, event) => {
     event?.preventDefault();
     setCurrentPage(page);
+    setTimeout(() => {
+      fetchDataByURL("", page);
+    }, 100);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handSubmit = async (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    await fetchData();
+    await fetchDataByURL("submit");
   };
 
   const countries = [
@@ -49,9 +57,15 @@ const List = () => {
     { label: "Trung Quốc", value: 86 },
   ];
 
+  const fetchDataByURL = (type = "", page) => {
+    const queryString = new URLSearchParams(watch()).toString();
+    navigate(
+      `/supplier?${queryString}&page=${type ? "" : page || currentPage}`
+    );
+  };
+
   const fetchData = async () => {
-    const { search, country, category } = formData;
-    console.log({ search, country, category, currentPage });
+    const { search, country, category } = watch();
 
     await dispatch(
       userThunk.getTop12Suppliers({
@@ -86,14 +100,14 @@ const List = () => {
                           type="text"
                           placeholder="Nhập tên nhà cung cấp"
                           name="search"
-                          onChange={handleChange}
+                          {...register("search")}
                         />
                       </Form.Group>
                     </Col>
                     <Col xs={12} md={6} xl={3}>
                       <Form.Select
                         aria-label="Default select example"
-                        onChange={handleChange}
+                        {...register("category")}
                         name="category"
                       >
                         <option value="">Chọn danh mục</option>
@@ -107,7 +121,7 @@ const List = () => {
                     <Col xs={12} md={6} xl={3}>
                       <Form.Select
                         aria-label="Default select example"
-                        onChange={handleChange}
+                        {...register("country")}
                         name="country"
                       >
                         <option value="">Chọn khu vực</option>

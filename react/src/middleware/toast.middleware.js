@@ -7,7 +7,6 @@ import messages from "./messages"; // Import tất cả các thông báo từ in
 const toastMiddleware = (store) => (next) => (action) => {
   const actionParts = action.type.split("/"); // Tách action type thành các phần
   const [entity, actionType, status] = actionParts;
-  console.log({ entity, actionType, status });
 
   // Tìm thông báo dựa trên các phần của action
   const toastConfig = messages?.[entity]?.[actionType]?.[status];

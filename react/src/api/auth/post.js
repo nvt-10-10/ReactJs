@@ -14,3 +14,16 @@ export const login = async (loginData) => {
     success: false,
   };
 };
+
+export const register = async (registerData) => {
+  const response = await post("/auth/register", registerData);
+  const data = response;
+  if (data) {
+    return {
+      success: true,
+    };
+  }
+  return {
+    success: false,
+  };
+};
