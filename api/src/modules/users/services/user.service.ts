@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { CrudService } from 'src/modules/crud/crud.service';
 import { Category, Role, User } from 'src/entities';
 import { UpdateUserDto } from '../dto/update-user.dto';
@@ -43,23 +43,43 @@ export class UserService extends CrudService<User> {
     page: number = 1,
     search?: string,
     country?: number,
-    category?: string,
+    category?: number,
     cache_key: string = 'usersAll',
     roleId: number = 2,
   ): Promise<any> {
     let result: any;
     result = await this.cacheService.get(cache_key);
     if (!result) {
-      result = await findAllUsers(
-        this.userRepository,
-        take,
-        page,
-        search,
-        country,
-        category,
-        roleId,
-        true,
-      );
+      result = await this.userRepository.findAndCount({
+        take: take,
+        skip: (page - 1) * take,
+        where: {
+          status: true,
+          ...(search ? { name: ILike(search) } : {}),
+          ...(country ? { country: country } : {}),
+          categories: {
+            status: true,
+            ...(category ? { id: category } : {}),
+          },
+          role: {
+            id: roleId,
+          },
+        },
+        order: {
+          name: 'ASC',
+          createdAt: 'DESC',
+        },
+        select: [
+          'id',
+          'code',
+          'slug',
+          'name',
+          'avatar',
+          'description',
+          'createdAt',
+        ],
+      });
+
       this.cacheService.set(result, 60 * 60);
     }
 

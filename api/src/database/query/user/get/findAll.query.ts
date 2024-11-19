@@ -9,7 +9,7 @@ export const findAllUsers = async (
   page: number = 1,
   search?: string,
   country?: number,
-  categoryId?: string,
+  categoryId?: number,
   roleId: number = 2,
   isGetLength: boolean = false,
 ): Promise<any[] | [any[], number]> => {
@@ -27,7 +27,7 @@ export const findAllUsers = async (
     selects: [],
   };
 
-  if (categoryId && categoryId !== 'all') {
+  if (categoryId) {
     options.joins.push({
       table: 'categories',
       alias: 'category',

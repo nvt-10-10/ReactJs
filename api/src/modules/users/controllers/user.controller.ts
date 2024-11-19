@@ -63,7 +63,7 @@ export class UserController {
   @Permissions(999)
   async find9User(
     @Query('page') page?: number,
-    @Query('category') category?: string,
+    @Query('category') category?: number,
     @Query('country') country?: number,
     @Query('search') search?: string,
   ): Promise<any> {

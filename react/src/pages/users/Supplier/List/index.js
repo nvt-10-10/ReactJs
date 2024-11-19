@@ -2,7 +2,7 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import "./supplierListSection.scss";
 import Image from "../../../../components/Image";
 import iconFilter from "../../../../assets/images/icons/filter.svg";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardSupplier } from "../../../../components/CardSupplier";
 import { userThunk } from "../../../../redux-slice/user/thunk";
@@ -13,10 +13,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const List = () => {
-  const { top12Supplier } = useSelector((state) => state.user);
-  const { categories } = useSelector((state) => state.category);
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { top12Supplier } = useSelector((state) => state.user);
+  const { categories } = useSelector((state) => state.category);
   const queryParams = new URLSearchParams(location.search);
   const search = queryParams.get("search");
   const page = queryParams.get("page");
@@ -30,19 +31,27 @@ const List = () => {
       category: category || "",
     },
   });
+  const fetchData = useCallback(async () => {
+    const { search, country, category } = watch();
 
-  const dispatch = useDispatch();
+    await dispatch(
+      userThunk.getTop12Suppliers({
+        page: currentPage,
+        category,
+        country,
+        search,
+      })
+    );
+  }, [dispatch, currentPage, watch]);
 
   useEffect(() => {
     fetchData();
-  }, [dispatch, currentPage, location.search]);
+  }, [dispatch, currentPage, fetchData, location.search]);
 
   const handlePageChange = (page, event) => {
     event?.preventDefault();
     setCurrentPage(page);
-    setTimeout(() => {
-      fetchDataByURL("", page);
-    }, 100);
+    fetchDataByURL("", page);
   };
 
   const onSubmit = async (event) => {
@@ -64,19 +73,6 @@ const List = () => {
     );
   };
 
-  const fetchData = async () => {
-    const { search, country, category } = watch();
-
-    await dispatch(
-      userThunk.getTop12Suppliers({
-        page: currentPage,
-        category,
-        country,
-        search,
-      })
-    );
-  };
-
   return (
     <>
       <Helmet>
@@ -92,7 +88,7 @@ const List = () => {
               </Col>
 
               <Col xs={12}>
-                <Form className="form-search" onSubmit={handSubmit}>
+                <Form className="form-search" onSubmit={handSubmit(onSubmit)}>
                   <Row className="gy-3 ">
                     <Col xs={12} md={6} xl={3}>
                       <Form.Group controlId="exampleForm.ControlInput1">
