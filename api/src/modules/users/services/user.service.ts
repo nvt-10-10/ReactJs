@@ -54,11 +54,11 @@ export class UserService extends CrudService<User> {
         take: take,
         skip: (page - 1) * take,
         where: {
-          status: true,
+          // status: true,
           ...(search ? { name: ILike(search) } : {}),
           ...(country ? { country: country } : {}),
           categories: {
-            status: true,
+            // status: true,
             ...(category ? { id: category } : {}),
           },
           role: {

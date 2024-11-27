@@ -4,7 +4,10 @@ import iconZhCn from "../../../../assets/images/flag/zh-cn.jpg";
 import iconKo from "../../../../assets/images/flag/ko.jpg";
 import iconLo from "../../../../assets/images/flag/lo.jpg";
 import Image from "../../../../components/Image";
-export const Header = () => {
+import React from "react";
+export const Header = React.memo(() => {
+  console.log("loadding header");
+
   return (
     <div className="header-wrapper">
       <TextWrapper
@@ -32,4 +35,4 @@ export const Header = () => {
       </div>
     </div>
   );
-};
+});

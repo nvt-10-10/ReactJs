@@ -8,6 +8,8 @@ export class ImageController {
 
   @Get('/uploads/images/:imageName')
   async getImage(@Param('imageName') imageName: string, @Res() res: Response) {
+    console.log({ path: `public/uploads/images/${imageName}` });
+
     const imageStream = this.imageService.getImage(
       `public/uploads/images/${imageName}`,
     );

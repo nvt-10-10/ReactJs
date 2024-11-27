@@ -117,6 +117,7 @@ export const Header = () => {
                       data={categories
                         .filter((item) => item.id !== undefined) // Bỏ qua các mục không có id
                         .map((item, index) => ({
+                          id: item.id,
                           text: item.name || "Không có tên", // Nếu không có tên, gán mặc định
                           value: item.id || `option-${index}`, // Sử dụng index để tạo giá trị tạm thời duy nhất
                         }))}

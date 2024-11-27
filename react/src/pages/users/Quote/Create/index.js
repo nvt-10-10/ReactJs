@@ -18,6 +18,7 @@ export const Create = () => {
   const navigate = useNavigate();
   const { categories } = useSelector((state) => state.category);
   const [filedForm, setFiledForm] = useState([]);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const {
     setValue,
@@ -54,12 +55,14 @@ export const Create = () => {
   };
 
   const onSubmit = async (data) => {
+    setLoadingSubmit(true);
     if (!data.images) {
+      setLoadingSubmit(false);
       toast.error("Vui lòng chọn tối thiểu 1 hình ảnh", { autoClose: 3000 });
     } else {
       const formData = new FormData();
       Object.keys(data).forEach((key) => {
-        if (Array.isArray(data[key]) && key == "category") {
+        if (Array.isArray(data[key]) && key === "category") {
           data[key].forEach((item) => formData.append(`${key}[]`, item));
         } else {
           if (key !== "images") formData.append(key, data[key]);
@@ -74,10 +77,9 @@ export const Create = () => {
         data.images.forEach((img) => formData.append("images", img));
 
       const result = await dispatch(quoteThunk.createQuote(formData));
-      console.log({ result });
-      if (result?.meta?.requestStatus === "fulfilled") {
+      if (quoteThunk.createQuote.fulfilled.match(result)) {
         navigate("/quote");
-      }
+      } else setLoadingSubmit(false);
     }
   };
   return (
@@ -111,6 +113,7 @@ export const Create = () => {
                     type="button"
                     typeButton="submit"
                     text="Gửi yêu cầu"
+                    isSelected={loadingSubmit}
                   ></ButtonPrimary>
                 </Col>
               </form>

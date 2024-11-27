@@ -34,6 +34,7 @@ export class AuthService {
         name: true,
         password: true,
         role: {
+          id: true,
           name: true,
         },
       },
@@ -54,9 +55,12 @@ export class AuthService {
     // Tạo auth token và refresh token
     const authToken = await this.generateAuthToken(userWithoutPassword);
     const refreshToken = await this.generateRefreshToken(userWithoutPassword);
+    console.log({
+      user,
+    });
 
     // Trả về cả auth token và refresh token
-    return { authToken, refreshToken };
+    return { authToken, refreshToken, role: user?.role?.name };
   }
 
   // Phương thức xử lý đăng ký

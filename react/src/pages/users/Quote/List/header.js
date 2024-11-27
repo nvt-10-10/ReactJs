@@ -1,7 +1,8 @@
+import React from "react";
 import ButtonPrimary from "../../../../components/Button";
 import { Text } from "../../../../components/Text";
 
-export const Header = () => {
+export const Header = React.memo(() => {
   return (
     <>
       <div className="d-flex flex-column gap-16 align-items-center ">
@@ -24,4 +25,4 @@ export const Header = () => {
       </div>
     </>
   );
-};
+});

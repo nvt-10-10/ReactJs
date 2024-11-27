@@ -1,21 +1,35 @@
-import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { checkTokens } from "../../redux-slice/auth/thunk";
 
 const PrivateRoute = ({ element }) => {
   const dispatch = useDispatch();
-  const { isLogin } = useSelector((state) => state.auth);
+  const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
+  const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
-    dispatch(checkTokens());
-  }, []);
+    const verifyLogin = async () => {
+      const result = await dispatch(checkTokens()).unwrap(); // Sử dụng `.unwrap()` nếu bạn đang dùng Redux Toolkit
+      console.log({ result });
 
-  if (!isLogin) {
-    // Nếu không có token, điều hướng về trang login
-    // return <Navigate to="/auth/login" />;
+      if (result === true) {
+        setIsLogin(true);
+      }
+    };
+    verifyLogin();
+  }, [dispatch, isLoggedIn]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  return element; // Nếu có token, hiển thị component được truyền vào
+  // Chuyển hướng nếu chưa đăng nhập
+  if (!setIsLogin) {
+    return <Navigate to="/auth/login" />;
+  }
+
+  // Hiển thị component nếu đã đăng nhập
+  return element;
 };
 
 export default PrivateRoute;

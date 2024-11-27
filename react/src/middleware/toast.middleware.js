@@ -17,11 +17,14 @@ const toastMiddleware = (store) => (next) => (action) => {
     } else if (status === "fulfilled") {
       showToast("success", toastConfig, 3000);
     } else if (status === "rejected") {
+      console.log({ action });
+
       showToast(
         "error",
-        typeof toastConfig === "function"
-          ? toastConfig(action.payload)
-          : toastConfig,
+        // typeof toastConfig === "function"
+        //   ? toastConfig(action.payload)
+        //   : toastConfig,
+        toastConfig(action.payload),
         3000
       );
     }

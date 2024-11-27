@@ -1,6 +1,14 @@
 import { Transform } from 'class-transformer';
-import { IsString, IsNotEmpty, ValidateIf, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  ValidateIf,
+  IsOptional,
+  IsNumber,
+  Validate,
+} from 'class-validator';
 import { transformToArrayNumber } from 'src/transformers/array.transform';
+import { CheckPriceUnit } from 'src/transformers/checkPriceUnit.transform';
 import { IsFileNotEmpty } from 'src/transformers/IsFileNotEmpty.transform';
 import {
   transformToFloat,
@@ -21,12 +29,13 @@ export class QuoteCreateDto {
   @IsString()
   unit: string;
 
-  @IsNotEmpty() // T
+  @IsOptional()
   @Transform(({ value }) => transformToFloat(value))
   price: number;
 
-  @IsNotEmpty() // T
+  @IsOptional()
   @Transform(({ value }) => transformToInt(value))
+  @IsNumber({}, { message: 'Price unit must be a valid integer' })
   price_unit: number;
 
   @IsNotEmpty()
@@ -35,6 +44,7 @@ export class QuoteCreateDto {
 
   @IsOptional()
   @Transform(({ value }) => transformToInt(value))
+  @IsNumber({}, { message: 'Price must be a valid number' })
   user_id: number;
 
   @ValidateIf((obj, value) => value !== undefined)
@@ -44,4 +54,8 @@ export class QuoteCreateDto {
   @ValidateIf((obj, value) => value !== undefined)
   @IsFileNotEmpty()
   document: Express.Multer.File[]; // Dùng multer để xử lý file tài liệu
+
+  @ValidateIf((o) => o.price !== undefined || o.price_unit !== undefined)
+  @Validate(CheckPriceUnit)
+  checkPriceAndUnit: any;
 }

@@ -67,7 +67,9 @@ export class QuoteService extends CrudService<Quote> {
       const imagePaths =
         images?.map((file) => '/uploads/images/' + file.filename) || [];
       // Xử lý tài liệu (chỉ có một file)
-      const documentPath = '/uploads/images/' + document?.[0]?.filename || null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
+      const documentPath = document?.[0]?.filename
+        ? '/uploads/images/' + document?.[0]?.filename
+        : null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
       console.log({ createQuoteDto, imagePaths });
 
       const quoteEntity = await this.quoteRepository.create({
@@ -78,7 +80,7 @@ export class QuoteService extends CrudService<Quote> {
         user: user,
       });
 
-      return this.quoteRepository.save(quoteEntity);
+      return await this.quoteRepository.save(quoteEntity);
     } catch (error) {
       await this.fileCleanupService.cleanupFiles([...images, ...document]);
       console.error('Error in store method:', error); // Log error details

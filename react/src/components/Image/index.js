@@ -11,7 +11,7 @@ const Image = ({ src, alt, className = "", srcError, onClick }) => {
   return (
     <img
       src={imgSrc || iconVitrade}
-      alt={alt}
+      alt={alt || "image"}
       className={className}
       onError={() => handleError()}
       onClick={onClick}

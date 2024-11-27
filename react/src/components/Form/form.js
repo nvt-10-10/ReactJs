@@ -20,7 +20,7 @@ export const InputItem = ({
   showEm = true,
   onChange,
 }) => {
-  if (type === "select" && selectType === "select2") {
+  if (type === "select") {
     // Convert value to format expected by react-select
     let selectedValue = null;
     if (isMulti) {
@@ -36,25 +36,48 @@ export const InputItem = ({
         <Form.Label htmlFor={id}>
           {label} {isRequired && showEm ? <em>*</em> : ""}
         </Form.Label>
-        <Select
-          id={id}
-          name={name}
-          options={options}
-          value={selectedValue}
-          onChange={(selected) => {
-            if (isMulti) {
-              onChange(selected ? selected.map((item) => item.value) : []);
-            } else {
-              onChange(selected ? selected.value : "");
-            }
-          }}
-          isMulti={isMulti}
-          isClearable
-          placeholder={placeholder}
-          aria-describedby={`${id}HelpBlock`}
-          // Ensure each option has a unique key
-          getOptionValue={(option) => `${option.value}`}
-        />
+        {selectType === "select2" ? (
+          <Select
+            id={id}
+            name={name}
+            options={options}
+            value={selectedValue}
+            onChange={(selected) => {
+              if (isMulti) {
+                onChange(selected ? selected.map((item) => item.value) : []);
+              } else {
+                onChange(selected ? selected.value : "");
+              }
+            }}
+            isMulti={isMulti}
+            isClearable
+            placeholder={placeholder}
+            aria-describedby={`${id}HelpBlock`}
+            // Ensure each option has a unique key
+            getOptionValue={(option) => `${option.value}`}
+          />
+        ) : (
+          <Form.Control
+            as="select"
+            id={id}
+            name={name}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            isInvalid={!!error}
+            aria-describedby={`${id}HelpBlock`}
+            required={isRequired}
+          >
+            <option value="" disabled>
+              {placeholder || "Select an option"}
+            </option>
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Form.Control>
+        )}
+
         {error && <div className="invalid-feedback d-block">{error}</div>}
         {helperText && (
           <Form.Text id={`${id}HelpBlock`} muted>

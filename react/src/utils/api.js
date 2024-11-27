@@ -26,8 +26,12 @@ export const post = async (url, data = {}, config = {}, isUpload = false) => {
     }
     if (config) response = await axiosInstance.post(url, data, config);
     else response = await axiosInstance.post(url, data);
+    console.log({ response });
+
     return response.data;
   } catch (error) {
+    console.log({ error });
+
     // Xử lý lỗi hoặc trả về lỗi
     throw error;
   }
@@ -54,3 +58,5 @@ export const del = async (url, config = {}) => {
     throw error;
   }
 };
+
+const convertErrorEntity = (error) => {};

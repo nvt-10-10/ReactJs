@@ -41,8 +41,6 @@ export class MulterConfigService implements MulterOptionsFactory {
             );
           }
 
-          console.log({ destPath });
-
           // Tạo thư mục nếu chưa có
           if (!fs.existsSync(destPath)) {
             fs.mkdirSync(destPath, { recursive: true });
@@ -55,8 +53,9 @@ export class MulterConfigService implements MulterOptionsFactory {
           const baseFilename = `${Date.now()}`;
           const originalName = file.originalname;
           const filename = `${baseFilename}.${originalName}`;
+          const filenameWebp = `${baseFilename}.webp`;
 
-          callback(null, filename); // Multer lưu tệp với tên này
+          callback(null, filenameWebp); // Multer lưu tệp với tên này
 
           // Bắt đầu xử lý ảnh ngay sau khi tệp đã được lưu
           if (file.mimetype.startsWith('image/')) {

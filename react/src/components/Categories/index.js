@@ -7,7 +7,7 @@ import "./Categories.scss";
 import { useSelector } from "react-redux";
 import { CategoryItem } from "./CategoryItem";
 
-export const Categories = ({ OnClick, categoryActive }) => {
+export const Categories = React.memo(({ OnClick, categoryActive }) => {
   const { categories, error, loading } = useSelector((state) => state.category);
 
   const CustomPrevArrow = (props) => {
@@ -83,4 +83,4 @@ export const Categories = ({ OnClick, categoryActive }) => {
       </div>
     </div>
   );
-};
+});

@@ -5,7 +5,6 @@ export const apiMiddleware = (store) => (next) => (action) => {
     console.log("API Request thành công:", action);
   } else if (action.type.endsWith("/rejected")) {
     console.log("API Request thất bại:", action);
-    
   }
   return next(action);
 };

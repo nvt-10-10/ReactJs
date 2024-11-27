@@ -11,7 +11,6 @@ export const checkToken = async () => {
   const apiUrl = `/auth/check-token/${authToken}`;
 
   const result = await get(apiUrl);
-  console.log({ result, apiUrl });
 
   if (!result.success) {
     const refreshToken = getRefreshToken();
@@ -19,7 +18,8 @@ export const checkToken = async () => {
     if (!resultRefreshToken) return false;
     saveToken(
       resultRefreshToken.data.authToken,
-      resultRefreshToken.data.refreshToken
+      resultRefreshToken.data.refreshToken,
+      resultRefreshToken?.data?.role
     );
   }
   return true;

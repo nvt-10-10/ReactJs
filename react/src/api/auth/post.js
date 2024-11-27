@@ -5,7 +5,7 @@ export const login = async (loginData) => {
   const response = await post("/auth/login", loginData);
   const data = response;
   if (data) {
-    saveToken(data.authToken, data.refreshToken);
+    saveToken(data.authToken, data.refreshToken, data?.role);
     return {
       success: true,
     };

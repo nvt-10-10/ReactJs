@@ -5,10 +5,15 @@ import iconMessage from "../../assets/images/icons/messages.svg";
 import iconVitrade from "../../assets/images/logo/logo-footer.png";
 import { Link } from "react-router-dom";
 export const CardSupplier = ({ supplier }) => {
+  const pathImage = process.env.REACT_APP_API_IMAGE;
+
   return (
     <>
       <div className="card-supplier">
-        <Image src={supplier?.avatar} className="supplier-logo"></Image>
+        <Image
+          src={`${pathImage}supplier?.avatar`}
+          className="supplier-logo"
+        ></Image>
         <div className="supplier-wrap">
           <Link to={`/supplier/${supplier.slug}/${supplier.code}`}>
             <div className="d-flex align-items-center justify-content-center gap-10">

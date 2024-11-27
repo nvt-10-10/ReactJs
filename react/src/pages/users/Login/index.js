@@ -5,8 +5,10 @@ import { checkTokens, loginUser } from "../../../redux-slice/auth/thunk";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet";
+import { getToken } from "../../../utils/authToken";
 
 export const Login = () => {
   const {
@@ -17,8 +19,7 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const onSubmit = async (data, e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     const result = await dispatch(loginUser(data));
     if (loginUser.fulfilled.match(result)) {
       navigate("/");
@@ -26,10 +27,24 @@ export const Login = () => {
       setError(result.payload || "Tài khoản hoặc mật khẩu không chính xác");
     }
   };
-  dispatch(checkTokens());
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const token = getToken();
+      if (token) {
+        const result = await dispatch(checkTokens());
+        if (checkTokens.fulfilled.match(result)) {
+          navigate("/");
+        }
+      }
+    };
 
+    checkLoginStatus();
+  }, [dispatch, navigate]);
   return (
     <>
+      <Helmet>
+        <title>Đăng nhập</title>
+      </Helmet>
       {error && (
         <Alert variant="danger" onClose={() => setError("")} dismissible>
           {error}
@@ -41,8 +56,13 @@ export const Login = () => {
           <Form.Control
             type="email"
             placeholder="Enter email"
-            {...register("email", { required: true })}
+            {...register("email", { required: "Email là bắt buộc" })}
           />
+          {errors.email && (
+            <Form.Text className="text-danger">
+              {errors.email.message}
+            </Form.Text>
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -50,10 +70,10 @@ export const Login = () => {
           <Form.Control
             type="password"
             placeholder="Password"
-            {...register("password", { required: true })}
+            {...register("password", { required: "Mật khẩu là bắt buộc" })}
           />
           {errors.password && (
-            <Form.Text className="text-muted">
+            <Form.Text className="text-danger">
               {errors.password.message}
             </Form.Text>
           )}
