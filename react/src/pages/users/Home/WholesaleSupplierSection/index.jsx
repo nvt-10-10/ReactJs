@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import {  Container } from "react-bootstrap";
 import "./WholesaleSupplierSection.scss";
 import Image from "../../../../components/Image";
 import { HeadingSection, TitleSection } from "../../../../components/Text";
@@ -7,11 +7,10 @@ import ButtonPrimary from "../../../../components/Button";
 import { useSelector } from "react-redux";
 export const WholesaleSupplierSection = () => {
   const base_url_image = process.env.REACT_APP_API_IMAGE;
-  const { categories, error, loading } = useSelector((state) => state.category);
+  const { categories } = useSelector((state) => state.category);
   const evenIndexArray = categories?.filter((_, index) => index % 2 === 0);
   const oddIndexArray = categories?.filter((_, index) => index % 2 !== 0);
   return (
-    <>
       <section className="WholesaleSupplierSection">
         <Container>
           <div className="d-flex">
@@ -77,6 +76,5 @@ export const WholesaleSupplierSection = () => {
           </div>
         </Container>
       </section>
-    </>
   );
 };

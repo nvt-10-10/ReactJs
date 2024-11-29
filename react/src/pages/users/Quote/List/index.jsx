@@ -10,7 +10,7 @@ import { MyPagination } from "../../../../components/Pagination";
 import { Helmet } from "react-helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 import { QuoteItemSkeleton } from "./QuoteItemSkeleton";
-export const List = () => {
+const List = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParms = new URLSearchParams(location.search);
@@ -56,12 +56,12 @@ export const List = () => {
     fetchDataByURL(currentPage, categoryId);
   };
 
-  const fetchDataByURL = (page, category) => {
+  const fetchDataByURL = useCallback(  (page, category) => {
     const query = new URLSearchParams();
     page && query.append("page", page);
     category && query.append("category", category);
     navigate(`/quote?${query.toString()}`);
-  };
+  },[navigate])
 
   return (
     <>
@@ -111,3 +111,4 @@ export const List = () => {
     </>
   );
 };
+export default List;

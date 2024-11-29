@@ -8,9 +8,9 @@ import App from "./App"; // Import App component
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App /> {/* Render App component */}
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <App /> {/* Render App component */}
+    {/* </React.StrictMode> */}
   </Provider>
 );
 

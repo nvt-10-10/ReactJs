@@ -29,8 +29,10 @@ export const FormMedia = ({ setValue, control }) => {
       const updatedImages = [...prevImages, ...newImages];
       setValue(
         "images",
-        updatedImages.map((img) => img.file)
+        updatedImages.map((img) => img.file),
+        { shouldValidate: false }
       ); // Cập nhật giá trị trong form
+      console.log("Form values after setValue:", control._defaultValues); 
       return updatedImages;
     });
   };
@@ -40,7 +42,9 @@ export const FormMedia = ({ setValue, control }) => {
       const updatedImages = prevImages.filter((image) => image.id !== id);
       setValue(
         "images",
-        updatedImages.map((img) => img.file)
+        updatedImages.map((img) => img.file), { 
+          shouldValidate: true 
+        }
       ); // Cập nhật lại giá trị trong form
       return updatedImages;
     });

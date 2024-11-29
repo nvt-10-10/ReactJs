@@ -7,7 +7,7 @@ import iconArrowUp from "../../../assets/images/icons/arrow-up.svg";
 import iconApple from "../../../assets/images/icons/apple.svg";
 import iconHeart from "../../../assets/images/icons/heart.svg";
 import iconCart from "../../../assets/images/icons/cart.svg";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DropdownAction from "./dropdown-action";
 import "../../../assets/scss/common/custom-dropdown.scss";
 import "./header.scss";
@@ -16,7 +16,7 @@ import Image from "../../Image";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { categoryThunk } from "../../../redux-slice/categories/thunk/category.thunk";
-export const Header = () => {
+export const Header =  React.memo( () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
   const [retryCount, setRetryCount] = useState(0);
@@ -46,12 +46,7 @@ export const Header = () => {
     if (!categories || categories.length === 0) {
       fetchData();
     }
-  }, [dispatch, retryCount]);
-
-  // Log khi categories cập nhật
-  useEffect(() => {
-    console.log("Categories updated:", categories);
-  }, [categories]);
+  }, [dispatch, retryCount,categories]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -177,11 +172,15 @@ export const Header = () => {
               {navs.map((navItem, index) => (
                 <li key={index}>
                   {navItem.link.startsWith("/") ? (
-                    <Link to={navItem.link} className="nav-link">
+                    <Link to={navItem.link} className="nav-link"       activeClassName="active" // Sử dụng `activeClassName` để gán class khi đang ở trên trang này
+                    exact // Đảm bảo NavLink chỉ áp dụng class khi đường dẫn chính xác khớp
+                 >
                       {navItem.name}
                     </Link>
                   ) : (
-                    <Link to={navItem.link} className="nav-link">
+                    <Link to={navItem.link} className="nav-link"       activeClassName="active" // Sử dụng `activeClassName` để gán class khi đang ở trên trang này
+                    exact // Đảm bảo NavLink chỉ áp dụng class khi đường dẫn chính xác khớp
+                 >
                       {navItem.name}
                     </Link>
                   )}
@@ -193,4 +192,4 @@ export const Header = () => {
       </div>
     </>
   );
-};
+})

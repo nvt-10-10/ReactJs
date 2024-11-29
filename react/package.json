@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@reduxjs/toolkit": "^2.2.7",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.3.0",
@@ -39,7 +40,8 @@
     "styled-components": "^6.1.13",
     "url": "^0.11.4",
     "util": "^0.12.5",
-    "web-vitals": "2.1.4"
+    "web-vitals": "2.1.4",
+    "zod": "^3.23.8"
   },
   "scripts": {
     "start": " PORT=9999  react-scripts start",

@@ -8,16 +8,18 @@ const ButtonPrimary = ({
   img = iconArrowRight,
   href = "",
   onClick,
-  isSelected,
+  isSelected = true,
   className = "",
   type = "a", // Default type is 'a'
+  typeButton= "button"
 }) => {
   const child = (
     <ButtonPrimaryStyled.StyledButtonPrimary
       className={className}
-      isSelected={isSelected}
+      disabled={isSelected}
       onClick={onClick}
       as={type}
+      type={typeButton}
     >
       {text}
       <ButtonPrimaryStyled.StyledImagePrimary src={img} />

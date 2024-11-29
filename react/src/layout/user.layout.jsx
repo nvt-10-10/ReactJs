@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Header } from "../components/users/header";
+import { Header } from "../components/users/header/index.jsx";
 import "../assets/css/base/index.css";
 import "../assets/css/common/index.css";
 
-import { Footer } from "../components/Footer";
+import { Footer } from "../components/Footer/index.jsx";
 import { setIsLogin } from "../redux-slice/auth/slice/auth.slice.js";
 import store from "../redux-slice/store.js";
 import { ToastContainer } from "react-toastify";

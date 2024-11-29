@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { getToken } from "../../../utils/authToken";
 
-export const Login = () => {
+const Login = () => {
   const {
     register,
     handleSubmit,
@@ -89,3 +89,5 @@ export const Login = () => {
     </>
   );
 };
+
+export default Login;

@@ -4,8 +4,7 @@ import "./createQuote.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { categoryThunk } from "../../../../redux-slice/categories/thunk";
-import { formFiled } from "./formField";
-import { FormFiled } from "./form";
+import { FormFiled } from "../../../../components/Form/renderForm";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { FormMedia } from "./formMedia";
@@ -13,7 +12,10 @@ import { quoteThunk } from "../../../../redux-slice/quote/thunk";
 import ButtonPrimary from "../../../../components/Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-export const Create = () => {
+import createQuoteSchema from "../../../../validate/quote/create.validate";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formFiled } from "./formField";
+const Create = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { categories } = useSelector((state) => state.category);
@@ -26,6 +28,7 @@ export const Create = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    resolver: zodResolver(createQuoteSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -34,6 +37,7 @@ export const Create = () => {
       unit: "",
       price: "",
       price_unit: "", // Changed from null to ""
+      images: [],
     },
   });
 
@@ -45,7 +49,7 @@ export const Create = () => {
     if (categories) {
       setFiledForm(formFiled(customCategory(categories)));
     }
-  }, [categories]);
+  }, []);
 
   const customCategory = (categories) => {
     return categories.map((category) => ({
@@ -56,10 +60,15 @@ export const Create = () => {
 
   const onSubmit = async (data) => {
     setLoadingSubmit(true);
+
     if (!data.images) {
       setLoadingSubmit(false);
       toast.error("Vui lòng chọn tối thiểu 1 hình ảnh", { autoClose: 3000 });
     } else {
+
+      if (data.images.length > 8) {
+        toast.error("Chỉ được chọn tối đa 8 hình ảnh", { autoClose: 3000 });
+      }
       const formData = new FormData();
       Object.keys(data).forEach((key) => {
         if (Array.isArray(data[key]) && key === "category") {
@@ -124,3 +133,4 @@ export const Create = () => {
     </>
   );
 };
+export default Create;

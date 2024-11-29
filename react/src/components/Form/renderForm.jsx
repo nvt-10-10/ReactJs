@@ -1,6 +1,6 @@
 // form.jsx
 import { Row, Col } from "react-bootstrap";
-import { InputItem } from "../../../../components/Form/form";
+import { InputItem } from "./form";
 import { Controller } from "react-hook-form";
 
 export const FormFiled = ({ filedForm, control, errors }) => {

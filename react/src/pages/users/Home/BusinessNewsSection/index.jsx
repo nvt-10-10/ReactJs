@@ -6,6 +6,7 @@ import iconDate from "../../../../assets/images/icons/date.svg";
 import imageNew from "../../../../assets/images/image/news.jpeg";
 import ButtonPrimary from "../../../../components/Button";
 import { HeadingSection, TextDescription } from "../../../../components/Text";
+import { Link } from "react-router-dom";
 export const BusinessNewsSection = () => {
   const news = [
     {
@@ -74,9 +75,9 @@ export const BusinessNewsSection = () => {
                       alt={article.title}
                     />
                     <div className="news-item-wrap">
-                      <a>
+                      <Link to="">
                         <h3 className="news-title">{article.title}</h3>
-                      </a>
+                      </Link>
                       <div className="d-flex align-items-center gap-8 news-date">
                         <Image
                           src={iconDate}

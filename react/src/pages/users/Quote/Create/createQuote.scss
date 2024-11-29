@@ -1,3 +1,4 @@
+@use "../../../../assets/scss/utils/responsive.scss" as rps;
 main.create-quote {
   padding: 64px 0;
   background: #f9f9fb;
@@ -15,8 +16,14 @@ main.create-quote {
   }
 
   .wrapper-media {
-    width: 380px;
-    margin-left: auto;
+    width: 100%;
+    margin-top: 24px;
+
+    @include rps.respond-to("lg") {
+      width: 380px;
+      margin-left: auto;
+      margin-top: 0;
+    }
 
     .wrapper-input-file:hover {
       cursor: pointer;
