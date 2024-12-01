@@ -22,7 +22,6 @@ export class CategoryService extends CrudService<Category> {
     skip?: number,
     status?: boolean,
     isGetLength: boolean = false,
-    select?: (keyof Category)[],
   ): Promise<any> {
     const categoryCache = await this.cacheService.get('getAllCategory');
     if (categoryCache) {
@@ -34,17 +33,19 @@ export class CategoryService extends CrudService<Category> {
       skip,
       status,
       isGetLength,
-      select,
     );
 
     await this.cacheService.set('getAllCategory', result, 60 * 60 * 5);
     return result;
   }
 
-  async store(body: CategoryCreateDto, file?: Express.Multer.File) {
-    if (file) {
-      body.image = '/uploads/images/' + file.filename;
+  async store(body: CategoryCreateDto, image?: Express.Multer.File[]) {
+    console.log('co vao', image);
+
+    if (image) {
+      body.image = '/uploads/images/' + image[0].filename;
     }
-    return await this.categoryRepository.save(body);
+    const categoryEntity = this.categoryRepository.create(body);
+    return this.categoryRepository.save(categoryEntity);
   }
 }

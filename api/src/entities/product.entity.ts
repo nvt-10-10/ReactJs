@@ -1,28 +1,24 @@
-import { BaseEntity } from 'src/modules/crud/entities/base.entity';
 import {
   BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Cart } from './cart.entity';
 import { StatusProduct } from 'src/type';
-import { CategoryProduct } from './category_product.entity';
 import { generateSlug } from 'src/utils/generateSlug';
 import { generateUniqueCode } from 'src/utils/generateUniqueCode';
+import { BaseAndCodeAndSlug } from 'src/modules/crud/entities/code-and-slug.entity';
+import { Category } from './category.entity';
 @Entity('products')
-export class Product extends BaseEntity {
+export class Product extends BaseAndCodeAndSlug {
   @Column({ nullable: false })
   name!: string;
-
-  @Column({ nullable: false, type: 'varchar', length: 255 })
-  code!: string;
-
-  @Column({ nullable: false, type: 'varchar', length: 255 })
-  slug!: string;
 
   @Column({ nullable: true })
   description?: string;
@@ -46,15 +42,17 @@ export class Product extends BaseEntity {
   @OneToMany(() => Cart, (cart) => cart.product)
   carts?: Cart[];
 
-  @OneToMany(
-    () => CategoryProduct,
-    (categoryProduct) => categoryProduct.product,
-  )
-  categoryProducts: CategoryProduct[];
+  @ManyToMany(() => Category, (category) => category.products)
+  categories?: Category[];
 
   @BeforeInsert()
-  generateSlug() {
+  generateSlugAndSlug() {
     this.slug = generateSlug(this.name);
     this.code = generateUniqueCode(16);
+  }
+
+  @BeforeUpdate()
+  updateSlug() {
+    this.slug = generateSlug(this.name);
   }
 }

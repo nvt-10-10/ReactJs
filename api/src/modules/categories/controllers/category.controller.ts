@@ -7,14 +7,16 @@ import {
   Put,
   Delete,
   UseInterceptors,
-  UploadedFile,
+  UploadedFiles,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoryService } from '../services/category.service';
 import { CategoryCreateDto } from '../dto/category-create.dto';
 import { CategoryUpdateDto } from '../dto/category-update.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { multerImageConfig } from 'src/config/uploadFile.config';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { Cacheable } from 'src/core/decorator/cache.decorator';
+import { MulterConfigService } from 'src/config/ multer-config.service';
+import { JwtAuthGuard } from 'src/core/decorator';
 
 @Controller('api/categories')
 export class CategoryController {
@@ -36,13 +38,23 @@ export class CategoryController {
   findOne(@Param('id') id: number) {
     return this.categoryService.findById(id);
   }
-  @UseInterceptors(FileInterceptor('image', multerImageConfig))
+
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [{ name: 'image', maxCount: 1 }],
+      new MulterConfigService().createMulterOptions(),
+    ),
+  )
   @Post()
   create(
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFiles()
+    files: { image?: Express.Multer.File[] },
     @Body() createDto: CategoryCreateDto,
   ) {
-    const result = this.categoryService.store(createDto, file);
+    console.log('co vao', files);
+
+    const result = this.categoryService.store(createDto, files.image);
     return {
       success: true,
       result,

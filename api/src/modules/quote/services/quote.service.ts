@@ -3,11 +3,11 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CrudService } from 'src/modules/crud/crud.service';
-import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { UserService } from '../../users/services/user.service';
 import { CategoryService } from 'src/modules/categories/services/category.service';
-import { generateSlug } from 'src/utils/generateSlug';
-import { generateUniqueCode } from 'src/utils/generateUniqueCode';
+import { QuoteCreateDto } from '../dto/quote-create.dto';
+import { FileCleanupService } from 'src/utils/cleanupFiles';
+import { StatusQuote } from 'src/type/quote.type';
 
 @Injectable()
 export class QuoteService extends CrudService<Quote> {
@@ -16,14 +16,42 @@ export class QuoteService extends CrudService<Quote> {
     private readonly quoteRepository: Repository<Quote>,
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
+    private readonly fileCleanupService: FileCleanupService,
   ) {
     super(quoteRepository);
   }
-  async store(createQuoteDto: QuoteCreateDto): Promise<any> {
+
+  async findAll(
+    take: number = 10,
+    page: number = 1,
+    category?: number,
+    status?: StatusQuote,
+  ): Promise<any[]> {
+    const result = await this.quoteRepository.findAndCount({
+      take: take,
+      skip: (page - 1) * take,
+      where: {
+        status: status || StatusQuote.ACTIVE,
+        categories: {
+          status: true,
+          ...(category ? { id: category } : {}),
+        },
+      },
+      select: ['id', 'name', 'code', 'slug', 'images'],
+    });
+    return result;
+  }
+
+  async store(
+    createQuoteDto: QuoteCreateDto,
+    {
+      images,
+      document,
+    }: { images?: Express.Multer.File[]; document?: Express.Multer.File[] },
+  ): Promise<any> {
     try {
       const user = await this.userService.findById(createQuoteDto.user_id);
-      if (!user) throw new BadRequestException('Tài khoản không tồn tại'); // Use exception instead of return
-
+      if (!user) throw new BadRequestException('Tài khoản không tồn tại');
       const categories = await Promise.all(
         createQuoteDto?.category?.map(async (categoryId) => {
           const category = await this.categoryService.findById(categoryId);
@@ -36,20 +64,25 @@ export class QuoteService extends CrudService<Quote> {
         }),
       );
 
-      // Log slug and code generation
-      const slug = generateSlug(createQuoteDto.name);
-      const code = generateUniqueCode(16);
-      console.log('Generated slug and code:', { slug, code });
+      const imagePaths =
+        images?.map((file) => '/uploads/images/' + file.filename) || [];
+      // Xử lý tài liệu (chỉ có một file)
+      const documentPath = document?.[0]?.filename
+        ? '/uploads/images/' + document?.[0]?.filename
+        : null; // Lấy đường dẫn của tài liệu đầu tiên nếu có
+      console.log({ createQuoteDto, imagePaths });
 
-      const quote = await this.quoteRepository.save({
+      const quoteEntity = await this.quoteRepository.create({
         ...createQuoteDto,
-        slug,
-        code,
         categories,
+        images: imagePaths,
+        document: documentPath,
+        user: user,
       });
 
-      return quote;
+      return await this.quoteRepository.save(quoteEntity);
     } catch (error) {
+      await this.fileCleanupService.cleanupFiles([...images, ...document]);
       console.error('Error in store method:', error); // Log error details
       throw error; // Re-throw the error to propagate it
     }

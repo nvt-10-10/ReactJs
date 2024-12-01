@@ -4,7 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './services/auth.service';
 import { AuthController } from './controllers/auth.controller';
-import { User } from 'src/entities';
+import { Category, Role, User } from 'src/entities';
 import { PassportModule } from '@nestjs/passport';
 import { CacheService } from 'src/core/cache/cache.service';
 import { JwtStrategy } from './JwtStrategy';
@@ -32,7 +32,7 @@ import { UserService } from '../users/services/user.service';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Category, Role]),
   ],
   providers: [AuthService, CacheService, JwtStrategy, UserService],
   controllers: [AuthController],

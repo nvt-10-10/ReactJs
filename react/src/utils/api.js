@@ -1,7 +1,7 @@
 import axiosInstance from "../config/axiosConfig";
 
 // Hàm GET
-export const get = async (url,header, params = {}, config = {}) => {
+export const get = async (url, header, params = {}, config = {}) => {
   try {
     const response = await axiosInstance.get(url, { params, ...config });
     return response.data;
@@ -12,11 +12,26 @@ export const get = async (url,header, params = {}, config = {}) => {
 };
 
 // Hàm POST
-export const post = async (url, data = {}, config = {}) => {
+export const post = async (url, data = {}, config = {}, isUpload = false) => {
   try {
-    const response = await axiosInstance.post(url, data, config);
+    let response;
+    if (isUpload) {
+      if (config)
+        response = await axiosInstance.post(url, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          ...config,
+        });
+    }
+    if (config) response = await axiosInstance.post(url, data, config);
+    else response = await axiosInstance.post(url, data);
+    console.log({ response });
+
     return response.data;
   } catch (error) {
+    console.log({ error });
+
     // Xử lý lỗi hoặc trả về lỗi
     throw error;
   }
@@ -43,3 +58,5 @@ export const del = async (url, config = {}) => {
     throw error;
   }
 };
+
+const convertErrorEntity = (error) => {};

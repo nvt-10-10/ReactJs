@@ -6,7 +6,6 @@ import { Product } from 'src/entities';
 import { CacheService } from 'src/core/cache/cache.service';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { StatusProduct } from 'src/type';
-import { CategoryProductService } from 'src/modules/categoryproduct/services/categoryproduct.service';
 import { CategoryService } from 'src/modules/categories/services/category.service';
 
 @Injectable()
@@ -15,7 +14,6 @@ export class ProductService extends CrudService<Product> {
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
     private readonly cacheService: CacheService,
-    private readonly categoryProductService: CategoryProductService,
     private readonly categoryService: CategoryService,
   ) {
     super(productRepository);
@@ -50,24 +48,15 @@ export class ProductService extends CrudService<Product> {
     }
 
     const { categoryIds, ...newCreateProduct } = createProductDto;
-    const product = await this.productRepository.save({
+    const productEntity = await this.productRepository.create({
       ...newCreateProduct,
       image: file ? '/uploads/products/' + file.filename : null,
     });
 
-    if (!product) {
+    if (!productEntity) {
       throw new Error('Product not created');
     }
-
-    if (categoryProduct.length > 0) {
-      categoryProduct.map(async (cp) => {
-        await this.categoryProductService.create({
-          ...cp,
-          product: product,
-        });
-      });
-    }
-    return product;
+    return this.productRepository.save(productEntity);
   }
 
   async findAll(

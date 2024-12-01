@@ -1,22 +1,22 @@
-import {
-  BadGatewayException,
-  BadRequestException,
-  Injectable,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { CrudService } from 'src/modules/crud/crud.service';
-import { User } from 'src/entities';
+import { Category, Role, User } from 'src/entities';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
 import { ProcessFile } from 'src/utils';
 import { CacheService } from 'src/core/cache/cache.service';
-import { JwtPayload } from 'src/interfaces/jwt-payload.interface';
+import { findAllUsers } from 'src/database/query/user';
 
 @Injectable()
 export class UserService extends CrudService<User> {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>,
+    @InjectRepository(Role)
+    private readonly roleRepository: Repository<Role>,
     private readonly cacheService: CacheService,
   ) {
     super(userRepository);
@@ -30,83 +30,90 @@ export class UserService extends CrudService<User> {
         'role.rolePermissions.permission',
       ],
     });
-
     if (!user) {
       throw new Error('User not found');
     }
-
     const permissions = user.role.rolePermissions.map(
       (rolePermission) => rolePermission.permission,
     );
-
     return permissions;
   }
-
   async findAll(
     take: number = 10,
     page: number = 1,
     search?: string,
     country?: number,
-    category?: string,
+    category?: number,
     cache_key: string = 'usersAll',
     roleId: number = 2,
   ): Promise<any> {
-    // let result = await this.cacheService.get(cache_key);
-    let result;
+    let result: any;
+    result = await this.cacheService.get(cache_key);
     if (!result) {
-      const whereConditions: any = {
-        status: true,
-        role: {
-          id: roleId || undefined,
-        },
-      };
-
-      if (search) {
-        whereConditions.name = Like(`%${search}%`);
-      }
-
-      if (country) {
-        whereConditions.country = country;
-
-        if (category) {
-          whereConditions.category = category;
-        }
-      }
       result = await this.userRepository.findAndCount({
-        take,
+        take: take,
         skip: (page - 1) * take,
-        where: whereConditions,
+        where: {
+          // status: true,
+          ...(search ? { name: ILike(search) } : {}),
+          ...(country ? { country: country } : {}),
+          categories: {
+            // status: true,
+            ...(category ? { id: category } : {}),
+          },
+          role: {
+            id: roleId,
+          },
+        },
+        order: {
+          name: 'ASC',
+          createdAt: 'DESC',
+        },
+        select: [
+          'id',
+          'code',
+          'slug',
+          'name',
+          'avatar',
+          'description',
+          'createdAt',
+        ],
       });
-      await this.cacheService.set(cache_key, result);
 
-      console.log({ result, whereConditions });
-
-      return result;
+      this.cacheService.set(result, 60 * 60);
     }
+
+    return result;
   }
-
-  async edit(
-    file: Express.Multer.File,
-    id: number,
-    data: UpdateUserDto,
-    userPayload: JwtPayload,
-  ) {
-    if (!(id == userPayload.id || userPayload.role == 'Admin')) {
-      throw new BadRequestException('Bạn không có quyền này');
-    }
+  async edit(file: Express.Multer.File, code: string, data: UpdateUserDto) {
     const user = await this.userRepository.findOne({
+      where: { code },
+      relations: ['categories'],
+    });
+    if (!user) throw new BadRequestException('Người dùng không tồn tại');
+    const role = await this.roleRepository.findOne({
+      where: { id: data.roleId },
+    });
+    if (!role) throw new BadRequestException('Quyền không tồn tại');
+    const { categories, ...dataUpadte } = data;
+    const categoriesResult = await this.categoryRepository.find({
       where: {
-        id,
+        id: In(categories),
       },
     });
-    if (!user) throw new BadGatewayException('User không tồn tại');
-    if (data.password) data.password = bcrypt.hashSync(data.password, 10);
-
-    if (file) ProcessFile.deleteOneFile(user.avatar);
-
-    return await this.update(id, {
-      ...data,
+    if (dataUpadte.password) {
+      dataUpadte.password = bcrypt.hashSync(dataUpadte.password, 10);
+    }
+    if (file && user.avatar) {
+      ProcessFile.deleteOneFile(user.avatar);
+    }
+    user.categories = categoriesResult;
+    const updatedUser = {
+      ...user,
+      ...dataUpadte,
       avatar: file ? '/uploads/avatars/' + file.filename : user.avatar,
-    });
+      categories: categoriesResult,
+    };
+    return await this.userRepository.save(updatedUser);
   }
 }

@@ -5,19 +5,23 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  ManyToMany,
   BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
-import { BaseEntity } from 'src/modules/crud/entities/base.entity';
+
 import { Role } from './role.entity';
 import { Product } from './product.entity';
 import { Cart } from './cart.entity';
 import { New } from './new.entity';
 import { Quote } from './quote.entity';
+import { Category } from './category.entity';
+import { BaseAndCodeAndSlug } from 'src/modules/crud/entities/code-and-slug.entity';
 import { generateSlug } from 'src/utils/generateSlug';
 import { generateUniqueCode } from 'src/utils/generateUniqueCode';
 
 @Entity('users')
-export class User extends BaseEntity {
+export class User extends BaseAndCodeAndSlug {
   @Unique(['email'])
   @Column()
   email: string;
@@ -26,14 +30,12 @@ export class User extends BaseEntity {
   name: string;
 
   @Column({
-    name: 'slug',
     type: 'varchar',
     length: 255,
+    default: 'HTX kiểu mới - SX nông nghiệp & dịch vụ thương mại',
+    nullable: true,
   })
-  slug: string;
-
-  @Column({ name: 'code', type: 'varchar', length: 255 })
-  code: string;
+  description: string;
 
   @Column({ length: 50, default: null })
   phone: string;
@@ -76,9 +78,18 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Quote, (quote) => quote.user)
   quotes?: Quote[];
-  @BeforeInsert() // Lifecycle hook to set slug before insert
-  generateSlug() {
+
+  @ManyToMany(() => Category, (category) => category.users)
+  categories?: Category[];
+
+  @BeforeInsert()
+  generateSlugAndSlug() {
     this.slug = generateSlug(this.name);
     this.code = generateUniqueCode(16);
+  }
+
+  @BeforeUpdate()
+  updateSlug() {
+    this.slug = generateSlug(this.name);
   }
 }

@@ -7,11 +7,18 @@ import {
   Put,
   Delete,
   UseGuards,
+  UseInterceptors,
+  UploadedFiles,
+  Query,
+  Request,
 } from '@nestjs/common';
 import { QuoteService } from '../services/quote.service';
-import { QuoteCreateDto } from '../dto/quote-create.dto';
 import { QuoteUpdateDto } from '../dto/quote-update.dto';
 import { JwtAuthGuard } from 'src/core/decorator';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { MulterConfigService } from 'src/config/ multer-config.service';
+import { QuoteCreateDto } from '../dto/quote-create.dto';
+import { Paginate } from 'src/utils';
 
 @Controller('api/quotes')
 export class QuoteController {
@@ -22,6 +29,23 @@ export class QuoteController {
     return this.quoteService.findAll();
   }
 
+  @Get('/top-12')
+  async getTop12Quote(
+    @Query('page') page: number,
+    @Query('category') category: number,
+  ) {
+    const [data, total] = await this.quoteService.findAll(
+      12,
+      page || 1,
+      category,
+    );
+    return {
+      data: new Paginate(data, total, page, 12),
+      success: true,
+      msg: 'Success',
+    };
+  }
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.quoteService.findById(id);
@@ -29,8 +53,27 @@ export class QuoteController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async create(@Body() createDto: QuoteCreateDto): Promise<any> {
-    await this.quoteService.store(createDto);
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'images', maxCount: 5 }, // Nhận tối đa 5 ảnh
+        { name: 'document', maxCount: 1 }, // Nhận một tệp tài liệu
+      ],
+      new MulterConfigService().createMulterOptions(), // Cấu hình MulterService
+    ),
+  )
+  async create(
+    @Request() req,
+    @Body() createDto: QuoteCreateDto,
+    @UploadedFiles()
+    files: { images?: Express.Multer.File[]; document?: Express.Multer.File[] },
+  ): Promise<any> {
+    await this.quoteService.store(createDto, {
+      images: files.images,
+      document: files.document,
+    });
+    const userRole = req.user.role; // Truy cập role của người dùng
+    console.log(`User role: ${userRole}`);
     return {
       success: true,
       messages: 'Tạo báo giá thành công',

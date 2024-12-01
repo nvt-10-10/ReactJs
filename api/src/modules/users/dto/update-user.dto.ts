@@ -1,17 +1,16 @@
+import { Transform } from 'class-transformer';
 import {
   IsString,
-  IsNotEmpty,
   IsOptional,
   IsBoolean,
   IsNumber,
   IsEmail,
 } from 'class-validator';
+import { transformToArrayNumber } from 'src/transformers/array.transform';
+
+import { transformToInt } from 'src/transformers/number.transform';
 
 export class UpdateUserDto {
-  //   @IsNumber()
-  @IsNotEmpty()
-  id: number;
-
   @IsEmail()
   @IsOptional()
   email?: string;
@@ -30,7 +29,7 @@ export class UpdateUserDto {
 
   @IsString()
   @IsOptional()
-  password: string;
+  password?: string;
 
   @IsString()
   @IsOptional()
@@ -40,15 +39,18 @@ export class UpdateUserDto {
   @IsOptional()
   authToken?: string;
 
-  @IsString()
-  @IsOptional()
-  refreshToken?: string;
-
   @IsBoolean()
   @IsOptional()
   status?: boolean;
 
+  @Transform((value) => transformToInt(value))
+  roleId?: number;
+
   @IsNumber()
   @IsOptional()
-  roleId?: number;
+  country?: number;
+
+  @IsOptional()
+  @Transform(transformToArrayNumber)
+  categories?: number[];
 }

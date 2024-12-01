@@ -1,43 +1,46 @@
 import { useEffect } from "react";
-import { BusinessNewsSection } from "./BusinessNewsSection/BusinessNewsSection";
-import { GlobalMarketplaceSection } from "./GlobalMarketplaceSection/GlobalMarketplaceSection";
-import { GlobalPartnersSection } from "./GlobalPartnersSection/GlobalPartnersSection";
-import { GlobalTradeConnectionSection } from "./GlobalTradeConnectionSection/GlobalTradeConnectionSection";
-import { Slider } from "./Slider/Slider";
-import { SupplierSelectionSection } from "./SupplierSelectionSection/SupplierSelectionSection";
-import { WholesaleSupplierSection } from "./WholesaleSupplierSection/WholesaleSupplierSection.js";
-import { DistributorAndAgentSection } from "./DistributorAndAgentSection/DistributorAndAgentSection.js";
+import { BusinessNewsSection } from "./BusinessNewsSection";
+import { GlobalMarketplaceSection } from "./GlobalMarketplaceSection";
+import { GlobalPartnersSection } from "./GlobalPartnersSection";
+import { Slider } from "./Slider";
+import { SupplierSelectionSection } from "./SupplierSelectionSection";
+import { WholesaleSupplierSection } from "./WholesaleSupplierSection";
+import { GlobalTradeConnectionSection } from "./GlobalTradeConnectionSection";
+import { DistributorAndAgentSection } from "./DistributorAndAgentSection";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryThunk } from "../../../redux-slice/categories/thunk";
 import { productThunk } from "../../../redux-slice/products/thunk/product.thunk.js";
 import { userThunk } from "../../../redux-slice/user/thunk";
+import { checkTokens } from "../../../redux-slice/auth/thunk/checkToken.thunk.js";
+import { Helmet } from "react-helmet";
 export const Home = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const { top6Products } = useSelector((state) => state.product);
   const { top4Supplier } = useSelector((state) => state.user);
   useEffect(() => {
-    document.title = "Trang chủ";
     const fetchDataPromises = [];
-
-    if (categories.length === 0) {
+    if (categories?.length === 0 || !categories) {
       fetchDataPromises.push(dispatch(categoryThunk.getAllCategories()));
     }
 
-    if (top6Products.length === 0) {
+    if (top6Products?.length === 0 || !top6Products) {
       fetchDataPromises.push(dispatch(productThunk.getTop6Products()));
     }
 
-    if (top4Supplier.length === 0) {
+    if (top4Supplier?.length === 0 || !top4Supplier) {
       fetchDataPromises.push(dispatch(userThunk.getTop4Suppliers()));
     }
 
-    if (fetchDataPromises.length > 0) {
+    if ((fetchDataPromises?.length > 0) | fetchDataPromises) {
       Promise.all(fetchDataPromises);
     }
-  }, [dispatch, categories.length, top6Products.length, top4Supplier.length]);
+  }, [dispatch]);
   return (
     <>
+      <Helmet>
+        <title>Trang chủ</title>
+      </Helmet>
       <main>
         <Slider></Slider>
         <GlobalPartnersSection></GlobalPartnersSection>

@@ -1,42 +1,61 @@
 import { Transform } from 'class-transformer';
-import { IsString, IsNumber, IsArray } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  ValidateIf,
+  IsOptional,
+  IsNumber,
+  Validate,
+} from 'class-validator';
+import { transformToArrayNumber } from 'src/transformers/array.transform';
+import { CheckPriceUnit } from 'src/transformers/checkPriceUnit.transform';
+import { IsFileNotEmpty } from 'src/transformers/IsFileNotEmpty.transform';
+import {
+  transformToFloat,
+  transformToInt,
+} from 'src/transformers/number.transform';
 
 export class QuoteCreateDto {
   @IsString()
   name: string;
 
   @IsString()
-  description: string; // Now required
+  description: string;
 
-  @IsNumber()
-  quantity: number; // Now required
+  @IsNotEmpty() // T
+  @Transform(({ value }) => transformToInt(value))
+  quantity: number;
 
   @IsString()
-  unit: string; // Now required
+  unit: string;
 
-  @Transform(({ value }) =>
-    typeof value === 'string' ? parseFloat(value) : value,
-  )
-  price: number; // Now required
+  @IsOptional()
+  @Transform(({ value }) => transformToFloat(value))
+  price: number;
 
-  @IsNumber()
-  price_unit: number; // Now required
+  @IsOptional()
+  @Transform(({ value }) => transformToInt(value))
+  @IsNumber({}, { message: 'Price unit must be a valid integer' })
+  price_unit: number;
 
-  @IsArray()
-  @Transform(({ value }) => {
-    if (typeof value === 'string') {
-      return [parseInt(value, 10)];
-    }
-    if (Array.isArray(value) && value.every((v) => typeof v === 'string')) {
-      return value.map((v) => parseInt(v, 10));
-    }
-    return value;
-  })
-  category: number[]; // Now required
+  @IsNotEmpty()
+  @Transform(transformToArrayNumber)
+  category: number[];
 
-  @Transform(({ value }) =>
-    typeof value === 'string' ? parseInt(value, 10) : value,
-  )
-  @IsNumber()
-  user_id: number; // Now required
+  @IsOptional()
+  @Transform(({ value }) => transformToInt(value))
+  @IsNumber({}, { message: 'Price must be a valid number' })
+  user_id: number;
+
+  @ValidateIf((obj, value) => value !== undefined)
+  @IsFileNotEmpty()
+  images: Express.Multer.File[]; // Dùng multer để xử lý mảng các file hình ảnh
+
+  @ValidateIf((obj, value) => value !== undefined)
+  @IsFileNotEmpty()
+  document: Express.Multer.File[]; // Dùng multer để xử lý file tài liệu
+
+  @ValidateIf((o) => o.price !== undefined || o.price_unit !== undefined)
+  @Validate(CheckPriceUnit)
+  checkPriceAndUnit: any;
 }

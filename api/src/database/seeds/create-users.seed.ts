@@ -1,8 +1,7 @@
 import { Connection } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
 import { faker } from '@faker-js/faker';
-import * as bcrypt from 'bcrypt';
-
+import * as bcrypt from 'bcrypt'
 export default class CreateUsers implements Seeder {
   public async run(connection: Connection): Promise<any> {
     const user = {

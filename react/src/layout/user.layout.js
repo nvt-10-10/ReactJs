@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Header } from "../components/users/header/header.js";
+import { Header } from "../components/users/header";
 import "../assets/css/base/index.css";
 import "../assets/css/common/index.css";
 
-
-import { Footer } from "../components/Footer/Footer.js";
+import { Footer } from "../components/Footer";
 import { setIsLogin } from "../redux-slice/auth/slice/auth.slice.js";
 import store from "../redux-slice/store.js";
+import { ToastContainer } from "react-toastify";
 const LayoutUser = () => {
   useEffect(() => {
     const dispatch = store.dispatch;
-    const token = localStorage.getItem("authToken")
-    if(token){
-      dispatch(setIsLogin(true))
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      dispatch(setIsLogin(true));
     }
     const link = document.createElement("link");
     link.rel = "icon";
@@ -34,6 +34,7 @@ const LayoutUser = () => {
         <Outlet />
       </main>
       <Footer></Footer>
+      <ToastContainer />
     </div>
   );
 };

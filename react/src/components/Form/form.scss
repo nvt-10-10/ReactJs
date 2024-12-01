@@ -1,0 +1,32 @@
+.custom-form-input {
+  .form-label {
+    height: 25px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #1a1a1a;
+    text-align: center;
+    font-family: "Be Vietnam Pro";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+    text-transform: capitalize;
+    & > em {
+      color: var(--Branding-Brand-red, #e31e25);
+    }
+  }
+
+  .form-control {
+    margin-top: 10px;
+  }
+
+  textarea.form-control {
+    resize: none;
+    height: 150px;
+  }
+
+  .css-13cymwt-control {
+    padding: 6px 16px;
+  }
+}

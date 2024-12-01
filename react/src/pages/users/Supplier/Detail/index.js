@@ -1,3 +1,7 @@
 export const Detail = () => {
-    return (<></>)
-}
+  return (
+    <>
+      <h1>Da qua</h1>
+    </>
+  );
+};

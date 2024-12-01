@@ -1,13 +1,20 @@
-import { TextWrapper } from "../../../../components/Text/Text";
+import { TextWrapper } from "../../../../components/Text";
 import iconVi from "../../../../assets/images/flag/vi.jpg";
 import iconZhCn from "../../../../assets/images/flag/zh-cn.jpg";
 import iconKo from "../../../../assets/images/flag/ko.jpg";
 import iconLo from "../../../../assets/images/flag/lo.jpg";
-import Image from "../../../../components/Image/Image";
-export const Header = () => {
+import Image from "../../../../components/Image";
+import React from "react";
+export const Header = React.memo(() => {
+  console.log("loadding header");
+
   return (
     <div className="header-wrapper">
-      <TextWrapper text="Thị trường" strong="Đa Quốc Gia" position="right"></TextWrapper>
+      <TextWrapper
+        text="Thị trường"
+        strong="Đa Quốc Gia"
+        position="right"
+      ></TextWrapper>
       <div className="country-list">
         <div className="country">
           <Image src={iconVi} className="icon-flag"></Image>
@@ -28,4 +35,4 @@ export const Header = () => {
       </div>
     </div>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { LoginDto } from '../dto/login.dto';
 import { RegisterDto } from '../dto/register.dto';
@@ -14,6 +14,24 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   getProfile(@Auth() user: JwtPayload) {
     return user;
+  }
+
+  @Get('/refreshToken/:refreshToken')
+  async refreshToken(@Param('refreshToken') refreshToken: string) {
+    const result = await this.authService.refreshToken(refreshToken);
+    return {
+      success: true,
+      data: result,
+    };
+  }
+
+  @Get('/check-token/:token')
+  async checkToken(@Param('token') token: string) {
+    const result = await this.authService.verifyToken(token);
+    return {
+      success: true,
+      data: !!result,
+    };
   }
 
   @Post('/login')

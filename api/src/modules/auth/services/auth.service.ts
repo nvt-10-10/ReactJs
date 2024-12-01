@@ -1,5 +1,9 @@
 import { User } from 'src/entities';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginDto } from '../dto/login.dto';
@@ -30,6 +34,7 @@ export class AuthService {
         name: true,
         password: true,
         role: {
+          id: true,
           name: true,
         },
       },
@@ -50,25 +55,35 @@ export class AuthService {
     // Tạo auth token và refresh token
     const authToken = await this.generateAuthToken(userWithoutPassword);
     const refreshToken = await this.generateRefreshToken(userWithoutPassword);
+    console.log({
+      user,
+    });
 
     // Trả về cả auth token và refresh token
-    return { authToken, refreshToken };
+    return { authToken, refreshToken, role: user?.role?.name };
   }
 
   // Phương thức xử lý đăng ký
   async register(registerDto: RegisterDto): Promise<any> {
-    // Kiểm tra xem email đã tồn tại chưa
-    const user = await this.repository.findOne({
-      where: {
-        email: registerDto.email,
-      },
-    });
-    // Hash mật khẩu trước khi lưu vào database
-    registerDto.password = await bcrypt.hashSync(registerDto.password, 10);
-    // Nếu email chưa tồn tại, lưu user mới vào database
-    if (!user) return await this.repository.save(registerDto);
-    // Nếu email đã tồn tại, ném ra exception
-    else throw new BadRequestException('Tài khoản đã tồn tại!!!');
+    try {
+      // Kiểm tra xem email đã tồn tại chưa
+      const user = await this.repository.findOne({
+        where: {
+          email: registerDto.email,
+        },
+      });
+      // Hash mật khẩu trước khi lưu vào database
+      // Nếu email chưa tồn tại, lưu user mới vào database
+      if (!user) {
+        registerDto.password = await bcrypt.hashSync(registerDto.password, 10);
+        const userEntity = this.repository.create(registerDto); // Tạo entity từ DTO
+        return this.repository.save(userEntity);
+      }
+      // Nếu email đã tồn tại, ném ra exception
+      else throw new BadRequestException('Tài khoản đã tồn tại!!!');
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   // Phương thức tạo auth token
@@ -102,5 +117,31 @@ export class AuthService {
       expiresIn: this.configService.get<string>('JWT.REFRESH_EXPIRE'),
     });
     return refreshToken;
+  }
+
+  async verifyToken(token: string, type: string = 'token'): Promise<any> {
+    try {
+      const SECRET =
+        type == 'token'
+          ? this.configService.get<string>('JWT.SECRET')
+          : this.configService.get<string>('JWT.REFRESH_SECRET');
+
+      const decoded = await this.JwtService.verifyAsync(token, {
+        secret: SECRET,
+      });
+      return decoded;
+    } catch (error) {
+      // Handle token errors
+      throw new UnauthorizedException(
+        `${type == 'token' ? 'Token' : 'Refresh Token'} không hợp lệ hoặc đã hết hạn`,
+      );
+    }
+  }
+
+  async refreshToken(RefreshToken: string): Promise<any> {
+    const check = await this.verifyToken(RefreshToken, 'refresh-token');
+    const authToken = await this.generateAuthToken(check);
+    const refreshToken = await this.generateRefreshToken(check);
+    return { authToken, refreshToken };
   }
 }

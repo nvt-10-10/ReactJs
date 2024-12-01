@@ -5,24 +5,19 @@ import {
   ManyToOne,
   JoinColumn,
   BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
-import { BaseEntity } from 'src/modules/crud/entities/base.entity';
 import { Category } from './category.entity';
 import { User } from './user.entity';
-import { StatusQuote } from 'src/type/quote,type';
+import { StatusQuote } from 'src/type/quote.type';
 import { generateUniqueCode } from 'src/utils/generateUniqueCode';
 import { generateSlug } from 'src/utils/generateSlug';
+import { BaseAndCodeAndSlug } from 'src/modules/crud/entities/code-and-slug.entity';
 
 @Entity('quotes')
-export class Quote extends BaseEntity {
+export class Quote extends BaseAndCodeAndSlug {
   @Column({ name: 'name', type: 'varchar', length: 255, nullable: false })
   name: string;
-
-  @Column({ name: 'code', type: 'varchar', length: 255, nullable: true })
-  code: string;
-
-  @Column({ name: 'slug', type: 'varchar', length: 255, nullable: true })
-  slug: string;
 
   @Column({ name: 'description', type: 'text', nullable: true })
   description: string;
@@ -38,6 +33,15 @@ export class Quote extends BaseEntity {
 
   @Column({ name: 'price_unit', type: 'float', nullable: true })
   price_unit: number;
+
+  @Column({ name: 'images', type: 'json', nullable: true })
+  images: string[];
+
+  @Column({ name: 'document', type: 'varchar', nullable: true })
+  document: string;
+
+  @Column({ name: 'domain', type: 'varchar', nullable: true })
+  domain: string;
 
   @Column({
     name: 'status',
@@ -56,8 +60,13 @@ export class Quote extends BaseEntity {
   user: User;
 
   @BeforeInsert()
-  generateSlug() {
+  generateSlugAndSlug() {
     this.slug = generateSlug(this.name);
     this.code = generateUniqueCode(16);
+  }
+
+  @BeforeUpdate()
+  updateSlug() {
+    this.slug = generateSlug(this.name);
   }
 }

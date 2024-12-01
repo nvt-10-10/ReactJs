@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const StyledButtonPrimary = styled.a`
+// StyledButtonPrimary có thể là <a> hoặc <button>
+const StyledButtonPrimary = styled(({ as: Component, ...props }) => (
+  <Component {...props} />
+))`
   display: inline-flex;
   padding: 16px 40px;
   justify-content: center;
@@ -17,13 +20,21 @@ const StyledButtonPrimary = styled.a`
   line-height: 120%; /* 19.2px */
   transition: all 0.5s ease;
   z-index: 5;
+  border: none; /* Đảm bảo không có border cho button */
+
   &:hover {
     gap: 30px;
     background: var(--color-primary);
-    color:#fff !important
+    color: #fff !important;
   }
   &:hover img {
     background: #333;
+  }
+
+  /* Kiểu cho button nếu muốn thêm hover khác */
+  &:disabled {
+    background: #999;
+    color: #ccc;
   }
 `;
 
